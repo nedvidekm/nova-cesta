@@ -1,0 +1,111 @@
+/* Barvy: salesiánská identita (červená Pantone 186 C #AF1917, tmavě šedá #3C3C3B, béžová #C6B69B). Layout: jeden čtecí sloupec jako cestovní deník; motiv = česká turistická značka (bílá–červená–bílá) */
+:root{
+  --bg:#faf7f2; --surface:#ffffff; --ink:#3c3c3b; --muted:#6b665e; --line:#e3dccf;
+  --accent:#af1917; --pine:#af1917; --pine-soft:#f3ece1; --mark-white:#ffffff;
+  --display:"Zilla Slab", Georgia, "Times New Roman", serif;
+  --body:"Literata", Georgia, "Times New Roman", serif;
+  --label:"Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1b1918; --surface:#24211f; --ink:#ece7e1; --muted:#b3aba1; --line:#3d3934;
+  --accent:#f0705f; --pine:#f08a7e; --pine-soft:#2e2925; --mark-white:#ece7e1; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1b1918; --surface:#24211f; --ink:#ece7e1; --muted:#b3aba1; --line:#3d3934;
+  --accent:#f0705f; --pine:#f08a7e; --pine-soft:#2e2925; --mark-white:#ece7e1; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.65}
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.preview{background:var(--pine);color:var(--bg);font-family:var(--label);letter-spacing:.06em;text-transform:uppercase;font-size:14px;text-align:center;padding-block:6px}
+a{color:var(--pine)} a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.skip{position:absolute;left:-999px} .skip:focus{left:16px;top:8px;background:var(--surface);padding:8px}
+header.site{border-bottom:1px solid var(--line);background:var(--surface)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.znacka{display:grid;grid-template-rows:1fr 1fr 1fr;width:30px;height:30px;border:1px solid var(--line);flex:none}
+.znacka span:nth-child(1),.znacka span:nth-child(3){background:var(--mark-white)}
+.znacka span:nth-child(2){background:var(--accent)}
+.brand b{font-family:var(--display);font-size:26px;font-weight:700;line-height:1}
+.brand small{display:block;font-family:var(--label);font-size:15px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{font-family:var(--label);font-size:17px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;color:var(--ink);padding:10px 10px;min-height:44px;display:inline-flex;align-items:center}
+nav a:hover{color:var(--accent)}
+.kurz{padding-block:28px 8px}
+.kurz h2{font-family:var(--label);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.trasa{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;list-style:none;margin:0;padding:0}
+.trasa li{height:10px;background:var(--line);position:relative}
+.trasa li.hotovo{background:var(--accent)}
+.trasa li.rozhodnuti{outline:2px solid var(--pine);outline-offset:1px}
+.trasa-pop{display:flex;justify-content:space-between;gap:12px;font-family:var(--label);font-size:15px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
+.trasa-pop strong{color:var(--ink);font-weight:600}
+article{padding-block:20px 8px}
+.meta{font-family:var(--label);font-size:16px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,8vw,60px);line-height:1.05;margin:6px 0 18px;text-wrap:balance}
+.perex{font-size:21px;line-height:1.55;color:var(--ink)}
+figure{margin:28px 0}
+figure img{display:block;width:100%;height:auto;max-width:100%}
+figcaption{font-family:var(--label);font-size:15px;color:var(--muted);margin-top:6px}
+article h2{font-family:var(--display);font-weight:700;font-size:28px;line-height:1.2;margin:40px 0 8px;text-wrap:balance}
+blockquote{margin:20px 0;padding:4px 0 4px 18px;border-left:3px solid #c6b69b;font-style:italic;color:var(--muted)}
+.box{background:var(--pine-soft);padding:24px;margin:40px 0 0}
+.box h2{font-family:var(--display);font-size:26px;margin:0 0 6px}
+.box p{margin:0 0 14px}
+form{display:flex;gap:8px;flex-wrap:wrap}
+input[type=email]{flex:1 1 220px;min-width:0;font:inherit;font-size:17px;padding:10px 12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);min-height:44px}
+button{font-family:var(--label);font-size:17px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;background:var(--accent);color:#fff;border:0;padding:10px 18px;min-height:44px;cursor:pointer}
+.ok{font-family:var(--label);color:var(--pine);margin-top:8px}
+.podpora{border:1px solid var(--line);padding:20px 24px;margin:16px 0 0}
+.podpora h2{font-family:var(--display);font-size:22px;margin:0 0 4px}
+.podpora p{margin:0}
+.dalsi{padding-block:40px 24px}
+.dalsi h2{font-family:var(--label);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.dalsi ul{list-style:none;margin:0;padding:0}
+.dalsi li{display:flex;justify-content:space-between;gap:16px;padding-block:12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.dalsi li span:first-child{font-family:var(--display);font-size:21px;font-weight:500}
+.dalsi li span:last-child{font-family:var(--label);font-size:16px;color:var(--muted)}
+footer{border-top:1px solid var(--line);margin-top:24px}
+footer .wrap{padding-block:20px;font-family:var(--label);font-size:16px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+
+/* Doplňky pro ostrý web (stejná identita jako schválený náhled v2) */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+img{max-width:100%}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+header.site{position:sticky;top:0;z-index:10}
+@media (max-width:420px){
+  header.site .wrap{padding-block:8px;gap:4px}
+  .brand b{font-size:22px}
+  .brand small{font-size:13px}
+  nav a{padding:8px 8px;font-size:16px}
+  .znacka{width:26px;height:26px}
+}
+nav a[aria-current="page"]{color:var(--accent)}
+.uvod{padding-block:28px 0}
+.uvod p{font-size:20px;line-height:1.55;margin:0}
+.vypis{padding-block:32px 8px}
+.vypis > h2{font-family:var(--label);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.vypis ol{list-style:none;margin:0;padding:0}
+.karta{border-bottom:1px solid var(--line);padding-block:20px}
+.karta a.nadpis{font-family:var(--display);font-weight:700;font-size:clamp(26px,5.5vw,34px);line-height:1.15;color:var(--ink);text-decoration:none;display:inline-block;text-wrap:balance}
+.karta a.nadpis:hover{color:var(--accent)}
+.karta p{margin:8px 0 0}
+.karta .dal{font-family:var(--label);font-size:17px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;min-height:44px;margin-top:4px}
+.koncept{display:inline-block;font-family:var(--label);font-size:14px;letter-spacing:.06em;text-transform:uppercase;background:var(--pine-soft);color:var(--muted);padding:2px 8px;margin-left:8px;vertical-align:middle}
+article ul{padding-left:1.2em}
+article li{margin-bottom:6px}
+article p a,article li a{text-decoration:underline}
+.souhlas{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.45;margin:10px 0 0;color:var(--muted)}
+.souhlas input{width:22px;height:22px;flex:none;margin:1px 0 0;accent-color:var(--accent)}
+.chyba{font-family:var(--label);color:var(--accent);margin-top:8px}
+footer a{color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+footer a:hover{text-decoration:underline}
+footer .wrap{align-items:center}
+.zpet{font-family:var(--label);font-size:17px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+/* Opravy z kontroly: text na červeném tlačítku v tmavém režimu, dotykové plochy, min. 14 px */
+:root{--on-accent:#ffffff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--on-accent:#1b1918}}
+:root[data-theme="dark"]{--on-accent:#1b1918}
+button{color:var(--on-accent)}
+.karta a.nadpis{padding-block:4px;min-height:44px}
+@media (max-width:420px){.brand small{font-size:14px}}
+.souhlas{flex-basis:100%;margin:2px 0 6px}

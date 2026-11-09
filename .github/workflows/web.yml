@@ -1,0 +1,66 @@
+name: Sestavit a zveřejnit web
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  sestavit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python build.py
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  zverejnit:
+    needs: sestavit
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.nasazeni.outputs.page_url }}
+    steps:
+      - id: nasazeni
+        uses: actions/deploy-pages@v4
+
+  ohlasit-clanek:
+    # Po zveřejnění ohlásí nejnovější článek skriptu odběru; ten ho rozešle jen jednou.
+    needs: zverejnit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt && python build.py
+      - name: Ohlásit nejnovější článek
+        env:
+          ODBER_URL: ${{ secrets.ODBER_URL }}
+          ODBER_KLIC: ${{ secrets.ODBER_KLIC }}
+        run: |
+          if [ -z "$ODBER_URL" ] || [ -z "$ODBER_KLIC" ]; then echo "Odběr zatím není nastavený, přeskakuji."; exit 0; fi
+          python3 - <<'PY'
+          import json, os, urllib.parse, urllib.request
+          clanky = json.load(open("_site/clanky.json", encoding="utf-8"))
+          if not clanky:
+              raise SystemExit("Žádný zveřejněný článek.")
+          c = clanky[0]
+          data = urllib.parse.urlencode({"akce": "novy-clanek", "klic": os.environ["ODBER_KLIC"], **{k: c[k] for k in ("slug", "nazev", "perex", "url")}}).encode()
+          with urllib.request.urlopen(urllib.request.Request(os.environ["ODBER_URL"], data=data), timeout=120) as r:
+              print(r.status, r.read().decode()[:200])
+          PY

@@ -24,7 +24,7 @@ Ve své práci se zároveň čím dál hůř smiřuju s prostředím, kde jde hl
 
 Když jsem začal zjišťovat, jak se stát dobrovolníkem, vyskakovaly mi nejdřív velká jména, která zná každý z reklam: OSN, Červený kříž, ADRA. Programy, na které jsem narazil, byly ale určené mladým lidem do třiceti, kteří po škole sbírají první zkušenosti. Pak jsem se začal rozhlížet blíž. Diecézní charita v Plzni by mě ráda vyslala, jenže do Bolívie nebo Peru, a já neumím španělsky.
 
-Nakonec jsem našel program, který mě zaujal tím, jak poctivě bere přípravu. Trvá celý rok: osm víkendů přípravného kurzu, praxe a teprve potom vyslání. Přesně tak to chci mít i já, protože na rok v cizí zemi se člověk nemá pouštět bez přípravy. Přihlásil jsem se a vzali mě do kurzu.
+Nakonec jsem našel program jedné křesťanské organizace, který mě zaujal tím, jak poctivě bere přípravu. Trvá celý rok: osm víkendů přípravného kurzu, praxe a teprve potom vyslání. Přesně tak to chci mít i já, protože na rok v cizí zemi se člověk nemá pouštět bez přípravy. Přihlásil jsem se a vzali mě do kurzu. Kdo přesně za ním stojí, prozradím v únoru, až bude všechno oficiální.
 
 ## Není to útěk?
 

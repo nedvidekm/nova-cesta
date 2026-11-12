@@ -12,7 +12,7 @@ Přes den pracuju v komerční firmě. Čím dál víc ale cítím, že největ�
 
 ## Co mě čeká
 
-- **Listopad 2026 až květen 2027:** přípravný kurz pro dobrovolníky, osm víkendů po celé republice.
+- **Listopad 2026 až květen 2027:** přípravný kurz pro dobrovolníky, osm víkendů po celé republice. Pořádá ho jedna křesťanská organizace. Kdo přesně za ní stojí, prozradím v únoru, až bude všechno oficiální.
 - **Únor 2027:** po čtvrtém víkendu se dozvím, jestli mě berou a kam pojedu.
 - **Jaro 2027:** praxe.
 - **Léto 2027:** vyslání a odjezd na 10 až 12 měsíců.

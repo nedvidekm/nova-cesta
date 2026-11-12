@@ -1,4 +1,4 @@
-/* Barvy: salesiánská identita (červená Pantone 186 C #AF1917, tmavě šedá #3C3C3B, béžová #C6B69B). Layout: jeden čtecí sloupec jako cestovní deník; motiv = česká turistická značka (bílá–červená–bílá) */
+/* Barvy: červená #AF1917, tmavě šedá #3C3C3B, béžová #C6B69B. Layout: jeden čtecí sloupec jako cestovní deník; motiv = česká turistická značka (bílá–červená–bílá) */
 :root{
   --bg:#faf7f2; --surface:#ffffff; --ink:#3c3c3b; --muted:#6b665e; --line:#e3dccf;
   --accent:#af1917; --pine:#af1917; --pine-soft:#f3ece1; --mark-white:#ffffff;

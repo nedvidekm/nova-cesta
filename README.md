@@ -1,6 +1,6 @@
 # Nová cesta
 
-Blog Michala Nedvídka z přípravy a roku dobrovolnictví se salesiány Dona Boska.
+Blog Michala Nedvídka z přípravy a roku dobrovolnictví v zahraničí.
 
 ## Jak web funguje
 

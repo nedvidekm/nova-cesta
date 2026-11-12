@@ -1,7 +1,7 @@
 ---
 nazev: Jak mě podpořit
 slug: podporit
-popis: Jak podpořit Michala na roční dobrovolnické misi se salesiány Dona Boska.
+popis: Jak podpořit Michala na roční dobrovolnické cestě do zahraničí.
 ---
 
 Rok dobrovolnictví něco stojí. Letenky, víza, očkování, pojištění a další výdaje si dobrovolník hradí sám a cestu si platím sám.

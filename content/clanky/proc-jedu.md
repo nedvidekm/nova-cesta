@@ -24,15 +24,13 @@ Ve své práci se zároveň čím dál hůř smiřuju s prostředím, kde jde hl
 
 Když jsem začal zjišťovat, jak se stát dobrovolníkem, vyskakovaly mi nejdřív velká jména, která zná každý z reklam: OSN, Červený kříž, ADRA. Programy, na které jsem narazil, byly ale určené mladým lidem do třiceti, kteří po škole sbírají první zkušenosti. Pak jsem se začal rozhlížet blíž. Diecézní charita v Plzni by mě ráda vyslala, jenže do Bolívie nebo Peru, a já neumím španělsky.
 
-Nakonec jsem našel program, který mě zaujal tím, jak poctivě bere přípravu. Trvá celý rok: osm víkendů přípravného kurzu, praxe s dětmi a teprve potom vyslání. Přesně tak to chci mít i já, protože na rok v cizí zemi se člověk nemá pouštět bez přípravy. Přihlásil jsem se a vzali mě do kurzu.
-
-V kostele ve Skocích jsme o sobě říkali, že jsme „sympatizanti s vírou“. To asi nejlépe vystihuje i mě. Pravidelně do kostela nechodím a ve víře spíš hledám, ale mám k ní blízko a věřících lidí si vážím. Na první víkend kurzu jsem proto jel s obavami: modlitba před snídaní, po večeři, dvě mše za víkend a kolem mě, jak to vypadalo, samí věřící. Bál jsem se, jestli mezi sebe přijmou někoho, jako jsem já. Během víkendu ze mě nervozita úplně spadla a dnes se mezi nimi cítím dobře.
+Nakonec jsem našel program, který mě zaujal tím, jak poctivě bere přípravu. Trvá celý rok: osm víkendů přípravného kurzu, praxe a teprve potom vyslání. Přesně tak to chci mít i já, protože na rok v cizí zemi se člověk nemá pouštět bez přípravy. Přihlásil jsem se a vzali mě do kurzu.
 
 ## Není to útěk?
 
 ![Plakát z kurzu se seznamem dobrých a méně dobrých motivací k dobrovolnictví](plakat-dobre-mene-dobre.jpg "Jeden z plakátů z prvního víkendu kurzu: dobré a méně dobré důvody, proč jet.")
 
-Na přípravném kurzu jsme probírali dobré a méně dobré motivace. Na seznamu těch méně dobrých byl i „útěk od reality“. Slyšel jsem tu otázku i od lidí kolem sebe a poctivě jsem si ji položil. Moje odpověď je: neutíkám *od* něčeho, jdu něco *hledat*. Pevnou půdu pod nohama, důvěru v sebe a odpověď na to, jakým směrem chci jít dál. Vím, že rok mezi dětmi v cizí zemi mi neusnadní život. Spíš mi nastaví zrcadlo, a o to mi jde.
+Na přípravném kurzu jsme probírali dobré a méně dobré motivace. Na seznamu těch méně dobrých byl i „útěk od reality“. Slyšel jsem tu otázku i od lidí kolem sebe a poctivě jsem si ji položil. Moje odpověď je: neutíkám *od* něčeho, jdu něco *hledat*. Pevnou půdu pod nohama, důvěru v sebe a odpověď na to, jakým směrem chci jít dál. Vím, že rok v cizí zemi, daleko od všeho známého, mi neusnadní život. Spíš mi nastaví zrcadlo, a o to mi jde.
 
 ## Co chci dát
 

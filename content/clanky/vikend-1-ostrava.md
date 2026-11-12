@@ -24,7 +24,7 @@ Večer, zatímco měli organizátoři poradu, jsme zůstali v kuchyni a povídal
 
 ## Kdy ze mě spadla nervozita
 
-V kostele ve Skocích jsme o sobě říkali, že jsme „sympatizanti s vírou“, a to asi nejlépe vystihuje i mě. Pravidelně do kostela nechodím a ve víře se spíš hledám, ale mám k ní blízko a věřících lidí si vážím. Čekal jsem, že nás, kdo to mají s vírou podobně, tam bude víc. Na místě se ale před každým jídlem společně modlilo, v sobotu večer a v neděli ráno byla mše a kolem mě byli, jak to vypadalo, samí věřící. Najednou jsem si připadal, že jsem tam jediný takový, a v duchu jsem si říkal, jestli mezi sebe přijmou někoho, jako jsem já.
+V kostele ve Skocích jsme o sobě říkali, že jsme „sympatizanti s vírou“, a to asi nejlépe vystihuje i mě. Pravidelně do kostela nechodím a ve víře se spíš hledám, ale mám k ní blízko a věřících lidí si vážím. Čekal jsem, že nás, kdo to mají s vírou podobně, bude na kurzu víc. Na místě se ale před každým jídlem společně modlilo, v sobotu večer a v neděli ráno byla mše a kolem mě byli, jak to vypadalo, samí věřící. Najednou jsem si připadal, že jsem tam jediný takový, a v duchu jsem si říkal, jestli mezi sebe přijmou někoho, jako jsem já.
 
 Zlom přišel v sobotu. Po obědě jsme šli na procházku kolem Vítkovických železáren a já si cestou povídal s jednou bývalou dobrovolnicí. Večer jsem se dal do řeči s jedním z účastníků a dlouho jsme mluvili o víře a o tom, jak to celé funguje. Naučil mě se pokřižovat. Vysvětlil mi, že je to vlastně takový pozdrav s Bohem, když člověk vchází do kostela. Žádná velká slova, žádné přesvědčování. Jen trpělivost a chuť vysvětlit, co pro mě bylo nové. A v tu chvíli to ze mě nějak všechno spadlo.
 

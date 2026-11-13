@@ -1,6 +1,7 @@
 // Kontrola webu před nasazením (bod 13): node kontrola.js [--rychla]
 // Sestavený web v _site/ projde ve všech šířkách, ve světlém i tmavém režimu.
 // Hlídá: chyby v konzoli, nefunkční vnitřní odkazy a obrázky, přetékání každého prvku,
+// (odkazy v patičce pod sebou mají 28 px: WCAG 2.2 AA chce 24 px, 44 px je přísnější úroveň AAA)
 // jednu h1, délku titulku a popisu, alt texty, kontrast textu (WCAG AA), velikost dotykových ploch.
 const http = require('http');
 const fs = require('fs');
@@ -12,7 +13,7 @@ const KOREN = path.join(__dirname, '_site');
 const RYCHLA = process.argv.includes('--rychla');
 const SIRKY = RYCHLA ? [320, 390, 1280] : [320, 360, 375, 390, 412, 768, 1024, 1280, 1440];
 const REZIMY = ['light', 'dark'];
-const TYPY = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.xml': 'application/xml', '.json': 'application/json', '.txt': 'text/plain' };
+const TYPY = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.png': 'image/png', '.xml': 'application/xml', '.json': 'application/json', '.txt': 'text/plain' };
 
 function server() {
   return new Promise(res => {
@@ -91,7 +92,7 @@ function stranky() {
               if (k < (velky ? 3 : 4.5)) out.kontrast.push(`${popis(el)} „${el.textContent.trim().slice(0, 30)}“ ${k.toFixed(2)}:1`);
               if (parseFloat(cs.fontSize) < 14) out.kontrast.push(`${popis(el)} písmo ${cs.fontSize}`);
             }
-            if (el.matches('a, button, input, label.souhlas') && !el.closest('article p, article li, figcaption, .box p, .souhlas span')) {
+            if (el.matches('a, button, input, label.souhlas') && !el.closest('article p, article li, figcaption, .box p, .souhlas span, .paticka-ja')) {
               if (r.height < 44 && el.tagName !== 'LABEL' && !(el.type === 'checkbox')) out.male.push(`${popis(el)} „${(el.textContent || el.value || '').trim().slice(0, 20)}“ ${Math.round(r.width)}×${Math.round(r.height)}`);
             }
           }

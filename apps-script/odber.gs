@@ -17,7 +17,7 @@ var NASTAVENI = {
   odesilatel: 'Michal Nedvídek | Nová cesta',
   odpovediNa: 'michal@nanoveceste.cz',
   odeslatZ: 'michal@nanoveceste.cz',   // adresa odesílatele na doméně ověřené v SMTP2GO
-  webUrl: 'https://nedvidekm.github.io/nova-cesta/'
+  webUrl: 'https://nanoveceste.cz/'
 };
 
 var LIST_ODBERATELE = 'Odběratelé';

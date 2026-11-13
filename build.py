@@ -106,7 +106,8 @@ def obrazek_html(zdroj, alt, popisek, pre, lazy=True, popisek_html=False):
     nacitani = ' loading="lazy" decoding="async"' if lazy else ""
     text = spojky(popisek) if popisek_html else e(popisek)
     cap = f"\n  <figcaption>{text}</figcaption>" if popisek else ""
-    return (f'<figure>\n  <img src="{pre}fotky/{jmeno}" width="{w}" height="{h}" alt="{e(alt)}"{nacitani}>'
+    trida = ' class="nastojato"' if h > w else ""   # fotka na výšku: na širokém displeji užší
+    return (f'<figure{trida}>\n  <img src="{pre}fotky/{jmeno}" width="{w}" height="{h}" alt="{e(alt)}"{nacitani}>'
             f"{cap}\n</figure>")
 
 
@@ -119,6 +120,12 @@ def md_na_html(telo, pre):
     telo = re.sub(r'^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)[ \t]*(?:\n\*(.+)\*[ \t]*)?$', nahrad, telo, flags=re.M)
     vysledek = markdown.markdown(telo, extensions=["sane_lists"], output_format="html")
     vysledek = vysledek.replace("<blockquote>\n<p>", "<blockquote>").replace("</p>\n</blockquote>", "</blockquote>")
+    # fotka na výšku stojí vedle textu jen tehdy, když po ní text opravdu následuje; jinak zůstane uprostřed
+    casti = re.split(r'(<figure class="nastojato">.*?</figure>)', vysledek, flags=re.S)
+    for i in range(1, len(casti), 2):
+        if not casti[i + 1].lstrip().startswith("<p>"):
+            casti[i] = casti[i].replace('class="nastojato"', 'class="nastojato sama"', 1)
+    vysledek = "".join(casti)
     return spojky(vysledek)
 
 
@@ -128,7 +135,7 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
     url = cfg["zakladni_url"].rstrip("/") + "/" + cesta
     og_url = cfg["zakladni_url"].rstrip("/") + "/" + (og or "fotky/og-web.jpg")
     nav = [("clanky", "Články", f"{pre}#clanky"), ("o-mne", "O mně", f"{pre}o-mne/"),
-           ("odber", "Odebírat", "#odber"), ("podporit", "Podpořit", f"{pre}podporit/")]
+           ("odber", "Odebírat", f"{pre}podporit/#odber"), ("podporit", "Podpořit", f"{pre}podporit/")]
     nav_html = "\n      ".join(
         f'<a href="{h}"{" aria-current=\"page\"" if k == aktivni else ""}>{t}</a>' for k, t, h in nav)
     robots = '<meta name="robots" content="noindex, nofollow">\n' if NAHLED else ""
@@ -187,7 +194,15 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
 </main>
 
 <footer>
-  <div class="wrap"><span>{e(cfg['nazev'])} · {e(cfg['podtitul'])}</span>{kontakt_html}<a href="{pre}osobni-udaje/">Ochrana osobních údajů</a><span>Web vytvořil {e(cfg['autor'])}</span></div>
+  <div class="wrap">
+    <div class="paticka-ja">
+      <span>{e(cfg['nazev'])} · {e(cfg['podtitul'])}</span>{kontakt_html}<a href="{pre}osobni-udaje/">Ochrana osobních údajů</a><span>Web vytvořil {e(cfg['autor'])}</span>
+    </div>
+    <div class="podporuji">
+      <h2>Podporují mě</h2>
+      <a class="zamek" href="https://www.zivyzamektouzim.cz/" rel="noopener"><img src="{pre}zamek-logo.png" width="320" height="241" alt="Živý zámek Toužim" loading="lazy"></a>
+    </div>
+  </div>
 </footer>
 <script src="{pre}odber.js?v={OTISK_JS}" defer></script>
 </body>
@@ -258,12 +273,15 @@ def main():
     shutil.copy(KOREN / "web" / "styl.css", VYSTUP / "styl.css")
     shutil.copy(KOREN / "web" / "odber.js", VYSTUP / "odber.js")
     shutil.copy(KOREN / "web" / "favicon.svg", VYSTUP / "favicon.svg")
+    shutil.copy(KOREN / "web" / "zamek-logo.png", VYSTUP / "zamek-logo.png")
     OTISK_CSS, OTISK_JS = otisk(VYSTUP / "styl.css"), otisk(VYSTUP / "odber.js")
     zaklad = cfg["zakladni_url"].rstrip("/")
 
     clanky = [nacti_md(p) for p in sorted((OBSAH / "clanky").glob("*.md"))]
     clanky = [c for c in clanky if NAHLED or c.get("koncept") != "ano"]
     clanky.sort(key=lambda c: (c["datum"], int(c.get("cislo", 0))), reverse=True)
+    # koncept má v testovací verzi vlastní stránku k pročtení, ale do výpisů se nedostane (je v „Připravuji“)
+    vydane = [c for c in clanky if c.get("koncept") != "ano"]
 
     og_web = og_obrazek("michal-s-talirem.jpg", "web")
     mapa = [f"{zaklad}/"]
@@ -284,15 +302,15 @@ def main():
         koncept = '<span class="koncept">koncept</span>' if c.get("koncept") == "ano" else ""
         # pod článkem výpis všech článků, aby se dalo rovnou pokračovat jinam
         radky = []
-        for d in clanky:
+        for d in vydane if c in vydane else [c] + vydane:
             popisek = f"Článek {e(d.get('cislo', ''))} · {datum_cesky(d['datum'])}"
             if d is c:
                 radky.append(f'<li class="tady" aria-current="page"><small>{popisek} · právě čtete</small><span>{spojky(e(d["nazev"]))}</span></li>')
             else:
                 radky.append(f'<li><a href="{pre}clanky/{d["slug"]}/"><small>{popisek}</small><span>{spojky(e(d["nazev"]))}</span></a></li>')
         prehled = (f'<section class="prehled wrap" aria-labelledby="prehled-nadpis"><h2 id="prehled-nadpis">Všechny články</h2>'
-                   f'<ol>{"".join(radky)}</ol></section>') if len(clanky) > 1 else ""
-        obsah = f"""{kurz_html(cfg, pre, clanky)}
+                   f'<ol>{"".join(radky)}</ol></section>') if len(radky) > 1 else ""
+        obsah = f"""{kurz_html(cfg, pre, vydane)}
 
 <article class="wrap">
   <div class="meta">Článek {e(c.get('cislo', ''))} · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
@@ -335,8 +353,8 @@ def main():
     # úvodní stránka
     pre = ""
     karty = []
-    for c in clanky:
-        koncept = '<span class="koncept">koncept</span>' if c.get("koncept") == "ano" else ""
+    for c in vydane:
+        koncept = ""
         karty.append(f"""<li class="karta">
     <div class="meta">Článek {e(c.get('cislo', ''))} · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
     <a class="nadpis" href="clanky/{c['slug']}/">{spojky(e(c['nazev']))}</a>
@@ -348,7 +366,7 @@ def main():
   <h1 class="sr-only">{e(cfg['nazev'])}: {e(cfg['podtitul'])}</h1>
   <p>{spojky(e(cfg['uvod']))}</p>
 </section>
-{kurz_html(cfg, pre, clanky)}
+{kurz_html(cfg, pre, vydane)}
 <section class="vypis wrap" id="clanky" aria-labelledby="clanky-nadpis">
   <h2 id="clanky-nadpis">Články</h2>
   <ol>

@@ -1,5 +1,5 @@
 ---
-nazev: "Víkend 1: Ostrava, první krok"
+nazev: "Ostrava, první krok"
 slug: vikend-1-ostrava
 cislo: 2
 datum: 2026-11-16

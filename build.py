@@ -194,8 +194,15 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
 </main>
 
 <footer>
-  <div class="wrap"><a class="zamek" href="https://www.zivyzamektouzim.cz/" rel="noopener"><img src="{pre}zamek-logo.png" width="320" height="241" alt="Živý zámek Toužim" loading="lazy"><span>Doma vedu spolek Živý zámek Toužim<b>zivyzamektouzim.cz</b></span></a>
-  <span>{e(cfg['nazev'])} · {e(cfg['podtitul'])}</span>{kontakt_html}<a href="{pre}osobni-udaje/">Ochrana osobních údajů</a><span>Web vytvořil {e(cfg['autor'])}</span></div>
+  <div class="wrap">
+    <div class="paticka-ja">
+      <span>{e(cfg['nazev'])} · {e(cfg['podtitul'])}</span>{kontakt_html}<a href="{pre}osobni-udaje/">Ochrana osobních údajů</a><span>Web vytvořil {e(cfg['autor'])}</span>
+    </div>
+    <div class="podporuji">
+      <h2>Podporují mě</h2>
+      <a class="zamek" href="https://www.zivyzamektouzim.cz/" rel="noopener"><img src="{pre}zamek-logo.png" width="320" height="241" alt="Živý zámek Toužim" loading="lazy"></a>
+    </div>
+  </div>
 </footer>
 <script src="{pre}odber.js?v={OTISK_JS}" defer></script>
 </body>

@@ -100,11 +100,12 @@ def og_obrazek(zdroj, slug):
     return f"fotky/{jmeno}"
 
 
-def obrazek_html(zdroj, alt, popisek, pre, lazy=True):
+def obrazek_html(zdroj, alt, popisek, pre, lazy=True, popisek_html=False):
     jmeno = Path(zdroj).stem + ".jpg"
     w, h = ROZMERY[jmeno]
     nacitani = ' loading="lazy" decoding="async"' if lazy else ""
-    cap = f"\n  <figcaption>{e(popisek)}</figcaption>" if popisek else ""
+    text = spojky(popisek) if popisek_html else e(popisek)
+    cap = f"\n  <figcaption>{text}</figcaption>" if popisek else ""
     return (f'<figure>\n  <img src="{pre}fotky/{jmeno}" width="{w}" height="{h}" alt="{e(alt)}"{nacitani}>'
             f"{cap}\n</figure>")
 
@@ -112,8 +113,10 @@ def obrazek_html(zdroj, alt, popisek, pre, lazy=True):
 def md_na_html(telo, pre):
     # ![alt](foto.jpg "popisek") na samostatném řádku -> figure s popiskem
     def nahrad(m):
-        return obrazek_html(m.group(2), m.group(1), m.group(3) or "", pre)
-    telo = re.sub(r'^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)\s*$', nahrad, telo, flags=re.M)
+        popisek = m.group(3) or m.group(4) or ""
+        html_pop = markdown.markdown(popisek)[3:-4] if popisek else ""
+        return obrazek_html(m.group(2), m.group(1), html_pop, pre, popisek_html=True)
+    telo = re.sub(r'^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)[ \t]*(?:\n\*(.+)\*[ \t]*)?$', nahrad, telo, flags=re.M)
     vysledek = markdown.markdown(telo, extensions=["sane_lists"], output_format="html")
     vysledek = vysledek.replace("<blockquote>\n<p>", "<blockquote>").replace("</p>\n</blockquote>", "</blockquote>")
     return spojky(vysledek)
@@ -129,7 +132,8 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
     nav_html = "\n      ".join(
         f'<a href="{h}"{" aria-current=\"page\"" if k == aktivni else ""}>{t}</a>' for k, t, h in nav)
     robots = '<meta name="robots" content="noindex, nofollow">\n' if NAHLED else ""
-    pruh = '<div class="preview">Testovací verze, zatím nezveřejněno</div>\n' if NAHLED else ""
+    pruh = ('<aside class="preview" aria-label="Upozornění">Testovací verze, zatím nezveřejněno '
+            '<button type="button" class="rezim" onclick="var r=document.documentElement,t=r.dataset.theme===\'dark\'||(!r.dataset.theme&&matchMedia(\'(prefers-color-scheme: dark)\').matches)?\'light\':\'dark\';r.dataset.theme=t;this.textContent=t===\'dark\'?\'Zobrazit světlý režim\':\'Zobrazit tmavý režim\'">Přepnout světlý / tmavý</button></aside>\n') if NAHLED else ""
     ld_html = ""
     if ld:
         ld_html = '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + "</script>\n"
@@ -157,7 +161,7 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
 <link rel="alternate" type="application/rss+xml" title="{e(cfg['nazev'])}" href="{pre}rss.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Barlow+Condensed:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&display=swap">
 <link rel="stylesheet" href="{pre}styl.css?v={OTISK_CSS}">
 {ld_html}</head>
 <body>

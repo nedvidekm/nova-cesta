@@ -6,6 +6,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
+const AXE = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
 
 const KOREN = path.join(__dirname, '_site');
 const RYCHLA = process.argv.includes('--rychla');
@@ -89,7 +90,7 @@ function stranky() {
               if (k < (velky ? 3 : 4.5)) out.kontrast.push(`${popis(el)} „${el.textContent.trim().slice(0, 30)}“ ${k.toFixed(2)}:1`);
               if (parseFloat(cs.fontSize) < 14) out.kontrast.push(`${popis(el)} písmo ${cs.fontSize}`);
             }
-            if (el.matches('a, button, input, label.souhlas') && !el.closest('article p, article li, .box p, .souhlas span')) {
+            if (el.matches('a, button, input, label.souhlas') && !el.closest('article p, article li, figcaption, .box p, .souhlas span')) {
               if (r.height < 44 && el.tagName !== 'LABEL' && !(el.type === 'checkbox')) out.male.push(`${popis(el)} „${(el.textContent || el.value || '').trim().slice(0, 20)}“ ${Math.round(r.width)}×${Math.round(r.height)}`);
             }
           }
@@ -112,6 +113,10 @@ function stranky() {
           }
         }
         if (sirka === SIRKY[0] || sirka === 1280) {
+          await page.addScriptTag({ content: AXE });
+          const axe = await page.evaluate(async () => (await axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21aa', 'best-practice'] })).violations
+            .map(v => `${v.id}: ${v.nodes.slice(0, 3).map(n => n.target.join(' ')).join(', ')}`));
+          axe.forEach(x => pridej(kde, 'axe ' + x));
           v.kontrast.forEach(x => pridej(kde, 'kontrast: ' + x));
           v.male.forEach(x => pridej(kde, 'malá dotyková plocha: ' + x));
         }

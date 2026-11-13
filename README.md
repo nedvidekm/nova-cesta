@@ -13,11 +13,13 @@ Blog Michala Nedvídka z přípravy a roku dobrovolnictví v zahraničí.
 
 ## Odběr e-mailem (Google)
 
-Skript `apps-script/odber.gs` běží v Gmailu určeném pro blog. Ukládá odběratele do Google tabulky, posílá potvrzovací e-mail, odhlašuje a po zveřejnění nového článku ho rozešle. Odpovědi čtenářů jdou na `michal@nanoveceste.cz`. Běžný Google účet pošle 100 e-mailů denně, co se nestihne, skript dopošle další den.
+Skript `apps-script/odber.gs` běží v Google účtu s Gmailem. Ukládá odběratele do Google tabulky, posílá potvrzovací e-mail, odhlašuje a po zveřejnění nového článku ho rozešle. Běžný Google účet pošle 100 e-mailů denně, co se nestihne, skript dopošle další den.
+
+Odesílatel: když je v Gmailu adresa `michal@nanoveceste.cz` přidaná jako „Odesílat poštu jako“ (Nastavení → Účty a import, přes SMTP poštovní služby domény), odcházejí e-maily z ní. Když tam není, odejdou z gmailové adresy účtu a odpovědi míří na `michal@nanoveceste.cz`. Google podle své nápovědy (support.google.com/mail/answer/22370) od ledna 2027 „Odesílat poštu jako“ pro adresy mimo Google ruší; skript pak sám přejde na druhou variantu.
 
 Jednorázové nastavení:
 1. V Gmailu pro blog otevřít script.google.com → Nový projekt, vložit obsah `apps-script/odber.gs`, uložit.
-2. Vybrat funkci `nastavit` → Spustit → povolit oprávnění. V protokolu se objeví odkaz na tabulku a klíč.
+2. Vybrat funkci `nastavit` → Spustit → povolit oprávnění. V protokolu se objeví odkaz na tabulku, klíč a adresa, ze které e-maily odejdou.
 3. Nasadit → Nové nasazení → typ Webová aplikace, Spustit jako: Já, Kdo má přístup: Kdokoli → Nasadit. Zkopírovat adresu webové aplikace.
 4. Adresu vložit do `web.json` jako `odber_url`.
 5. Na GitHubu v repozitáři: Settings → Secrets and variables → Actions → New repository secret: `ODBER_URL` (adresa webové aplikace) a `ODBER_KLIC` (klíč z kroku 2).

@@ -16,6 +16,7 @@ var NASTAVENI = {
   nazevWebu: 'Nová cesta',
   odesilatel: 'Michal Nedvídek | Nová cesta',
   odpovediNa: 'michal@nanoveceste.cz',
+  odeslatZ: 'michal@nanoveceste.cz',   // adresa na doméně, přidaná v Gmailu jako „Odesílat poštu jako“
   webUrl: 'https://nedvidekm.github.io/nova-cesta/'
 };
 
@@ -43,6 +44,10 @@ function nastavit() {
 
   Logger.log('Tabulka: ' + ss.getUrl());
   Logger.log('Klíč pro GitHub (secret ODBER_KLIC): ' + vlastnosti.getProperty('KLIC'));
+  var aliasy = GmailApp.getAliases();  // zároveň si vyžádá oprávnění k Gmailu
+  Logger.log(aliasy.indexOf(NASTAVENI.odeslatZ) >= 0
+    ? 'E-maily odejdou z adresy ' + NASTAVENI.odeslatZ
+    : 'Adresa ' + NASTAVENI.odeslatZ + ' v Gmailu není nastavená jako „Odesílat poštu jako“, e-maily odejdou z ' + Session.getEffectiveUser().getEmail());
 }
 
 function tabulka_() {
@@ -117,16 +122,25 @@ function prihlasit_(email) {
 function posliPotvrzeni_(email, token) {
   if (MailApp.getRemainingDailyQuota() < 1) return;
   var odkaz = ScriptApp.getService().getUrl() + '?akce=potvrdit&t=' + token;
-  MailApp.sendEmail({
+  posli_({
     to: email,
-    name: NASTAVENI.odesilatel,
-    replyTo: NASTAVENI.odpovediNa,
     subject: 'Potvrďte prosím odběr blogu ' + NASTAVENI.nazevWebu,
     body: 'Dobrý den,\n\nděkuji za zájem o blog ' + NASTAVENI.nazevWebu + '. Odběr prosím potvrďte kliknutím na odkaz:\n' + odkaz +
       '\n\nPokud jste se nepřihlašovali, tento e-mail ignorujte.\n\nMichal Nedvídek',
     htmlBody: obalEmailu_('<p>Dobrý den,</p><p>děkuji za zájem o blog ' + NASTAVENI.nazevWebu + '. Odběr prosím potvrďte kliknutím na tlačítko:</p>' +
       tlacitko_(odkaz, 'Potvrdit odběr') + '<p style="color:#6b665e;font-size:14px">Pokud jste se nepřihlašovali, tento e-mail ignorujte.</p><p>Michal Nedvídek</p>')
   });
+}
+
+/**
+ * Odeslání e-mailu. Když je v Gmailu adresa NASTAVENI.odeslatZ nastavená jako „Odesílat poštu jako“,
+ * odejde e-mail z ní (přes poštovní server domény). Když tam není, odejde z gmailové adresy účtu
+ * a odpovědi míří na adresu na doméně. Rozesílka tak běží dál, i kdyby alias z Gmailu zmizel.
+ */
+function posli_(m) {
+  var opt = { name: NASTAVENI.odesilatel, replyTo: NASTAVENI.odpovediNa, htmlBody: m.htmlBody };
+  if (GmailApp.getAliases().indexOf(NASTAVENI.odeslatZ) >= 0) opt.from = NASTAVENI.odeslatZ;
+  GmailApp.sendEmail(m.to, m.subject, m.body, opt);
 }
 
 // ---------- rozesílání článků ----------
@@ -160,10 +174,8 @@ function rozeslat() {
       if (data[i][1] !== 'potvrzeno' || data[i][5] === clanek.slug) continue;
       if (MailApp.getRemainingDailyQuota() < 1) break; // zbytek dopošle další spuštění
       var odhlasit = ScriptApp.getService().getUrl() + '?akce=odhlasit&t=' + data[i][2];
-      MailApp.sendEmail({
+      posli_({
         to: data[i][0],
-        name: NASTAVENI.odesilatel,
-        replyTo: NASTAVENI.odpovediNa,
         subject: 'Nový článek: ' + clanek.nazev,
         body: clanek.nazev + '\n\n' + clanek.perex + '\n\nČíst dál: ' + clanek.url + '\n\nMichal Nedvídek\n\nOdhlásit odběr: ' + odhlasit,
         htmlBody: obalEmailu_('<h1 style="font-family:Georgia,serif;font-size:26px;color:#3c3c3b;margin:0 0 12px">' + esc_(clanek.nazev) + '</h1>' +

@@ -34,7 +34,7 @@ Nakonec jsem našel program jedné křesťanské organizace, který mě zaujal t
 
 ## Není to útěk?
 
-Na přípravném kurzu jsme probírali dobré a méně dobré motivace. Na seznamu těch méně dobrých byl i „útěk od reality“. Slyšel jsem tu otázku i od lidí kolem sebe a poctivě jsem si ji položil. Moje odpověď je: neutíkám *od* něčeho, jdu něco *hledat*. Pevnou půdu pod nohama, důvěru v sebe a odpověď na to, jakým směrem chci jít dál. Vím, že rok v cizí zemi, daleko od všeho známého, mi neusnadní život. Spíš mi nastaví zrcadlo, a o to mi jde.
+Otázku, jestli to není útěk od reality, jsem slyšel i od lidí kolem sebe a poctivě jsem si ji položil. Moje odpověď je: neutíkám *od* něčeho, jdu něco *hledat*. Pevnou půdu pod nohama, důvěru v sebe a odpověď na to, jakým směrem chci jít dál. Vím, že rok v cizí zemi, daleko od všeho známého, mi neusnadní život. Spíš mi nastaví zrcadlo, a o to mi jde.
 
 ## Co chci dát
 

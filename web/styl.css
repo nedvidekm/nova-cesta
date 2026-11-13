@@ -30,29 +30,31 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
 /* Pruh testovací verze */
 .preview{background:var(--accent);color:var(--on-accent);font-family:var(--label);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:14px;text-align:center;padding-block:6px}
 
-/* Hlavička: na širokých obrazovkách zůstává nahoře, na mobilu odjede s textem (zabírala by pětinu displeje) */
-@media (min-width:700px){header.site{position:sticky;top:0}html{scroll-padding-top:150px}}
-/* Hlavička: pod ní dvojitá čára (červená stezka + tenká linka) */
-header.site{position:relative;z-index:10;background:var(--surface);
+/* Hlavička s názvem odjede s textem, menu pod ní zůstává připnuté nahoře.
+   Pod menu dvojitá čára (červená stezka + tenká linka). */
+html{scroll-padding-top:68px}
+header.site{background:var(--surface)}
+.menu{position:sticky;top:0;z-index:10;background:var(--surface);
   background-image:linear-gradient(var(--accent),var(--accent)),linear-gradient(var(--rule),var(--rule));
   background-size:100% 3px,100% 1px;background-position:left bottom 4px,left bottom;background-repeat:no-repeat;padding-bottom:7px}
-header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:8px 16px;padding-block:12px 6px;flex-wrap:wrap}
+.menu .wrap{display:flex;flex-wrap:wrap;margin-inline:auto}
+header.site .wrap{padding-block:12px 2px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);min-height:44px}
 .znacka{display:grid;grid-template-rows:1fr 1fr 1fr;width:30px;height:30px;border:1px solid var(--rule);flex:none}
 .znacka span:nth-child(1),.znacka span:nth-child(3){background:var(--mark-white)}
 .znacka span:nth-child(2){background:var(--accent)}
 .brand b{font-family:var(--display);font-size:26px;font-weight:700;line-height:1;letter-spacing:-.01em}
 .brand small{display:block;font-family:var(--label);font-weight:500;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:3px}
-nav{display:flex;flex-wrap:wrap}
-nav a{font-family:var(--label);font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--ink);padding:10px 10px;min-height:44px;display:inline-flex;align-items:center;border-bottom:3px solid transparent}
-nav a:hover{color:var(--accent-ink)}
-nav a[aria-current="page"]{border-bottom-color:var(--accent)}
+nav.menu a{font-family:var(--label);font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--ink);padding:10px 10px;min-height:44px;display:inline-flex;align-items:center;border-bottom:3px solid transparent}
+nav.menu a:hover{color:var(--accent-ink)}
+nav.menu a[aria-current="page"]{border-bottom-color:var(--accent)}
 @media (max-width:420px){
-  header.site .wrap{padding-block:8px 2px;gap:2px}
+  header.site .wrap{padding-block:8px 0}
   .brand b{font-size:22px}
   .znacka{width:26px;height:26px}
-  nav a{padding:8px 7px;font-size:15px}
+  nav.menu a{padding:8px 7px;font-size:15px}
 }
+@media (max-width:359px){nav.menu a{padding:8px 5px;font-size:14px;letter-spacing:.03em}}
 
 /* Popisky (štítky nad nadpisy) */
 .meta,.kurz h2,.vypis>h2,.dalsi h2{font-family:var(--label);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase}
@@ -140,13 +142,16 @@ footer a{color:var(--muted);text-decoration:none;display:inline-flex;align-items
 footer a:hover{text-decoration:underline}
 .preview .rezim{clip-path:none;background:transparent;color:var(--on-accent);border:1px solid var(--on-accent);font-size:14px;padding:4px 10px;min-height:44px;margin-left:8px;vertical-align:middle}
 
-/* Listování mezi články a odkaz „od začátku“ */
-.od-zacatku{font-family:var(--label);font-size:16px;color:var(--muted);margin:0 0 4px}
-.od-zacatku a{display:inline-flex;align-items:center;min-height:44px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
-.listovani{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:40px;border-top:1px solid var(--rule);padding-top:4px}
-.listovani a{display:block;text-transform:none;letter-spacing:0;border-bottom:0;padding:12px 0;min-height:44px;text-decoration:none;font-family:var(--display);font-weight:700;font-size:19px;line-height:1.25;color:var(--ink)}
-.listovani a small{display:block;font-family:var(--label);font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:4px}
-.listovani a:hover{color:var(--accent-ink)}
-.listovani .nove{grid-column:2;text-align:right;border-left:3px solid var(--accent);padding-left:12px}
-.listovani .pred{border-right:0}
-@media (max-width:520px){.listovani{grid-template-columns:1fr}.listovani .nove{grid-column:1;text-align:left}}
+/* Výpis všech článků pod článkem */
+.prehled{padding-block:8px 0}
+.prehled h2{font-family:var(--label);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0;padding-top:14px;border-top:1px solid var(--rule);position:relative}
+.prehled h2::before{content:"";position:absolute;left:0;top:-2px;width:48px;height:3px;background:var(--accent)}
+.prehled ol{list-style:none;margin:8px 0 0;padding:0}
+.prehled li{border-bottom:1px solid var(--line)}
+.prehled li>a,.prehled li.tady{display:block;padding:12px 0 12px 14px;min-height:44px;text-decoration:none;color:var(--ink);border-left:3px solid transparent}
+.prehled li>a:hover{border-left-color:var(--accent)}
+.prehled li>a:hover span{color:var(--accent-ink)}
+.prehled li.tady{border-left-color:var(--sand);color:var(--muted)}
+.prehled small{display:block;font-family:var(--label);font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink)}
+.prehled li.tady small{color:var(--muted)}
+.prehled span{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.25}

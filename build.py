@@ -172,11 +172,13 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
       <span class="znacka" aria-hidden="true"><span></span><span></span><span></span></span>
       <span><b>{e(cfg['nazev'])}</b><small>{e(cfg['podtitul_dlouhy'])}</small></span>
     </a>
-    <nav aria-label="Hlavní menu">
-      {nav_html}
-    </nav>
   </div>
 </header>
+<nav class="menu" aria-label="Hlavní menu">
+  <div class="wrap">
+    {nav_html}
+  </div>
+</nav>
 
 <main id="obsah">
 {obsah}
@@ -279,13 +281,16 @@ def main():
             if m:
                 og = og_obrazek(m.group(1), c["slug"])
         koncept = '<span class="koncept">koncept</span>' if c.get("koncept") == "ano" else ""
-        novejsi = clanky[i - 1] if i > 0 else None      # výpis je od nejnovějšího
-        starsi = clanky[i + 1] if i + 1 < len(clanky) else None
-        listovani = ""
-        if novejsi or starsi:
-            pred = f'<a class="pred" href="{pre}clanky/{starsi["slug"]}/"><small>← Předchozí článek</small>{spojky(e(starsi["nazev"]))}</a>' if starsi else ""
-            dal = f'<a class="nove" href="{pre}clanky/{novejsi["slug"]}/"><small>Další článek →</small>{spojky(e(novejsi["nazev"]))}</a>' if novejsi else ""
-            listovani = f'<nav class="listovani" aria-label="Další články">{pred}{dal}</nav>'
+        # pod článkem výpis všech článků, aby se dalo rovnou pokračovat jinam
+        radky = []
+        for d in clanky:
+            popisek = f"Článek {e(d.get('cislo', ''))} · {datum_cesky(d['datum'])}"
+            if d is c:
+                radky.append(f'<li class="tady" aria-current="page"><small>{popisek} · právě čtete</small><span>{spojky(e(d["nazev"]))}</span></li>')
+            else:
+                radky.append(f'<li><a href="{pre}clanky/{d["slug"]}/"><small>{popisek}</small><span>{spojky(e(d["nazev"]))}</span></a></li>')
+        prehled = (f'<section class="prehled wrap" aria-labelledby="prehled-nadpis"><h2 id="prehled-nadpis">Všechny články</h2>'
+                   f'<ol>{"".join(radky)}</ol></section>') if len(clanky) > 1 else ""
         obsah = f"""{kurz_html(cfg, pre, clanky)}
 
 <article class="wrap">
@@ -294,9 +299,8 @@ def main():
   <p class="perex">{spojky(e(c['perex']))}</p>
   {foto}
   {md_na_html(c['telo'], pre)}
-  {listovani}
-  <p><a class="zpet" href="{pre}#clanky">Všechny články</a></p>
-</article>"""
+</article>
+{prehled}"""
         ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": c["nazev"],
               "description": c["popis"], "datePublished": c["datum"], "inLanguage": "cs",
               "url": f"{zaklad}/{cesta}", "image": f"{zaklad}/{og}", "author": osoba_ld(cfg),
@@ -338,8 +342,6 @@ def main():
     <p>{spojky(e(c['perex']))}</p>
     <a class="dal" href="clanky/{c['slug']}/" aria-label="Číst článek {e(c['nazev'])}">Číst dál →</a>
   </li>""")
-    od_zacatku = (f'<p class="od-zacatku">Nejnovější nahoře. <a href="clanky/{clanky[-1]["slug"]}/">Číst od začátku</a></p>'
-                  if len(clanky) > 1 else "")
     pripravuji = "".join(f"<li><span>{e(x['nazev'])}</span><span>{e(x['kdy'])}</span></li>" for x in cfg["pripravuji"])
     obsah = f"""<section class="uvod wrap">
   <h1 class="sr-only">{e(cfg['nazev'])}: {e(cfg['podtitul'])}</h1>
@@ -348,7 +350,6 @@ def main():
 {kurz_html(cfg, pre, clanky)}
 <section class="vypis wrap" id="clanky" aria-labelledby="clanky-nadpis">
   <h2 id="clanky-nadpis">Články</h2>
-  {od_zacatku}
   <ol>
   {''.join(karty)}
   </ol>

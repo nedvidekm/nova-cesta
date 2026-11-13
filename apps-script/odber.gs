@@ -5,7 +5,7 @@
  *  - přihlášení z formuláře na webu (doPost, akce=prihlasit) a potvrzovací e-mail,
  *  - potvrzení a odhlášení odkazem z e-mailu (doGet, akce=potvrdit / odhlasit),
  *  - rozeslání nového článku, když ho web ohlásí po zveřejnění (doPost, akce=novy-clanek + klíč),
- *  - hlídá denní limit e-mailů Googlu; co se nestihne, dopošle každou hodinu funkce rozeslat().
+ *  - e-maily odcházejí přes SMTP2GO z adresy na doméně; co se nepodaří odeslat, dopošle každou hodinu funkce rozeslat().
  *
  * Nastavení (jednou): vložit do projektu Apps Script v Gmailu pro blog, spustit funkci nastavit(),
  * povolit oprávnění, pak Nasadit → Nové nasazení → Webová aplikace (Spustit jako: Já, Přístup: Kdokoli).
@@ -16,7 +16,7 @@ var NASTAVENI = {
   nazevWebu: 'Nová cesta',
   odesilatel: 'Michal Nedvídek | Nová cesta',
   odpovediNa: 'michal@nanoveceste.cz',
-  odeslatZ: 'michal@nanoveceste.cz',   // adresa na doméně, přidaná v Gmailu jako „Odesílat poštu jako“
+  odeslatZ: 'michal@nanoveceste.cz',   // adresa odesílatele na doméně ověřené v SMTP2GO
   webUrl: 'https://nedvidekm.github.io/nova-cesta/'
 };
 
@@ -44,10 +44,13 @@ function nastavit() {
 
   Logger.log('Tabulka: ' + ss.getUrl());
   Logger.log('Klíč pro GitHub (secret ODBER_KLIC): ' + vlastnosti.getProperty('KLIC'));
-  var aliasy = GmailApp.getAliases();  // zároveň si vyžádá oprávnění k Gmailu
-  Logger.log(aliasy.indexOf(NASTAVENI.odeslatZ) >= 0
-    ? 'E-maily odejdou z adresy ' + NASTAVENI.odeslatZ
-    : 'Adresa ' + NASTAVENI.odeslatZ + ' v Gmailu není nastavená jako „Odesílat poštu jako“, e-maily odejdou z ' + Session.getEffectiveUser().getEmail());
+  if (vlastnosti.getProperty('SMTP2GO_KLIC')) {
+    Logger.log('E-maily odejdou přes SMTP2GO z adresy ' + NASTAVENI.odeslatZ);
+  } else {
+    var aliasy = GmailApp.getAliases();
+    Logger.log('Klíč SMTP2GO_KLIC ve vlastnostech skriptu chybí, e-maily odejdou přes Gmail z adresy ' +
+      (aliasy.indexOf(NASTAVENI.odeslatZ) >= 0 ? NASTAVENI.odeslatZ : Session.getEffectiveUser().getEmail()));
+  }
 }
 
 function tabulka_() {
@@ -120,7 +123,6 @@ function prihlasit_(email) {
 }
 
 function posliPotvrzeni_(email, token) {
-  if (MailApp.getRemainingDailyQuota() < 1) return;
   var odkaz = ScriptApp.getService().getUrl() + '?akce=potvrdit&t=' + token;
   posli_({
     to: email,
@@ -133,14 +135,45 @@ function posliPotvrzeni_(email, token) {
 }
 
 /**
- * Odeslání e-mailu. Když je v Gmailu adresa NASTAVENI.odeslatZ nastavená jako „Odesílat poštu jako“,
- * odejde e-mail z ní (přes poštovní server domény). Když tam není, odejde z gmailové adresy účtu
- * a odpovědi míří na adresu na doméně. Rozesílka tak běží dál, i kdyby alias z Gmailu zmizel.
+ * Odeslání e-mailu. Vrací true, když e-mail odešel.
+ *
+ * 1) Když je ve vlastnostech skriptu klíč SMTP2GO_KLIC, odejde e-mail přes službu SMTP2GO
+ *    z adresy NASTAVENI.odeslatZ (doména musí být v SMTP2GO ověřená).
+ * 2) Bez klíče odejde přes Gmail účtu: z adresy na doméně, pokud je v Gmailu nastavená jako
+ *    „Odesílat poštu jako“, jinak z gmailové adresy s odpovědí na doménu.
  */
 function posli_(m) {
+  var klic = PropertiesService.getScriptProperties().getProperty('SMTP2GO_KLIC');
+  if (klic) return posliSmtp2go_(m, klic);
+  if (MailApp.getRemainingDailyQuota() < 1) return false;
   var opt = { name: NASTAVENI.odesilatel, replyTo: NASTAVENI.odpovediNa, htmlBody: m.htmlBody };
   if (GmailApp.getAliases().indexOf(NASTAVENI.odeslatZ) >= 0) opt.from = NASTAVENI.odeslatZ;
   GmailApp.sendEmail(m.to, m.subject, m.body, opt);
+  return true;
+}
+
+/** SMTP2GO: POST /v3/email/send. Odpověď 200 může nést chybu, proto se čte data.succeeded. */
+function posliSmtp2go_(m, klic) {
+  var hlavicky = [{ header: 'Reply-To', value: NASTAVENI.odpovediNa }];
+  if (m.odhlasit) hlavicky.push({ header: 'List-Unsubscribe', value: '<' + m.odhlasit + '>' });
+  var odp = UrlFetchApp.fetch('https://eu-api.smtp2go.com/v3/email/send', {
+    method: 'post',
+    contentType: 'application/json',
+    headers: { 'X-Smtp2go-Api-Key': klic },
+    muteHttpExceptions: true,
+    payload: JSON.stringify({
+      sender: NASTAVENI.odesilatel + ' <' + NASTAVENI.odeslatZ + '>',
+      to: [m.to],
+      subject: m.subject,
+      text_body: m.body,
+      html_body: m.htmlBody,
+      custom_headers: hlavicky
+    })
+  });
+  var ok = false;
+  try { ok = odp.getResponseCode() === 200 && JSON.parse(odp.getContentText()).data.succeeded === 1; } catch (x) {}
+  if (!ok) console.error('SMTP2GO neodeslalo (' + odp.getResponseCode() + '): ' + odp.getContentText().slice(0, 300));
+  return ok;
 }
 
 // ---------- rozesílání článků ----------
@@ -172,15 +205,16 @@ function rozeslat() {
     var data = list.getDataRange().getValues();
     for (var i = 1; i < data.length; i++) {
       if (data[i][1] !== 'potvrzeno' || data[i][5] === clanek.slug) continue;
-      if (MailApp.getRemainingDailyQuota() < 1) break; // zbytek dopošle další spuštění
       var odhlasit = ScriptApp.getService().getUrl() + '?akce=odhlasit&t=' + data[i][2];
-      posli_({
+      var odeslano = posli_({
         to: data[i][0],
+        odhlasit: odhlasit,
         subject: 'Nový článek: ' + clanek.nazev,
         body: clanek.nazev + '\n\n' + clanek.perex + '\n\nČíst dál: ' + clanek.url + '\n\nMichal Nedvídek\n\nOdhlásit odběr: ' + odhlasit,
         htmlBody: obalEmailu_('<h1 style="font-family:Georgia,serif;font-size:26px;color:#3c3c3b;margin:0 0 12px">' + esc_(clanek.nazev) + '</h1>' +
           '<p>' + esc_(clanek.perex) + '</p>' + tlacitko_(clanek.url, 'Číst článek') + '<p>Michal Nedvídek</p>', odhlasit)
       });
+      if (!odeslano) break; // limit nebo chyba služby: zbytek dopošle další spuštění
       list.getRange(i + 1, 6).setValue(clanek.slug);
     }
   } finally {

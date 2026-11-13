@@ -13,9 +13,14 @@ Blog Michala Nedvídka z přípravy a roku dobrovolnictví v zahraničí.
 
 ## Odběr e-mailem (Google)
 
-Skript `apps-script/odber.gs` běží v Google účtu s Gmailem. Ukládá odběratele do Google tabulky, posílá potvrzovací e-mail, odhlašuje a po zveřejnění nového článku ho rozešle. Běžný Google účet pošle 100 e-mailů denně, co se nestihne, skript dopošle další den.
+Skript `apps-script/odber.gs` běží v Google účtu. Ukládá odběratele do Google tabulky, posílá potvrzovací e-mail, odhlašuje a po zveřejnění nového článku ho rozešle. Co se nepodaří odeslat, dopošle další hodinu.
 
-Odesílatel: když je v Gmailu adresa `michal@nanoveceste.cz` přidaná jako „Odesílat poštu jako“ (Nastavení → Účty a import, přes SMTP poštovní služby domény), odcházejí e-maily z ní. Když tam není, odejdou z gmailové adresy účtu a odpovědi míří na `michal@nanoveceste.cz`. Google podle své nápovědy (support.google.com/mail/answer/22370) od ledna 2027 „Odesílat poštu jako“ pro adresy mimo Google ruší; skript pak sám přejde na druhou variantu.
+Odesílání: přes službu SMTP2GO (rozhraní `POST /v3/email/send`) z adresy `michal@nanoveceste.cz`, odpovědi čtenářů jdou na stejnou adresu. Tarif zdarma má 1 000 e-mailů měsíčně. Klíč služby je uložený jen ve vlastnostech skriptu (`SMTP2GO_KLIC`), v repozitáři není. Bez klíče skript odesílá přes Gmail účtu.
+
+Nastavení SMTP2GO (jednou):
+1. V SMTP2GO: Sending → Verified Senders → přidat doménu a u registrátora vytvořit CNAME záznamy, které SMTP2GO vypíše.
+2. Sending → API Keys → Add API Key, oprávnění jen pro odesílání e-mailů. Klíč zkopírovat.
+3. V Apps Script: Nastavení projektu → Vlastnosti skriptu → přidat vlastnost `SMTP2GO_KLIC` s klíčem.
 
 Jednorázové nastavení:
 1. V Gmailu pro blog otevřít script.google.com → Nový projekt, vložit obsah `apps-script/odber.gs`, uložit.

@@ -31,4 +31,4 @@ Jednorázové nastavení:
 
 ## Doména
 
-Až bude koupená `nanoveceste.cz`: do `web.json` doplnit `"domena": "nanoveceste.cz"` a změnit `zakladni_url` na `https://nanoveceste.cz`, u registrátora nastavit DNS na GitHub Pages a v Settings → Pages zapnout Enforce HTTPS. Totéž upravit v `apps-script/odber.gs` (`webUrl`).
+Web běží na `nanoveceste.cz` (registrátor WEDOS, DNS u WEDOSu). Ve `web.json` je `"domena": "nanoveceste.cz"` a `zakladni_url` `https://nanoveceste.cz`, stejná adresa je v `apps-script/odber.gs` (`webUrl`). V DNS: čtyři záznamy A a čtyři AAAA na GitHub Pages, `www` jako CNAME na `nedvidekm.github.io`; na GitHubu Settings → Pages → Custom domain a Enforce HTTPS. Pošta: schránka `michal@nanoveceste.cz` u Email Profi (MX, SPF, DKIM, DMARC), rozesílka přes SMTP2GO (tři CNAME z jeho administrace).

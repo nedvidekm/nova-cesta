@@ -280,6 +280,8 @@ def main():
     clanky = [nacti_md(p) for p in sorted((OBSAH / "clanky").glob("*.md"))]
     clanky = [c for c in clanky if NAHLED or c.get("koncept") != "ano"]
     clanky.sort(key=lambda c: (c["datum"], int(c.get("cislo", 0))), reverse=True)
+    # koncept má v testovací verzi vlastní stránku k pročtení, ale do výpisů se nedostane (je v „Připravuji“)
+    vydane = [c for c in clanky if c.get("koncept") != "ano"]
 
     og_web = og_obrazek("michal-s-talirem.jpg", "web")
     mapa = [f"{zaklad}/"]
@@ -300,15 +302,15 @@ def main():
         koncept = '<span class="koncept">koncept</span>' if c.get("koncept") == "ano" else ""
         # pod článkem výpis všech článků, aby se dalo rovnou pokračovat jinam
         radky = []
-        for d in clanky:
+        for d in vydane if c in vydane else [c] + vydane:
             popisek = f"Článek {e(d.get('cislo', ''))} · {datum_cesky(d['datum'])}"
             if d is c:
                 radky.append(f'<li class="tady" aria-current="page"><small>{popisek} · právě čtete</small><span>{spojky(e(d["nazev"]))}</span></li>')
             else:
                 radky.append(f'<li><a href="{pre}clanky/{d["slug"]}/"><small>{popisek}</small><span>{spojky(e(d["nazev"]))}</span></a></li>')
         prehled = (f'<section class="prehled wrap" aria-labelledby="prehled-nadpis"><h2 id="prehled-nadpis">Všechny články</h2>'
-                   f'<ol>{"".join(radky)}</ol></section>') if len(clanky) > 1 else ""
-        obsah = f"""{kurz_html(cfg, pre, clanky)}
+                   f'<ol>{"".join(radky)}</ol></section>') if len(radky) > 1 else ""
+        obsah = f"""{kurz_html(cfg, pre, vydane)}
 
 <article class="wrap">
   <div class="meta">Článek {e(c.get('cislo', ''))} · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
@@ -351,8 +353,8 @@ def main():
     # úvodní stránka
     pre = ""
     karty = []
-    for c in clanky:
-        koncept = '<span class="koncept">koncept</span>' if c.get("koncept") == "ano" else ""
+    for c in vydane:
+        koncept = ""
         karty.append(f"""<li class="karta">
     <div class="meta">Článek {e(c.get('cislo', ''))} · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
     <a class="nadpis" href="clanky/{c['slug']}/">{spojky(e(c['nazev']))}</a>
@@ -364,7 +366,7 @@ def main():
   <h1 class="sr-only">{e(cfg['nazev'])}: {e(cfg['podtitul'])}</h1>
   <p>{spojky(e(cfg['uvod']))}</p>
 </section>
-{kurz_html(cfg, pre, clanky)}
+{kurz_html(cfg, pre, vydane)}
 <section class="vypis wrap" id="clanky" aria-labelledby="clanky-nadpis">
   <h2 id="clanky-nadpis">Články</h2>
   <ol>

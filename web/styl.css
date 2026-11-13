@@ -148,8 +148,8 @@ footer .wrap{padding-block:20px 24px;font-family:var(--label);font-size:15px;col
 footer a{color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
 footer a:hover{text-decoration:underline}
 /* Patička: vlevo kontakt pod sebou, vpravo „Podporují mě“ s logy */
-footer .paticka-ja{display:flex;flex-direction:column;align-items:flex-start}
-footer .paticka-ja>span{display:inline-flex;align-items:center;min-height:44px}
+footer .paticka-ja{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding-top:10px}
+footer .paticka-ja>*{min-height:28px;display:inline-flex;align-items:center}
 footer .podporuji h2{font-family:var(--label);font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);margin:12px 0 8px}
 footer .zamek img{display:block;width:120px;height:auto}
 :root[data-theme="dark"] footer .zamek img{filter:invert(1)}

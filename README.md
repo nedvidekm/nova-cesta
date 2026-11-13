@@ -5,6 +5,7 @@ Blog Michala Nedvídka z přípravy a roku dobrovolnictví v zahraničí.
 ## Jak web funguje
 
 - Obsah: `content/clanky/*.md` (články), `content/stranky/*.md` (O mně, Podpořit, Ochrana osobních údajů), fotky v `content/fotky/`, nastavení v `web.json` (adresa webu, kontakt, ukazatel kurzu, „Připravuji“).
+- `"testovaci_verze": true` ve `web.json`: zveřejněný web je testovací (pruh nahoře, noindex, koncepty viditelné, odběr nic neodesílá). Před spuštěním přepnout na `false`.
 - Článek s `koncept: ano` se na ostrý web nedostane, jen do testovací verze.
 - Sestavení: `python3 build.py` (ostrý web do `_site/`), `python3 build.py --nahled` (testovací verze s pruhem a noindex). Fotky se samy zmenší na 1 300 px.
 - Kontrola před nasazením: `node kontrola.js` (všechny stránky, šířky 320–1440 px, světlý i tmavý režim, odkazy, přetékání, kontrast). `--rychla` jen pro 3 šířky.

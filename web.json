@@ -10,20 +10,58 @@
   "kurz": {
     "nazev": "přípravný kurz dobrovolníků",
     "vikendy": [
-      {"misto": "Ostrava", "termin": "6.–8. 11. 2026", "hotovo": true},
-      {"misto": "Praha", "termin": "11.–13. 12. 2026"},
-      {"misto": "Čučice", "termin": "8.–10. 1. 2027"},
-      {"misto": "Hradec Králové", "termin": "5.–7. 2. 2027", "poznamka": "rozhodnutí", "rozhodnuti": true},
-      {"misto": "Brno", "termin": "5.–7. 3. 2027"},
-      {"misto": "České Budějovice", "termin": "2.–4. 4. 2027"},
-      {"misto": "Praha", "termin": "30. 4.–2. 5. 2027"},
-      {"misto": "Praha", "termin": "28.–30. 5. 2027", "poznamka": "vyslání"}
+      {
+        "misto": "Ostrava",
+        "termin": "6.–8. 11. 2026",
+        "hotovo": true
+      },
+      {
+        "misto": "Praha",
+        "termin": "11.–13. 12. 2026"
+      },
+      {
+        "misto": "Čučice",
+        "termin": "8.–10. 1. 2027"
+      },
+      {
+        "misto": "Hradec Králové",
+        "termin": "5.–7. 2. 2027",
+        "poznamka": "rozhodnutí",
+        "rozhodnuti": true
+      },
+      {
+        "misto": "Brno",
+        "termin": "5.–7. 3. 2027"
+      },
+      {
+        "misto": "České Budějovice",
+        "termin": "2.–4. 4. 2027"
+      },
+      {
+        "misto": "Praha",
+        "termin": "30. 4.–2. 5. 2027"
+      },
+      {
+        "misto": "Praha",
+        "termin": "28.–30. 5. 2027",
+        "poznamka": "vyslání"
+      }
     ],
     "dalsi_krok": "Únor: dozvím se, jestli a kam jedu"
   },
   "pripravuji": [
-    {"nazev": "Víkend 2: Praha", "kdy": "prosinec 2026"},
-    {"nazev": "Co mi řekly dopisy dobrovolníků", "kdy": "prosinec 2026"},
-    {"nazev": "Víkend 3: Čučice", "kdy": "leden 2027"}
-  ]
+    {
+      "nazev": "Víkend 2: Praha",
+      "kdy": "prosinec 2026"
+    },
+    {
+      "nazev": "Co mi řekly dopisy dobrovolníků",
+      "kdy": "prosinec 2026"
+    },
+    {
+      "nazev": "Víkend 3: Čučice",
+      "kdy": "leden 2027"
+    }
+  ],
+  "testovaci_verze": true
 }

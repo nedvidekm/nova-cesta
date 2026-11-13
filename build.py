@@ -22,7 +22,7 @@ from PIL import Image, ImageOps
 KOREN = Path(__file__).resolve().parent
 OBSAH = KOREN / "content"
 VYSTUP = KOREN / "_site"
-NAHLED = "--nahled" in sys.argv
+NAHLED = "--nahled" in sys.argv or json.loads((KOREN / "web.json").read_text(encoding="utf-8")).get("testovaci_verze", False)
 
 MESICE = ["ledna", "února", "března", "dubna", "května", "června", "července",
           "srpna", "září", "října", "listopadu", "prosince"]

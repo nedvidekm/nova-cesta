@@ -53,6 +53,7 @@ jobs:
           ODBER_URL: ${{ secrets.ODBER_URL }}
           ODBER_KLIC: ${{ secrets.ODBER_KLIC }}
         run: |
+          if grep -q '"testovaci_verze": true' web.json; then echo "Testovací verze, nic se nerozesílá."; exit 0; fi
           if [ -z "$ODBER_URL" ] || [ -z "$ODBER_KLIC" ]; then echo "Odběr zatím není nastavený, přeskakuji."; exit 0; fi
           python3 - <<'PY'
           import json, os, urllib.parse, urllib.request

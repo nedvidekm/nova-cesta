@@ -29,3 +29,17 @@
     }).finally(function () { tlacitko.disabled = false; });
   });
 })();
+
+// Přepínač světlý / tmavý: výchozí je světlý, volba se pamatuje v prohlížeči
+(function () {
+  var t = document.querySelector('.menu .rezim');
+  if (!t) return;
+  var koren = document.documentElement;
+  function popis() { t.setAttribute('aria-label', koren.dataset.theme === 'dark' ? 'Přepnout na světlý režim' : 'Přepnout na tmavý režim'); }
+  t.hidden = false; popis();
+  t.addEventListener('click', function () {
+    koren.dataset.theme = koren.dataset.theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('rezim', koren.dataset.theme); } catch (x) {}
+    popis();
+  });
+})();

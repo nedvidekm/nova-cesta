@@ -54,7 +54,7 @@ nav.menu a[aria-current="page"]{border-bottom-color:var(--accent)}
   .znacka{width:26px;height:26px}
   nav.menu a{padding:8px 7px;font-size:15px}
 }
-@media (max-width:359px){nav.menu a{padding:8px 5px;font-size:14px;letter-spacing:.03em}}
+@media (max-width:359px){nav.menu a{padding:8px 4px;font-size:14px;letter-spacing:.02em}.menu button.rezim{width:32px}}
 
 /* Popisky (štítky nad nadpisy) */
 .meta,.kurz h2,.vypis>h2,.dalsi h2{font-family:var(--label);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase}
@@ -140,7 +140,11 @@ footer{margin-top:32px;border-top:1px solid var(--rule);box-shadow:inset 0 3px 0
 footer .wrap{padding-block:16px;font-family:var(--label);font-size:15px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:0 16px;flex-wrap:wrap}
 footer a{color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
 footer a:hover{text-decoration:underline}
-.preview .rezim{clip-path:none;background:transparent;color:var(--on-accent);border:1px solid var(--on-accent);font-size:14px;padding:4px 10px;min-height:44px;margin-left:8px;vertical-align:middle}
+/* Přepínač světlý / tmavý v menu: čtverec rozdělený úhlopříčkou */
+.menu .rezim{clip-path:none;margin-left:auto;width:44px;min-height:44px;padding:0;background:transparent;border:0;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.menu .rezim[hidden]{display:none}
+.menu .rezim span{width:20px;height:20px;border:2px solid var(--ink);background:linear-gradient(135deg,var(--ink) 50%,transparent 50%)}
+.menu .rezim:hover span{border-color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-ink) 50%,transparent 50%)}
 
 /* Výpis všech článků pod článkem */
 .prehled{padding-block:8px 0}

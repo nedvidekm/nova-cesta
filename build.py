@@ -132,8 +132,7 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
     nav_html = "\n      ".join(
         f'<a href="{h}"{" aria-current=\"page\"" if k == aktivni else ""}>{t}</a>' for k, t, h in nav)
     robots = '<meta name="robots" content="noindex, nofollow">\n' if NAHLED else ""
-    pruh = ('<aside class="preview" aria-label="Upozornění">Testovací verze, zatím nezveřejněno '
-            '<button type="button" class="rezim" onclick="var r=document.documentElement,t=r.dataset.theme===\'dark\'||(!r.dataset.theme&&matchMedia(\'(prefers-color-scheme: dark)\').matches)?\'light\':\'dark\';r.dataset.theme=t;this.textContent=t===\'dark\'?\'Zobrazit světlý režim\':\'Zobrazit tmavý režim\'">Přepnout světlý / tmavý</button></aside>\n') if NAHLED else ""
+    pruh = '<aside class="preview" aria-label="Upozornění">Testovací verze, zatím nezveřejněno</aside>\n' if NAHLED else ""
     ld_html = ""
     if ld:
         ld_html = '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + "</script>\n"
@@ -163,6 +162,7 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Sans+Condensed:wght@500;600&display=swap">
 <link rel="stylesheet" href="{pre}styl.css?v={OTISK_CSS}">
+<script>try{{document.documentElement.dataset.theme=localStorage.getItem("rezim")==="dark"?"dark":"light"}}catch(x){{document.documentElement.dataset.theme="light"}}</script>
 {ld_html}</head>
 <body>
 {pruh}<a class="skip" href="#obsah">Přeskočit na obsah</a>
@@ -177,6 +177,7 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
 <nav class="menu" aria-label="Hlavní menu">
   <div class="wrap">
     {nav_html}
+    <button type="button" class="rezim" hidden aria-label="Přepnout na tmavý režim" title="Světlý / tmavý režim"><span aria-hidden="true"></span></button>
   </div>
 </nav>
 

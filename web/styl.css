@@ -116,6 +116,13 @@ article li::before{content:"";position:absolute;left:2px;top:.62em;width:10px;he
 article p a,article li a,figcaption a{text-decoration:underline;text-underline-offset:2px}
 blockquote{margin:24px 0;padding:2px 0 2px 18px;border-left:3px solid var(--accent);font-style:italic;color:var(--muted)}
 figure{margin:30px 0}
+figure.nastojato{max-width:400px}
+figure.nastojato.sama{margin-inline:auto}
+/* Fotka na výšku: na širokém displeji stojí vpravo vedle textu, na mobilu zůstává přes celou šířku */
+@media (min-width:700px){
+  figure.nastojato:not(.sama){float:right;width:300px;max-width:45%;margin:6px 0 18px 32px}
+  article h2,article figure:not(.nastojato),article blockquote,.prehled{clear:both}
+}
 figure img{display:block;width:auto;height:auto;max-width:100%;max-height:min(80vh,860px);margin-inline:auto;border:1px solid var(--line)}
 figcaption{font-family:var(--label);font-size:15px;line-height:1.45;color:var(--muted);margin-top:8px;padding-left:10px;border-left:2px solid var(--accent)}
 
@@ -140,6 +147,12 @@ footer{margin-top:32px;border-top:1px solid var(--rule);box-shadow:inset 0 3px 0
 footer .wrap{padding-block:16px;font-family:var(--label);font-size:15px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:0 16px;flex-wrap:wrap}
 footer a{color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
 footer a:hover{text-decoration:underline}
+/* Odkaz na Živý zámek Toužim: logo z čar, v tmavém režimu převrácené do světlé */
+footer .zamek{flex:1 0 100%;gap:16px;padding-block:10px 14px;margin-bottom:6px;border-bottom:1px solid var(--line);line-height:1.4}
+footer .zamek img{width:112px;height:auto;flex:none}
+footer .zamek b{display:block;font-weight:600;color:var(--accent-ink)}
+:root[data-theme="dark"] footer .zamek img{filter:invert(1)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) footer .zamek img{filter:invert(1)}}
 /* Přepínač světlý / tmavý v menu: čtverec rozdělený úhlopříčkou */
 .menu .rezim{clip-path:none;margin-left:auto;width:44px;min-height:44px;padding:0;background:transparent;border:0;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
 .menu .rezim[hidden]{display:none}

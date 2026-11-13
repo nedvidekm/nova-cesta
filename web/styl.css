@@ -30,8 +30,10 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(-
 /* Pruh testovací verze */
 .preview{background:var(--accent);color:var(--on-accent);font-family:var(--label);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:14px;text-align:center;padding-block:6px}
 
+/* Hlavička: na širokých obrazovkách zůstává nahoře, na mobilu odjede s textem (zabírala by pětinu displeje) */
+@media (min-width:700px){header.site{position:sticky;top:0}html{scroll-padding-top:150px}}
 /* Hlavička: pod ní dvojitá čára (červená stezka + tenká linka) */
-header.site{position:sticky;top:0;z-index:10;background:var(--surface);
+header.site{position:relative;z-index:10;background:var(--surface);
   background-image:linear-gradient(var(--accent),var(--accent)),linear-gradient(var(--rule),var(--rule));
   background-size:100% 3px,100% 1px;background-position:left bottom 4px,left bottom;background-repeat:no-repeat;padding-bottom:7px}
 header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:8px 16px;padding-block:12px 6px;flex-wrap:wrap}
@@ -63,11 +65,12 @@ nav a[aria-current="page"]{border-bottom-color:var(--accent)}
 /* Ukazatel kurzu: úseky stezky s ostrými předěly */
 .kurz{padding-block:28px 8px}
 .kurz h2{color:var(--muted);margin:0 0 10px}
-.trasa{display:grid;grid-template-columns:repeat(8,1fr);gap:0;list-style:none;margin:0;padding:0;border-left:1px solid var(--rule)}
-.trasa li{height:12px;background:var(--line);border-right:1px solid var(--rule);position:relative}
-.trasa li.hotovo{background:var(--accent)}
-.trasa li.rozhodnuti{background:repeating-linear-gradient(135deg,var(--line) 0 4px,var(--sand) 4px 6px)}
-.trasa li.hotovo.rozhodnuti{background:var(--accent)}
+.trasa{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;list-style:none;margin:0;padding:0}
+.trasa li{position:relative;--c:var(--line)}
+.trasa li.hotovo{--c:var(--accent)}
+.trasa li>a,.trasa li>span{display:block;height:44px;background:linear-gradient(var(--c),var(--c)) center/100% 12px no-repeat}
+.trasa li.rozhodnuti:not(.hotovo)>span{background:repeating-linear-gradient(135deg,var(--line) 0 4px,var(--sand) 4px 6px) center/100% 12px no-repeat}
+.trasa li>a:hover,.trasa li>a:focus-visible{background-size:100% 20px}
 .trasa-pop{display:flex;justify-content:space-between;gap:4px 12px;font-family:var(--label);font-size:15px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
 .trasa-pop strong{color:var(--ink);font-weight:600}
 
@@ -136,3 +139,14 @@ footer .wrap{padding-block:16px;font-family:var(--label);font-size:15px;color:va
 footer a{color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
 footer a:hover{text-decoration:underline}
 .preview .rezim{clip-path:none;background:transparent;color:var(--on-accent);border:1px solid var(--on-accent);font-size:14px;padding:4px 10px;min-height:44px;margin-left:8px;vertical-align:middle}
+
+/* Listování mezi články a odkaz „od začátku“ */
+.od-zacatku{font-family:var(--label);font-size:16px;color:var(--muted);margin:0 0 4px}
+.od-zacatku a{display:inline-flex;align-items:center;min-height:44px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.listovani{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:40px;border-top:1px solid var(--rule);padding-top:4px}
+.listovani a{display:block;text-transform:none;letter-spacing:0;border-bottom:0;padding:12px 0;min-height:44px;text-decoration:none;font-family:var(--display);font-weight:700;font-size:19px;line-height:1.25;color:var(--ink)}
+.listovani a small{display:block;font-family:var(--label);font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:4px}
+.listovani a:hover{color:var(--accent-ink)}
+.listovani .nove{grid-column:2;text-align:right;border-left:3px solid var(--accent);padding-left:12px}
+.listovani .pred{border-right:0}
+@media (max-width:520px){.listovani{grid-template-columns:1fr}.listovani .nove{grid-column:1;text-align:left}}

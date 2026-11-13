@@ -211,15 +211,24 @@ def odber_html(cfg):
 </section>"""
 
 
-def kurz_html(cfg):
+def kurz_html(cfg, pre="", clanky=()):
+    """Osa kurzu. Víkend, který je za mnou, odkazuje na svůj článek (pole "clanek" ve web.json),
+    a dokud článek není venku, na výpis článků."""
     k = cfg["kurz"]
+    venku = {c["slug"] for c in clanky}
     hotovo = sum(1 for v in k["vikendy"] if v.get("hotovo"))
     posledni = [v for v in k["vikendy"] if v.get("hotovo")]
     polozky = []
-    for v in k["vikendy"]:
+    for i, v in enumerate(k["vikendy"], 1):
         tridy = " ".join(t for t, ano in (("hotovo", v.get("hotovo")), ("rozhodnuti", v.get("rozhodnuti"))) if ano)
         pozn = f": {v['poznamka']}" if v.get("poznamka") else ""
-        polozky.append(f'<li{f" class=\"{tridy}\"" if tridy else ""} title="{e(v["misto"])}, {e(v["termin"])}{e(pozn)}"></li>')
+        popis = f"Víkend {i}: {v['misto']}, {v['termin']}{pozn}"
+        if v.get("hotovo"):
+            cil = f"{pre}clanky/{v['clanek']}/" if v.get("clanek") in venku else f"{pre}#clanky"
+            vnitrek = f'<a href="{cil}" title="{e(popis)}"><span class="sr-only">{e(popis)}, číst</span></a>'
+        else:
+            vnitrek = f'<span title="{e(popis)}"><span class="sr-only">{e(popis)}, teprve mě čeká</span></span>'
+        polozky.append(f'<li{f" class=\"{tridy}\"" if tridy else ""}>{vnitrek}</li>')
     kde = f" ({e(posledni[-1]['misto'])})" if posledni else ""
     return f"""<section class="kurz wrap" aria-label="Kde právě jsem">
   <h2>Kde právě jsem: {e(k['nazev'])}</h2>
@@ -257,7 +266,7 @@ def main():
     mapa = [f"{zaklad}/"]
 
     # články
-    for c in clanky:
+    for i, c in enumerate(clanky):
         pre = "../../"
         cesta = f"clanky/{c['slug']}/"
         foto = ""
@@ -270,7 +279,14 @@ def main():
             if m:
                 og = og_obrazek(m.group(1), c["slug"])
         koncept = '<span class="koncept">koncept</span>' if c.get("koncept") == "ano" else ""
-        obsah = f"""{kurz_html(cfg)}
+        novejsi = clanky[i - 1] if i > 0 else None      # výpis je od nejnovějšího
+        starsi = clanky[i + 1] if i + 1 < len(clanky) else None
+        listovani = ""
+        if novejsi or starsi:
+            pred = f'<a class="pred" href="{pre}clanky/{starsi["slug"]}/"><small>← Předchozí článek</small>{spojky(e(starsi["nazev"]))}</a>' if starsi else ""
+            dal = f'<a class="nove" href="{pre}clanky/{novejsi["slug"]}/"><small>Další článek →</small>{spojky(e(novejsi["nazev"]))}</a>' if novejsi else ""
+            listovani = f'<nav class="listovani" aria-label="Další články">{pred}{dal}</nav>'
+        obsah = f"""{kurz_html(cfg, pre, clanky)}
 
 <article class="wrap">
   <div class="meta">Článek {e(c.get('cislo', ''))} · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
@@ -278,7 +294,8 @@ def main():
   <p class="perex">{spojky(e(c['perex']))}</p>
   {foto}
   {md_na_html(c['telo'], pre)}
-  <p><a class="zpet" href="{pre}#clanky">← Všechny články</a></p>
+  {listovani}
+  <p><a class="zpet" href="{pre}#clanky">Všechny články</a></p>
 </article>"""
         ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": c["nazev"],
               "description": c["popis"], "datePublished": c["datum"], "inLanguage": "cs",
@@ -321,14 +338,17 @@ def main():
     <p>{spojky(e(c['perex']))}</p>
     <a class="dal" href="clanky/{c['slug']}/" aria-label="Číst článek {e(c['nazev'])}">Číst dál →</a>
   </li>""")
+    od_zacatku = (f'<p class="od-zacatku">Nejnovější nahoře. <a href="clanky/{clanky[-1]["slug"]}/">Číst od začátku</a></p>'
+                  if len(clanky) > 1 else "")
     pripravuji = "".join(f"<li><span>{e(x['nazev'])}</span><span>{e(x['kdy'])}</span></li>" for x in cfg["pripravuji"])
     obsah = f"""<section class="uvod wrap">
   <h1 class="sr-only">{e(cfg['nazev'])}: {e(cfg['podtitul'])}</h1>
   <p>{spojky(e(cfg['uvod']))}</p>
 </section>
-{kurz_html(cfg)}
+{kurz_html(cfg, pre, clanky)}
 <section class="vypis wrap" id="clanky" aria-labelledby="clanky-nadpis">
   <h2 id="clanky-nadpis">Články</h2>
+  {od_zacatku}
   <ol>
   {''.join(karty)}
   </ol>

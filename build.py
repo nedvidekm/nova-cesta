@@ -234,15 +234,18 @@ def kurz_html(cfg, pre="", clanky=()):
     a dokud článek není venku, na výpis článků."""
     k = cfg["kurz"]
     venku = {c["slug"] for c in clanky}
-    hotovo = sum(1 for v in k["vikendy"] if v.get("hotovo"))
-    posledni = [v for v in k["vikendy"] if v.get("hotovo")]
+    # Víkend je „za mnou“ až ve chvíli, kdy je venku jeho článek (pokud nějaký má).
+    def je_hotovo(v):
+        return bool(v.get("hotovo")) and (not v.get("clanek") or v["clanek"] in venku)
+    posledni = [v for v in k["vikendy"] if je_hotovo(v)]
+    hotovo = len(posledni)
     polozky = []
     for i, v in enumerate(k["vikendy"], 1):
-        tridy = " ".join(t for t, ano in (("hotovo", v.get("hotovo")), ("rozhodnuti", v.get("rozhodnuti"))) if ano)
+        tridy = " ".join(t for t, ano in (("hotovo", je_hotovo(v)), ("rozhodnuti", v.get("rozhodnuti"))) if ano)
         pozn = f": {v['poznamka']}" if v.get("poznamka") else ""
         popis = f"Víkend {i}: {v['misto']}, {v['termin']}{pozn}"
-        if v.get("hotovo"):
-            cil = f"{pre}clanky/{v['clanek']}/" if v.get("clanek") in venku else f"{pre}#clanky"
+        if je_hotovo(v):
+            cil = f"{pre}clanky/{v['clanek']}/" if v.get("clanek") else f"{pre}#clanky"
             vnitrek = f'<a href="{cil}" title="{e(popis)}"><span class="sr-only">{e(popis)}, číst</span></a>'
         else:
             vnitrek = f'<span title="{e(popis)}"><span class="sr-only">{e(popis)}, teprve mě čeká</span></span>'

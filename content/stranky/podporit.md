@@ -24,15 +24,16 @@ Můj cíl je 100 000 Kč. Pokryl by celou cestu i s rezervou na věci, které se
 
 | Za co | Odhad |
 |---|---|
-| Letenky tam a zpátky | 20 000–30 000 Kč |
-| Očkování | až 15 000 Kč |
+| Letenky tam a zpátky | 25 000 Kč |
+| Očkování | 15 000 Kč |
 | Příspěvek vysílající organizaci | 30 000 Kč |
-| Přípravné kurzy | 10 000–12 000 Kč |
-| Pojištění | 2 000–5 000 Kč |
-| Víza a úřady | 1 000–5 000 Kč |
-| Rezerva na nečekané věci | 10 000–20 000 Kč |
+| Přípravné kurzy | 10 000 Kč |
+| Pojištění | 5 000 Kč |
+| Víza a úřady | 5 000 Kč |
+| Rezerva na nečekané věci | 10 000 Kč |
+| **Celkem** | **100 000 Kč** |
 
-Dohromady je to zhruba 73 000 až 117 000 Kč, podle toho, kam pojedu. Přesná čísla sem doplním, jakmile budu znát zemi a místo.
+Je to odhad. Přesná čísla sem doplním, jakmile budu znát zemi a místo.
 
 Kdyby některou položku zaplatil někdo jiný, třeba organizace, se kterou pojedu, z tohohle účtu ji platit nebudu. Nic se nebude platit dvakrát. Co zbyde, půjde na ubytování, jídlo a dopravu na místě a na osobní výdaje během roku.
 

@@ -13,7 +13,7 @@ Jmenuji se Michal Nedvídek a pocházím z Toužimi, městečka na půli cesty m
 
 ## Dobrovolnictví
 
-Skoro dvacet let se ve volném čase věnuji dobrovolnictví. Začínal jsem v roce 2008 ve spolku Pod střechou, který zachraňuje poutní kostel Navštívení Panny Marie ve Skocích. Od roku 2016 jsem vedl spolek Živý zámek Toužim. Koordinoval jsem dobrovolníky, chystal kulturní a komunitní akce a staral se o to, aby historický areál znovu ožil. Kvůli přípravám na odjezd jsem vedení spolku předal dál.
+Skoro dvacet let se ve volném čase věnuji dobrovolnictví. Začínal jsem v roce 2008 ve spolku Pod střechou, který zachraňuje poutní kostel Navštívení Panny Marie ve Skocích. Od roku 2016 jsem vedl spolek Živý zámek Toužim. Koordinoval jsem dobrovolníky, chystal kulturní a komunitní akce a staral se o to, aby historický areál znovu ožil. Na opravy a akce bylo potřeba sehnat peníze, a tak jsem se naučil psát žádosti o dotace a granty. Za ta léta jich bylo tolik, že jsem je přestal počítat. Kvůli přípravám na odjezd jsem vedení spolku předal dál.
 
 Nejradši vzpomínám na den, kdy jsme na zámku stavěli zastřešení pódia. Pár z nás nejdřív připravilo základy a pak přišla velká brigáda: kamarádi, rodina a naražený sud. Byla to těžká práce, ale odsýpalo to, nikdo se s nikým nehádal a za jediný den jsme postavili celou konstrukci. Vyrostlo něco opravdu velkého, co je vidět, a radost z toho měli všichni.
 
@@ -24,7 +24,7 @@ Nejradši vzpomínám na den, kdy jsme na zámku stavěli zastřešení pódia. 
 
 Rád jím, i když jsem dost vybíravý, a ještě radši vařím. Poslední dobou hodně chodím po okolí, a když to jde, cestuju s kamarády. Jezdíme na vlastní pěst: letenky, ubytování i místa, která chceme vidět, si hledáme sami. Jednou bych se cestováním možná rád i živil, třeba jako průvodce. A umím si i odpočinout: po práci si občas prostě sednu na gauč a vypnu.
 
-Ve volných večerech tvořím webové stránky. Zaměřuju se na weby pro spolky, malé podniky a živnostníky: jednoduché, rychlé, dobře čitelné na mobilu a takové, aby je lidé našli na Googlu. Zatím jsem postavil web [Živého zámku Toužim](https://www.zivyzamektouzim.cz/), [Hospůdky u Havlů](https://hospudkauhavlu.cz/) a outdoorového blogu [BCT Survival](https://bctsurvival.cz/), a samozřejmě i tenhle blog. Umím taky psát žádosti o dotace a granty, napsal jsem jich nespočet.
+Ve volných večerech tvořím webové stránky. Zaměřuju se na weby pro spolky, malé podniky a živnostníky: jednoduché, rychlé, dobře čitelné na mobilu a takové, aby je lidé našli na Googlu. Zatím jsem postavil web [Živého zámku Toužim](https://www.zivyzamektouzim.cz/), [Hospůdky u Havlů](https://hospudkauhavlu.cz/) a outdoorového blogu [BCT Survival](https://bctsurvival.cz/), a samozřejmě i tenhle blog.
 
 ![Michal na cestách](portret-03.jpg)
 *Na jedné z mých cest.*

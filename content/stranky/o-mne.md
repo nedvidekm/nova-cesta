@@ -31,9 +31,11 @@ Ve volných večerech tvořím webové stránky. Zaměřuju se na weby pro spolk
 
 ## Velký krok
 
-Přes den pracuju v komerční firmě. Čím dál víc ale cítím, že největší smysl mi dává práce pro druhé. Myšlenka odjet na čas pomáhat do světa se mi poprvé usadila v hlavě asi před dvěma lety, když jsem na Facebooku narazil na nabídku pro učitele do Nepálu. Tehdy jsem ji ještě odložil. Jenže nezmizela, a loni na podzim jsem si řekl, že už ji odkládat nechci.
+Přes den pracuju v komerční firmě. Čím dál víc ale cítím, že největší smysl mi dává práce pro druhé.
 
-A tak jsem se rozhodl udělat velký krok: odjet na rok do zahraničí jako dobrovolník a pomáhat tam, kde je to potřeba, tím, co umím. Neutíkám od něčeho, jdu něco hledat. Pevnou půdu pod nohama a odpověď na to, kudy vede moje cesta dál.
+Nabídka pro učitele do Nepálu na mě vyskočila asi před dvěma lety, v době, kdy jsem procházel těžkým obdobím. Tehdy by odjezd byl útěk, a to jsem nechtěl. Myšlenka ale nezmizela. Na kurzech Nadace VIA, kde se hodně mluvilo o dobrovolnictví a komunitě, mě začala lákat představa, že bych se pomáháním mohl i živit.
+
+Pak se mi život hodně změnil. Najednou mě doma skoro nic nedrželo a jediný velký závazek, který mi zůstal, je hypotéka. Tak jsem se rozhodl udělat velký krok: odjet na rok do zahraničí jako dobrovolník, pomáhat tam, kde je to potřeba, tím, co umím, a nastartovat novou cestu.
 
 ## Co mě čeká
 

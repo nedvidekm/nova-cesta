@@ -31,7 +31,9 @@ Ve volných večerech tvořím webové stránky. Zaměřuju se na weby pro spolk
 
 ## Velký krok
 
-Přes den pracuju v komerční firmě. Čím dál víc ale cítím, že největší smysl mi dává práce pro druhé. A tak jsem se rozhodl udělat velký krok: odjet na rok do zahraničí jako dobrovolník a pomáhat tam, kde je to potřeba.
+Přes den pracuju v komerční firmě. Čím dál víc ale cítím, že největší smysl mi dává práce pro druhé. Myšlenka odjet na čas pomáhat do světa se mi poprvé usadila v hlavě asi před dvěma lety, když jsem na Facebooku narazil na nabídku pro učitele do Nepálu. Tehdy jsem ji ještě odložil. Jenže nezmizela, a loni na podzim jsem si řekl, že už ji odkládat nechci.
+
+A tak jsem se rozhodl udělat velký krok: odjet na rok do zahraničí jako dobrovolník a pomáhat tam, kde je to potřeba, tím, co umím. Neutíkám od něčeho, jdu něco hledat. Pevnou půdu pod nohama a odpověď na to, kudy vede moje cesta dál.
 
 ## Co mě čeká
 

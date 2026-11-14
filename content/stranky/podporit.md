@@ -1,13 +1,13 @@
 ---
 nazev: Podpořte mou cestu
 slug: podporit
-popis: Podpořte Michala na 10–12 měsíců dobrovolnické služby v zahraničí. Orientační cíl 100 000 Kč, osobní transparentní účet a průběžné vyúčtování.
+popis: Podpořte Michala na roce dobrovolnické služby v zahraničí. Orientační cíl 100 000 Kč, osobní transparentní účet a průběžné vyúčtování.
 ---
 
 ![Michal Nedvídek na cestách](portret-03.jpg)
 *Na jedné z mých cest.*
 
-Před sebou mám rozhodnutí, které může změnit můj život. Chystám se na deset až dvanáct měsíců dobrovolnické služby v zahraničí.
+Před sebou mám rozhodnutí, které může změnit můj život. Chystám se na rok dobrovolnické služby v zahraničí.
 
 Na cestu se připravuji už teď. Absolvuji přípravný program a postupně zjišťuji, jakým způsobem se moje dobrovolnická mise uskuteční. Ještě nemám potvrzené všechny podmínky ani podobu svého působení. Jedno ale vím jistě: chci ve svém záměru pokračovat.
 
@@ -53,7 +53,7 @@ Kdyby některé náklady uhradil někdo jiný, třeba organizace, se kterou poje
 
 **Když se vybere víc než 100 000 Kč,** další příspěvky neztratí smysl. Použiju je na konkrétní pomoc tam, kde budu působit, podle toho, co bude na místě opravdu potřeba. Může to být třeba vybavení, materiál nebo jiné věci pro místní komunitu. Chci, aby pomoc nekončila tím, že se mi podaří odjet. O všem napíšu na blogu, s fotkami a vyúčtováním.
 
-**Když bych nakonec vůbec neodjel,** nevyužité peníze vrátím dárcům. Pravidla pro vracení zveřejním tady, a to ještě před tím, než bude potřeba je použít. Vracet můžu jen tam, kde z výpisu poznám, od koho platba přišla.
+**Když bych nakonec vůbec neodjel,** vrátím každý příspěvek na účet, ze kterého přišel. Na výpisu vidím u každé platby, odkud byla poslaná, takže ji pošlu zpátky celou.
 
 ## Průběžné vyúčtování
 

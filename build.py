@@ -138,14 +138,14 @@ def md_na_html(telo, pre):
 
 # ---------- šablona ----------
 
-def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni="", typ="website", koncept=False):
+def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni="", typ="website", koncept=False, noindex=False):
     url = cfg["zakladni_url"].rstrip("/") + "/" + cesta
     og_url = cfg["zakladni_url"].rstrip("/") + "/" + (og or "fotky/og-web.jpg")
     nav = [("clanky", "Články", f"{pre}#clanky"), ("o-mne", "O mně", f"{pre}o-mne/"),
            ("odber", "Odebírat", f"{pre}podporit/#odber"), ("podporit", "Podpořit", f"{pre}podporit/")]
     nav_html = "\n      ".join(
         f'<a href="{h}"{" aria-current=\"page\"" if k == aktivni else ""}>{t}</a>' for k, t, h in nav)
-    robots = '<meta name="robots" content="noindex, nofollow">\n' if (NAHLED and (not ROBOTI or koncept)) else ""
+    robots = '<meta name="robots" content="noindex, nofollow">\n' if (noindex or (NAHLED and (not ROBOTI or koncept))) else ""
     pruh = '<aside class="preview" aria-label="Upozornění">Testovací verze, zatím nezveřejněno</aside>\n' if NAHLED else ""
     ld_html = ""
     if ld:
@@ -279,7 +279,7 @@ def odber_html(cfg):
     return f"""<section class="wrap" aria-labelledby="odber-nadpis">
   <div class="box" id="odber" data-url="{e(cfg.get('odber_url', ''))}" data-stav="{stav}">
     <h2 id="odber-nadpis">Chcete jít se mnou?</h2>
-    <p>Pošlu vám e-mail, kdykoli tu přibude nový článek. Zhruba jednou za měsíc, po každém víkendu kurzu.</p>
+    <p>Pošlu vám e-mail, kdykoli tu přibude nový článek. Zhruba dvakrát za měsíc, žádný spam.</p>
     <form id="f-odber" novalidate>
       <label for="email" class="sr-only">Váš e-mail</label>
       <input type="email" id="email" name="email" placeholder="vas@email.cz" autocomplete="email" required>
@@ -564,7 +564,7 @@ def main():
 
     # 404, sitemap, robots, RSS, seznam článků pro rozesílku
     html404 = stranka(cfg, pre=zaklad + "/", titulek=f"Stránka nenalezena | {cfg['nazev']}",
-                      popis="Stránka nenalezena.", cesta="404.html",
+                      popis="Stránka nenalezena.", cesta="404.html", noindex=True,
                       obsah=f'<article class="wrap"><h1>Tahle stránka tu není</h1><p>Možná se změnila adresa. Zkuste <a href="{zaklad}/">úvodní stránku</a>.</p></article>')
     (VYSTUP / "404.html").write_text(html404.replace("{PRE}", zaklad + "/"), encoding="utf-8")
     if NAHLED and not ROBOTI:

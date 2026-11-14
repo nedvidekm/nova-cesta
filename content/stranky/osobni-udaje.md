@@ -12,7 +12,7 @@ Jen k tomu, abych vám poslal e-mail, když na blogu Na nové cestě vyjde nový
 
 ## Kde je adresa uložená
 
-V tabulce v mém účtu Google. E-maily odesílá služba Google.
+V tabulce v mém účtu Google. E-maily odesílá služba SMTP2GO, která adresu použije jen k doručení e-mailu.
 
 ## Jak dlouho
 

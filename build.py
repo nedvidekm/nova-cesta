@@ -23,6 +23,8 @@ KOREN = Path(__file__).resolve().parent
 OBSAH = KOREN / "content"
 VYSTUP = KOREN / "_site"
 NAHLED = "--nahled" in sys.argv or json.loads((KOREN / "web.json").read_text(encoding="utf-8")).get("testovaci_verze", False)
+# testovací verze, kterou už smějí číst vyhledávače (koncepty zůstávají noindex)
+ROBOTI = json.loads((KOREN / "web.json").read_text(encoding="utf-8")).get("povolit_roboty", False) and "--nahled" not in sys.argv
 
 MESICE = ["ledna", "února", "března", "dubna", "května", "června", "července",
           "srpna", "září", "října", "listopadu", "prosince"]
@@ -136,14 +138,14 @@ def md_na_html(telo, pre):
 
 # ---------- šablona ----------
 
-def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni="", typ="website"):
+def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni="", typ="website", koncept=False):
     url = cfg["zakladni_url"].rstrip("/") + "/" + cesta
     og_url = cfg["zakladni_url"].rstrip("/") + "/" + (og or "fotky/og-web.jpg")
     nav = [("clanky", "Články", f"{pre}#clanky"), ("o-mne", "O mně", f"{pre}o-mne/"),
            ("odber", "Odebírat", f"{pre}podporit/#odber"), ("podporit", "Podpořit", f"{pre}podporit/")]
     nav_html = "\n      ".join(
         f'<a href="{h}"{" aria-current=\"page\"" if k == aktivni else ""}>{t}</a>' for k, t, h in nav)
-    robots = '<meta name="robots" content="noindex, nofollow">\n' if NAHLED else ""
+    robots = '<meta name="robots" content="noindex, nofollow">\n' if (NAHLED and (not ROBOTI or koncept)) else ""
     pruh = '<aside class="preview" aria-label="Upozornění">Testovací verze, zatím nezveřejněno</aside>\n' if NAHLED else ""
     ld_html = ""
     if ld:
@@ -351,10 +353,11 @@ def main():
               "url": f"{zaklad}/{cesta}", "image": f"{zaklad}/{og}", "author": osoba_ld(cfg),
               "publisher": osoba_ld(cfg), "mainEntityOfPage": f"{zaklad}/{cesta}"}
         html_out = stranka(cfg, pre=pre, titulek=f"{c['nazev']} | {cfg['nazev']}", popis=c["popis"],
-                           cesta=cesta, obsah=obsah, og=og, ld=ld, aktivni="clanky", typ="article")
+                           cesta=cesta, obsah=obsah, og=og, ld=ld, aktivni="clanky", typ="article", koncept=c.get("koncept") == "ano")
         uloz(cesta, html_out.replace("{PRE}", pre))
         c["url"] = f"{zaklad}/{cesta}"
-        mapa.append(c["url"])
+        if c.get("koncept") != "ano":
+            mapa.append(c["url"])
 
     # stránky
     for p in sorted((OBSAH / "stranky").glob("*.md")):
@@ -399,7 +402,7 @@ def main():
               "datePublished": z["datum"], "inLanguage": "cs", "url": f"{zaklad}/{cesta}", "image": f"{zaklad}/{og}",
               "author": osoba_ld(cfg), "publisher": osoba_ld(cfg), "mainEntityOfPage": f"{zaklad}/{cesta}"}
         html_out = stranka(cfg, pre=pre, titulek=f"{z['nazev']} | {cfg['nazev']}", popis=popis, cesta=cesta,
-                           obsah=obsah, og=og, ld=ld, aktivni="clanky", typ="article")
+                           obsah=obsah, og=og, ld=ld, aktivni="clanky", typ="article", koncept=z.get("koncept") == "ano")
         uloz(cesta, html_out.replace("{PRE}", pre))
         if z.get("koncept") != "ano":
             mapa.append(f"{zaklad}/{cesta}")
@@ -490,7 +493,7 @@ def main():
                       popis="Stránka nenalezena.", cesta="404.html",
                       obsah=f'<article class="wrap"><h1>Tahle stránka tu není</h1><p>Možná se změnila adresa. Zkuste <a href="{zaklad}/">úvodní stránku</a>.</p></article>')
     (VYSTUP / "404.html").write_text(html404.replace("{PRE}", zaklad + "/"), encoding="utf-8")
-    if NAHLED:
+    if NAHLED and not ROBOTI:
         (VYSTUP / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
     else:
         (VYSTUP / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {zaklad}/sitemap.xml\n", encoding="utf-8")
@@ -500,7 +503,7 @@ def main():
     polozky = "".join(
         f"<item><title>{e(c['nazev'])}</title><link>{e(c['url'])}</link><guid>{e(c['url'])}</guid>"
         f"<pubDate>{dt.datetime.fromisoformat(c['datum']).strftime('%a, %d %b %Y 08:00:00 +0100')}</pubDate>"
-        f"<description>{e(c['perex'])}</description></item>\n" for c in clanky)
+        f"<description>{e(c['perex'])}</description></item>\n" for c in vydane)
     (VYSTUP / "rss.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>{e(cfg["nazev"])}</title>'
         f'<link>{zaklad}/</link><description>{e(cfg["uvod"])}</description><language>cs</language>\n{polozky}</channel></rss>\n',

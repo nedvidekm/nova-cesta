@@ -90,5 +90,6 @@
       "kdy": "leden 2027"
     }
   ],
-  "testovaci_verze": true
+  "testovaci_verze": true,
+  "povolit_roboty": true
 }

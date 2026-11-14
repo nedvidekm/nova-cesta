@@ -47,7 +47,12 @@
     "zprava": "DAR NA NOVE CESTE",
     "vypis_url": ""
   },
-  "socialni": [],
+  "socialni": [
+    {
+      "nazev": "Facebook",
+      "url": "https://www.facebook.com/michal.nedvidek.7"
+    }
+  ],
   "kurz": {
     "nazev": "přípravný kurz dobrovolníků",
     "vikendy": [

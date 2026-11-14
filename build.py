@@ -324,7 +324,10 @@ def kurz_html(cfg, pre="", clanky=()):
 
 
 def osoba_ld(cfg):
-    return {"@type": "Person", "name": cfg["autor"], "url": cfg["zakladni_url"].rstrip("/") + "/o-mne/"}
+    osoba = {"@type": "Person", "name": cfg["autor"], "url": cfg["zakladni_url"].rstrip("/") + "/o-mne/"}
+    if cfg.get("socialni"):
+        osoba["sameAs"] = [x["url"] for x in cfg["socialni"]]
+    return osoba
 
 
 # ---------- sestavení ----------

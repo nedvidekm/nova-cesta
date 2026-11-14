@@ -46,6 +46,6 @@ Pak se mi život hodně změnil. Najednou mě doma skoro nic nedrželo. Tak jsem
 
 ## Proč tenhle blog
 
-Chci vás vzít s sebou, od první nervozity na kurzu až po každodenní život v cizí zemi. A taky budu potřebovat pomoc. Letenky, víza, očkování a další výdaje si dobrovolník hradí sám, a tak na cestu skládám peníze už teď. Kolik potřebuju a na co, najdete na stránce [Jak mě podpořit](../podporit/). Stejně tak mi pomůže, když budete blog sledovat a sdílet.
+Chci vás vzít s sebou, od první nervozity na kurzu až po každodenní život v cizí zemi. A taky budu potřebovat pomoc. Letenky, víza, očkování a další výdaje si dobrovolník hradí sám, a tak na cestu skládám peníze už teď. Kolik potřebuju a na co, najdete na stránce [Podpořte mou cestu](../podporit/). Stejně tak mi pomůže, když budete blog sledovat a sdílet.
 
 Proč jsem se rozhodl jet, popisuju v článku [Proč jedu](../clanky/proc-jedu/).

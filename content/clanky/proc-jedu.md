@@ -50,4 +50,4 @@ To zatím nevím. Čeká mě osm víkendů přípravného kurzu. Po čtvrtém, v
 ![Výhled na Žlutickou přehradu](vyhled-prehrada.jpg)
 *Výhled na Žlutickou přehradu.*
 
-Rok dobrovolnictví něco stojí a cestu si platím sám. Peníze na ni proto skládám už teď, na transparentním účtu, kde je vidět každá koruna. Kolik potřebuju a na co, píšu na stránce [Jak mě podpořit](../../podporit/).
+Rok dobrovolnictví něco stojí a cestu si platím sám. Peníze na ni proto skládám už teď, na transparentním účtu, kde je vidět každá koruna. Kolik potřebuju a na co, píšu na stránce [Podpořte mou cestu](../../podporit/).

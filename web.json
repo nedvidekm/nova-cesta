@@ -16,17 +16,45 @@
   },
   "prave_resim": [
     {
-      "text": "Vyberou mě? Dozvím se v únoru"
+      "text": "Mám za sebou první přípravný kurz a píšu o něm článek",
+      "clanek": "vikend-1-ostrava"
     },
     {
-      "text": "Jak utáhnout hypotéku, když rok nebudu vydělávat"
+      "text": "Pokračuju v přípravě, v únoru se dozvím, jestli mě vyberou a kam pojedu"
+    },
+    {
+      "text": "Skládám rozpočet cesty a zakládám transparentní účet",
+      "stranka": "podporit"
     },
     {
       "text": "Zdravotní pojištění na rok v cizině",
       "clanek": "zdravotni-pojisteni"
     },
     {
-      "text": "Rozjíždím tenhle blog"
+      "text": "Rozjíždím tenhle blog a hledám lidi, kteří půjdou se mnou"
+    },
+    {
+      "text": "Pro jistotu zkoumám i jiné cesty, jak vyjet jako dobrovolník"
+    }
+  ],
+  "podpora": {
+    "cil": 100000,
+    "vybrano": 0,
+    "aktualizovano": "2026-11-14",
+    "ucet": "",
+    "iban": "",
+    "majitel": "Michal Nedvídek",
+    "zprava": "DAR NA NOVE CESTE",
+    "vypis_url": ""
+  },
+  "socialni": [
+    {
+      "nazev": "Facebook",
+      "url": "https://www.facebook.com/michal.nedvidek.7"
+    },
+    {
+      "nazev": "Instagram",
+      "url": "https://www.instagram.com/meda_koala/"
     }
   ],
   "kurz": {

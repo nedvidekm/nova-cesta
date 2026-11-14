@@ -125,7 +125,7 @@ def md_na_html(telo, pre):
         html_pop = markdown.markdown(popisek)[3:-4] if popisek else ""
         return obrazek_html(m.group(2), m.group(1), html_pop, pre, popisek_html=True)
     telo = re.sub(r'^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)[ \t]*(?:\n\*(.+)\*[ \t]*)?$', nahrad, telo, flags=re.M)
-    vysledek = markdown.markdown(telo, extensions=["sane_lists"], output_format="html")
+    vysledek = markdown.markdown(telo, extensions=["sane_lists", "tables"], output_format="html")
     vysledek = vysledek.replace("<blockquote>\n<p>", "<blockquote>").replace("</p>\n</blockquote>", "</blockquote>")
     # fotka na výšku stojí vedle textu jen tehdy, když po ní text opravdu následuje; jinak zůstane uprostřed
     casti = re.split(r'(<figure class="nastojato">.*?</figure>)', vysledek, flags=re.S)
@@ -202,6 +202,9 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
 
 <footer>
   <div class="wrap">
+    <nav class="paticka-odkazy" aria-label="Odkazy v patičce">
+      <a href="{pre}podporit/#odber">Odebírat novinky e-mailem</a><a href="{pre}podporit/">Podpořit cestu</a>{socialni_html(cfg)}
+    </nav>
     <div class="paticka-ja">
       <span>{e(cfg['nazev'])} · {e(cfg['podtitul'])}</span>{kontakt_html}<a href="{pre}osobni-udaje/">Ochrana osobních údajů</a><span>Web vytvořil {e(cfg['autor'])}</span>
     </div>
@@ -215,6 +218,59 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
 </body>
 </html>
 """
+
+
+def socialni_html(cfg):
+    return "".join(f'<a href="{e(x["url"])}" rel="me noopener">{e(x["nazev"])}</a>' for x in cfg.get("socialni", []))
+
+
+def kc(n):
+    return f"{int(n):,}".replace(",", "\u00a0") + "\u00a0Kč"
+
+
+def stav_sbirky_html(cfg):
+    """Teploměr sbírky: kolik je na transparentním účtu z cíle (ručně ve web.json → podpora)."""
+    p = cfg.get("podpora") or {}
+    cil, vyb = int(p.get("cil", 0)), int(p.get("vybrano", 0))
+    if not cil:
+        return ""
+    pct = min(100, round(vyb * 100 / cil))
+    kdy = f" · stav k {datum_cesky(p['aktualizovano'])}" if p.get("aktualizovano") else ""
+    return f"""<div class="sbirka">
+  <p class="sbirka-cisla"><b>{kc(vyb)}</b> <span>z cíle {kc(cil)}</span></p>
+  <div class="sbirka-pruh" role="img" aria-label="Vybráno {pct} % z cíle {kc(cil)}"><span style="width:{max(pct, 1) if vyb else 0}%"></span></div>
+  <p class="sbirka-pozn">Vybráno {pct} %{kdy}</p>
+</div>"""
+
+
+def ucet_html(cfg):
+    p = cfg.get("podpora") or {}
+    if not p.get("ucet"):
+        return """<div class="ucet ucet-brzy">
+  <p><b>Transparentní účet právě zakládám.</b> Číslo účtu a QR kód pro platbu z mobilu sem doplním hned, jak ho banka zřídí. Kdo nechce nic propást, může se <a href="#odber">přihlásit k odběru</a> a dám mu vědět.</p>
+</div>"""
+    radky = [("Číslo účtu", f'<span class="ucet-cislo">{e(p["ucet"])}</span> <button type="button" class="kopirovat" data-text="{e(p["ucet"])}">Zkopírovat</button>')]
+    if p.get("majitel"):
+        radky.append(("Majitel", e(p["majitel"])))
+    if p.get("zprava"):
+        radky.append(("Zpráva pro příjemce", e(p["zprava"])))
+    dl = "".join(f"<dt>{a}</dt><dd>{b}</dd>" for a, b in radky)
+    qr = ""
+    if p.get("qr"):
+        qr = (f'<figure class="ucet-qr"><img src="{{PRE}}{e(p["qr"])}" width="220" height="220" alt="QR kód pro platbu na účet {e(p["ucet"])}">'
+              f'<figcaption>Naskenujte v aplikaci své banky. Částku si zvolíte sami.</figcaption></figure>')
+    vypis = f'<p><a href="{e(p["vypis_url"])}" rel="noopener">Veřejný výpis z účtu →</a></p>' if p.get("vypis_url") else ""
+    return f'<div class="ucet"><dl>{dl}</dl>{qr}{vypis}<p class="ucet-ok" role="status" hidden></p></div>'
+
+
+def vyzva_html(cfg, pre):
+    """Pod každým článkem a zápiskem: jemná prosba o podporu a odkaz na odběr."""
+    return f"""<aside class="vyzva wrap" aria-labelledby="vyzva-nadpis"><div class="vyzva-box">
+  <h2 id="vyzva-nadpis">Pomůžete mi na cestu?</h2>
+  <p>Tenhle blog píšu, abych na cestě nebyl sám. Pomůže mi, když budete číst dál, pošlete článek někomu, koho by mohl zajímat, nebo když na cestu přispějete. Stovka udělá radost stejně jako tisícovka.</p>
+  {stav_sbirky_html(cfg)}
+  <p class="vyzva-akce"><a class="tlacitko" href="{pre}podporit/">Podpořit cestu</a><a class="dal" href="#odber">Odebírat novinky →</a></p>
+</div></aside>"""
 
 
 def odber_html(cfg):
@@ -268,7 +324,10 @@ def kurz_html(cfg, pre="", clanky=()):
 
 
 def osoba_ld(cfg):
-    return {"@type": "Person", "name": cfg["autor"], "url": cfg["zakladni_url"].rstrip("/") + "/o-mne/"}
+    osoba = {"@type": "Person", "name": cfg["autor"], "url": cfg["zakladni_url"].rstrip("/") + "/o-mne/"}
+    if cfg.get("socialni"):
+        osoba["sameAs"] = [x["url"] for x in cfg["socialni"]]
+    return osoba
 
 
 # ---------- sestavení ----------
@@ -347,6 +406,7 @@ def main():
   {foto}
   {md_na_html(kontakt_md(c['telo'], cfg), pre)}
 </article>
+{vyzva_html(cfg, pre)}
 {prehled}"""
         ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": c["nazev"],
               "description": c["popis"], "datePublished": c["datum"], "inLanguage": "cs",
@@ -369,7 +429,7 @@ def main():
         obsah = f"""<article class="wrap">
   <h1>{spojky(e(s['nazev']))}</h1>
   {foto}
-  {md_na_html(telo, pre)}
+  {md_na_html(telo, pre).replace("<p>{{stav_sbirky}}</p>", stav_sbirky_html(cfg)).replace("<p>{{ucet}}</p>", ucet_html(cfg))}
 </article>"""
         ld = None
         if s["slug"] == "o-mne":
@@ -394,6 +454,7 @@ def main():
   {foto}
   {md_na_html(kontakt_md(z['telo'], cfg), pre)}
 </article>
+{vyzva_html(cfg, pre)}
 {prehled_html(z, pre)}"""
         popis = re.sub(r"\s+", " ", re.sub(r"[*_\[\]{}]|\(mailto:[^)]*\)", "", z["telo"])).strip()
         if len(popis) > 155:
@@ -444,6 +505,8 @@ def main():
     for x in cfg.get("prave_resim", []):
         if x.get("clanek") in postaveno:
             resim.append(f'<li><a href="clanky/{x["clanek"]}/">{spojky(e(x["text"]))}</a></li>')
+        elif x.get("stranka"):
+            resim.append(f'<li><a href="{x["stranka"]}/">{spojky(e(x["text"]))}</a></li>')
         else:
             resim.append(f"<li><span>{spojky(e(x['text']))}</span></li>")
     resim_html = (f'<section class="resim wrap" aria-labelledby="resim-nadpis"><div class="resim-box">'
@@ -453,7 +516,7 @@ def main():
     <p class="meta">{e(hero.get('stitek', cfg['podtitul']))}</p>
     <h1>{spojky(e(nadpis))}</h1>
     <p class="uvod-perex">{spojky(e(cfg['uvod']))}</p>
-    <p class="uvod-akce"><a class="tlacitko" href="#clanky">Číst články</a><a class="dal" href="podporit/#odber">Odebírat novinky →</a></p>
+    <p class="uvod-akce"><a class="tlacitko" href="#clanky">Číst články</a><a class="dal" href="podporit/">Jak mě podpořit →</a></p>
   </div>
   {hero_foto}
 </section>
@@ -463,6 +526,16 @@ def main():
   <h2 id="clanky-nadpis">{"Články a zápisky" if zapisky else "Články"}</h2>
   <ol>
   {''.join(karty)}
+  </ol>
+</section>
+<section class="pomoc wrap" aria-labelledby="pomoc-nadpis">
+  <h2 id="pomoc-nadpis">Jak můžete pomoct</h2>
+  <p>Na cestu se připravuji už teď a peníze na ni začínám skládat taky už teď. Cíl je 100 000 Kč na letenky, očkování, pojištění a další výdaje. Na transparentním účtu bude vidět každá koruna, která přijde i odejde.</p>
+  {stav_sbirky_html(cfg)}
+  <ol class="pomoc-kroky">
+    <li><b>Sledujte mě.</b> <a href="#odber">Přihlaste se k odběru</a> a nový článek vám přijde e-mailem.</li>
+    <li><b>Pošlete blog dál.</b> Komukoli, koho by mohl zajímat.</li>
+    <li><b>Přispějte na cestu.</b> <a href="podporit/">Jak a na co</a> najdete na stránce Podpořit.</li>
   </ol>
 </section>
 <section class="dalsi wrap" aria-label="Připravované články">

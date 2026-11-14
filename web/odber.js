@@ -43,3 +43,18 @@
     popis();
   });
 })();
+
+// Zkopírování čísla účtu na stránce Podpořit
+(function () {
+  document.querySelectorAll('.kopirovat').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var text = b.getAttribute('data-text');
+      var zprava = document.querySelector('.ucet-ok');
+      function hotovo(t) { if (zprava) { zprava.textContent = t; zprava.hidden = false; } }
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(function () { hotovo('Číslo účtu je zkopírované.'); },
+          function () { hotovo('Zkopírovat se nepodařilo, číslo účtu prosím opište.'); });
+      } else { hotovo('Zkopírovat se nepodařilo, číslo účtu prosím opište.'); }
+    });
+  });
+})();

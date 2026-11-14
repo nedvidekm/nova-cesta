@@ -1,5 +1,5 @@
 /**
- * Odběr nových článků blogu Nová cesta (Google Apps Script).
+ * Odběr nových článků blogu Na nové cestě (Google Apps Script).
  *
  * Co dělá:
  *  - přihlášení z formuláře na webu (doPost, akce=prihlasit) a potvrzovací e-mail,
@@ -13,8 +13,8 @@
  */
 
 var NASTAVENI = {
-  nazevWebu: 'Nová cesta',
-  odesilatel: 'Michal Nedvídek | Nová cesta',
+  nazevWebu: 'Na nové cestě',
+  odesilatel: 'Michal Nedvídek | Na nové cestě',
   odpovediNa: 'michal@nanoveceste.cz',
   odeslatZ: 'michal@nanoveceste.cz',   // adresa odesílatele na doméně ověřené v SMTP2GO
   webUrl: 'https://nanoveceste.cz/'
@@ -57,7 +57,7 @@ function tabulka_() {
   var vlastnosti = PropertiesService.getScriptProperties();
   var id = vlastnosti.getProperty('TABULKA_ID');
   if (id) return SpreadsheetApp.openById(id);
-  var ss = SpreadsheetApp.create('Nová cesta – odběratelé');
+  var ss = SpreadsheetApp.create('Na nové cestě – odběratelé');
   vlastnosti.setProperty('TABULKA_ID', ss.getId());
   return ss;
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sestavení webu Nová cesta.
+"""Sestavení webu Na nové cestě.
 
 Použití:
   python3 build.py            ostrý web do _site/ (bez konceptů)

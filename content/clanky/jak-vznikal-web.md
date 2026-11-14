@@ -4,7 +4,7 @@ slug: jak-vznikal-web
 cislo: 4
 datum: 2026-12-10
 koncept: ano
-popis: Jak jsem z mobilu a s pomocí umělé inteligence postavil vlastní blog: název, doména, barvy, odběr e-mailem a otázka, jestli psát i anglicky.
+popis: Jak jsem z mobilu a s pomocí umělé inteligence postavil vlastní blog: název, doména, barvy a otázka, jestli psát i anglicky.
 perex: Nejsem programátor. Přesto mám vlastní web a postavil jsem ho večer po práci, většinou z mobilu. Tady je, jak to celé vznikalo a co jsem cestou musel rozhodnout.
 ---
 
@@ -14,17 +14,13 @@ Blog jsem chtěl hlavně proto, abych vás mohl brát s sebou. Na začátku jsem
 
 ## Název a adresa
 
-Hlavní myšlenka byla jasná: nová životní cesta. Web se proto jmenuje Nová cesta. Adresy novacesta.cz, nova-cesta.cz i mojenovacesta.cz ale už byly obsazené. Zůstala nanoveceste.cz, tedy „na nové cestě“. Přesně tam teď jsem.
+Hlavní myšlenka byla jasná: nová životní cesta. Web se proto měl jmenovat Nová cesta. Adresy novacesta.cz, nova-cesta.cz i mojenovacesta.cz ale už byly obsazené. Zůstala nanoveceste.cz, tedy „na nové cestě“, a nakonec jsem podle ní přejmenoval i celý web. Na nové cestě je totiž přesně to, kde teď jsem.
 
 K adrese patří i e-mail michal@nanoveceste.cz. Propojit schránku s vlastní doménou nebylo jednoduché a nastavení dalo dost práce, než začala pošta chodit tam, kam má.
 
 ## Barvy a značka
 
 Logo v levém horním rohu je turistická značka: bílá, červená, bílá. Ukazuje cestu a je to něco, co zná každý, kdo chodí po horách. Červená, tmavě šedá a béžová pak prostupují celým webem. Web má i tmavý režim, přepíná se ikonou v menu.
-
-## Odběr e-mailem
-
-Chtěl jsem, aby vám nový článek přišel rovnou do schránky a nemuseli jste hlídat Facebook. Odběr běží přes Google tabulku a malý skript, e-maily rozesílá služba, která se o doručení stará. Zasekl jsem se ale u registrace: služba mi zatím nechce povolit novou doménu a zatím nevím proč. Jakmile to pustí, zbytek se nastaví snadno.
 
 ## Česky, nebo i anglicky?
 

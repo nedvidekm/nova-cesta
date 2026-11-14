@@ -70,9 +70,9 @@ nav.menu a[aria-current="page"]{border-bottom-color:var(--accent)}
   display:inline-flex;align-items:center;min-height:44px;padding:8px 18px;background:var(--accent);color:var(--on-accent)}
 .tlacitko:hover{background:var(--ink);color:var(--bg)}
 .hero-foto{margin:0;position:relative}
-.hero-foto img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--rule)}
+.hero-foto img{display:block;width:100%;height:auto;border:1px solid var(--rule)}
 .hero-foto::after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:3px;background:var(--accent)}
-@media (min-width:700px){.uvod{grid-template-columns:1fr 300px;align-items:center;gap:32px}.hero-foto img{aspect-ratio:3/4}}
+@media (min-width:700px){.uvod{grid-template-columns:1fr 300px;align-items:center;gap:32px}}
 
 /* Právě řeším */
 .resim{padding-block:20px 0}
@@ -201,4 +201,3 @@ footer .zamek img{display:block;width:120px;height:auto}
 .prehled span{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.25}
 .karta.zapisek h3 a{color:var(--ink);text-decoration:none;display:inline-block;min-height:44px;padding-block:4px}
 .karta.zapisek h3 a:hover{color:var(--accent-ink)}
-.hero-foto img{object-position:72% center}

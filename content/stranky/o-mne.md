@@ -1,10 +1,10 @@
 ---
 nazev: O mně
 slug: o-mne
-popis: Michal Nedvídek z Toužimi, 38 let, dobrovolník a předseda spolku Živý zámek Toužim. V roce 2027 jede na rok jako dobrovolník do zahraničí.
+popis: Michal Nedvídek z Toužimi, 38 let, dlouholetý dobrovolník ze Skoků a Živého zámku Toužim. V roce 2027 jede na rok jako dobrovolník do zahraničí.
 ---
 
-![Michal Nedvídek](michal-portret.jpg)
+![Michal Nedvídek](portret-07.jpg)
 *Michal Nedvídek.*
 
 Na tomhle blogu sleduju jednu velkou změnu v mém životě: skoro ve čtyřiceti měním směr a jedu na rok jako dobrovolník pomáhat do světa. Budete u toho od první přípravy až po všední dny v cizí zemi.
@@ -13,7 +13,7 @@ Jmenuji se Michal Nedvídek a pocházím z Toužimi, městečka na půli cesty m
 
 ## Dobrovolnictví
 
-Skoro dvacet let se ve volném čase věnuji dobrovolnictví. Začínal jsem v roce 2008 ve spolku Pod střechou, který zachraňuje poutní kostel Navštívení Panny Marie ve Skocích. Od roku 2016 vedu spolek Živý zámek Toužim. Koordinuju dobrovolníky, chystám kulturní a komunitní akce a starám se o to, aby historický areál znovu ožil.
+Skoro dvacet let se ve volném čase věnuji dobrovolnictví. Začínal jsem v roce 2008 ve spolku Pod střechou, který zachraňuje poutní kostel Navštívení Panny Marie ve Skocích. Od roku 2016 jsem vedl spolek Živý zámek Toužim. Koordinoval jsem dobrovolníky, chystal kulturní a komunitní akce a staral se o to, aby historický areál znovu ožil. Kvůli přípravám na odjezd jsem vedení spolku předal dál.
 
 Nejradši vzpomínám na den, kdy jsme na zámku stavěli zastřešení pódia. Pár z nás nejdřív připravilo základy a pak přišla velká brigáda: kamarádi, rodina a naražený sud. Byla to těžká práce, ale odsýpalo to, nikdo se s nikým nehádal a za jediný den jsme postavili celou konstrukci. Vyrostlo něco opravdu velkého, co je vidět, a radost z toho měli všichni.
 

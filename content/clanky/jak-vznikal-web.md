@@ -14,7 +14,7 @@ Blog jsem chtěl hlavně proto, abych vás mohl brát s sebou. Na začátku jsem
 
 ## Název a adresa
 
-Hlavní myšlenka byla jasná: nová životní cesta. Web se proto měl jmenovat Nová cesta. Adresy novacesta.cz, nova-cesta.cz i mojenovacesta.cz ale už byly obsazené. Zůstala nanoveceste.cz, tedy „na nové cestě“, a nakonec jsem podle ní přejmenoval i celý web. Na nové cestě je totiž přesně to, kde teď jsem.
+Hlavní myšlenka byla jasná: nová životní cesta. Web se proto měl jmenovat Nová cesta. Adresy novacesta.cz, nova-cesta.cz i mojenovacesta.cz ale už byly obsazené. Pak mě napadla nanoveceste.cz, tedy „na nové cestě“, a ta se mi nakonec líbí víc než suché „nová cesta“. Podle ní jsem přejmenoval i celý web. Na nové cestě je totiž přesně to, kde teď jsem.
 
 K adrese patří i e-mail michal@nanoveceste.cz. Propojit schránku s vlastní doménou nebylo jednoduché a nastavení dalo dost práce, než začala pošta chodit tam, kam má.
 

@@ -199,3 +199,6 @@ footer .zamek img{display:block;width:120px;height:auto}
 .prehled small{display:block;font-family:var(--label);font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink)}
 .prehled li.tady small{color:var(--muted)}
 .prehled span{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.25}
+.karta.zapisek h3 a{color:var(--ink);text-decoration:none;display:inline-block;min-height:44px;padding-block:4px}
+.karta.zapisek h3 a:hover{color:var(--accent-ink)}
+.hero-foto img{object-position:72% center}

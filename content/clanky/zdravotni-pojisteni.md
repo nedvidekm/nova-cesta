@@ -32,11 +32,13 @@ Zákon zná i druhou možnost. Kdo je v cizině nepřetržitě déle než šest 
 
 Pro srovnání: kdo nemá žádný příjem a nikdo za něj neplatí, platí si od ledna 2026 minimální pojistné 3 024 Kč měsíčně.
 
-✏️ DOPLNIT: Jak to bude u tebe? Bude za tebe platit stát jako za dobrovolníka, nebo se odhlásíš kvůli pobytu v cizině? Kde ses to dozvěděl a jaké pojištění budeš mít na místě (cestovní, nebo jiné)?
+## Jak to bude u mě
 
-## Co si z toho beru
+To se dozvím během dalších víkendů kurzu. Jakmile to budu vědět, napíšu to sem. Kdo nechce nic propást, může se [přihlásit k odběru](../../podporit/#odber) a nový článek mu přijde e-mailem.
 
-✏️ DOPLNIT: Co tě na tom překvapilo? Co bys poradil někomu, kdo se chystá podobně jako ty?
+## Co jsem zjistil
+
+Když jsem poprvé uviděl nabídku na dobrovolníky do Nepálu (psal jsem o tom v článku [Proč jedu](../proc-jedu/)), nepřemýšlel jsem nad ničím z toho. Až postupně zjišťuju, kolik věcí je potřeba vyřešit, než se člověk do dobrovolnictví pustí naplno. A není jich málo.
 
 ## Zdroje
 

@@ -358,11 +358,36 @@ def main():
         uloz(cesta, html_out.replace("{PRE}", pre))
         mapa.append(f"{zaklad}/{cesta}")
 
-    # úvodní stránka
-    pre = ""
-    # krátké zápisky: jen na úvodní stránce, mezi články podle data (koncepty jen v testovací verzi)
+    # krátké zápisky: vlastní stránka (kvůli odkazu z Facebooku) a celé znění i ve výpisu na úvodní stránce
     zapisky = [nacti_md(p) for p in sorted((OBSAH / "zapisky").glob("*.md"))] if (OBSAH / "zapisky").exists() else []
     zapisky = [z for z in zapisky if NAHLED or z.get("koncept") != "ano"]
+    for z in zapisky:
+        pre = "../../"
+        cesta = f"zapisky/{z['slug']}/"
+        og = og_obrazek(z["foto"], "z-" + z["slug"]) if z.get("foto") else og_web
+        foto = obrazek_html(z["foto"], z.get("foto_alt", ""), z.get("foto_popisek", ""), pre, lazy=False) if z.get("foto") else ""
+        koncept = '<span class="koncept">koncept</span>' if z.get("koncept") == "ano" else ""
+        obsah = f"""<article class="wrap zapisek-stranka">
+  <div class="meta">Krátký zápisek · <time datetime="{z['datum']}">{datum_cesky(z['datum'])}</time>{koncept}</div>
+  <h1>{spojky(e(z['nazev']))}</h1>
+  {foto}
+  {md_na_html(kontakt_md(z['telo'], cfg), pre)}
+  <p><a class="zpet" href="{pre}#clanky">← Všechny články a zápisky</a></p>
+</article>"""
+        popis = re.sub(r"\s+", " ", re.sub(r"[*_\[\]{}]|\(mailto:[^)]*\)", "", z["telo"])).strip()
+        if len(popis) > 155:
+            popis = popis[:popis.rfind(" ", 0, 152)] + "…"
+        ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": z["nazev"], "description": popis,
+              "datePublished": z["datum"], "inLanguage": "cs", "url": f"{zaklad}/{cesta}", "image": f"{zaklad}/{og}",
+              "author": osoba_ld(cfg), "publisher": osoba_ld(cfg), "mainEntityOfPage": f"{zaklad}/{cesta}"}
+        html_out = stranka(cfg, pre=pre, titulek=f"{z['nazev']} | {cfg['nazev']}", popis=popis, cesta=cesta,
+                           obsah=obsah, og=og, ld=ld, aktivni="clanky", typ="article")
+        uloz(cesta, html_out.replace("{PRE}", pre))
+        if z.get("koncept") != "ano":
+            mapa.append(f"{zaklad}/{cesta}")
+
+    # úvodní stránka
+    pre = ""
     polozky = [("clanek", c) for c in vydane] + [("zapisek", z) for z in zapisky]
     polozky.sort(key=lambda x: x[1]["datum"], reverse=True)
     karty = []
@@ -372,7 +397,7 @@ def main():
             foto = obrazek_html(c["foto"], c.get("foto_alt", ""), c.get("foto_popisek", ""), pre) if c.get("foto") else ""
             karty.append(f"""<li class="karta zapisek" id="zapisek-{e(c['slug'])}">
     <div class="meta">Krátký zápisek · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
-    <h3>{spojky(e(c['nazev']))}</h3>
+    <h3><a href="zapisky/{e(c['slug'])}/">{spojky(e(c['nazev']))}</a></h3>
     {foto}
     {md_na_html(kontakt_md(c['telo'], cfg), pre)}
   </li>""")

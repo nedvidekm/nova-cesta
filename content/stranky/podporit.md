@@ -4,8 +4,8 @@ slug: podporit
 popis: Podpořte Michala na roce dobrovolnické služby v zahraničí. Orientační cíl 100 000 Kč, osobní transparentní účet a průběžné vyúčtování.
 ---
 
-![Michal Nedvídek na cestách](portret-03.jpg)
-*Na jedné z mých cest.*
+![Michal Nedvídek v malém bagru na stavbě](michal-bagr.jpg)
+*Když je potřeba, sednu i do bagru.*
 
 Před sebou mám rozhodnutí, které může změnit můj život. Chystám se na rok dobrovolnické služby v zahraničí.
 

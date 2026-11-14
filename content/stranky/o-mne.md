@@ -24,6 +24,8 @@ Nejradši vzpomínám na den, kdy jsme na zámku stavěli zastřešení pódia. 
 
 Rád jím, i když jsem dost vybíravý, a ještě radši vařím. Poslední dobou hodně chodím po okolí, a když to jde, cestuju s kamarády. Jezdíme na vlastní pěst: letenky, ubytování i místa, která chceme vidět, si hledáme sami. Jednou bych se cestováním možná rád i živil, třeba jako průvodce. A umím si i odpočinout: po práci si občas prostě sednu na gauč a vypnu.
 
+Ve volných večerech se učím tvořit webové stránky. Zaměřuju se na weby pro spolky, malé podniky a živnostníky: jednoduché, rychlé, dobře čitelné na mobilu a takové, aby je lidé našli na Googlu. Zatím jsem postavil web [Živého zámku Toužim](https://www.zivyzamektouzim.cz/), [Hospůdky u Havlů](https://hospudkauhavlu.cz/) a outdoorového blogu [BCT Survival](https://bctsurvival.cz/), a samozřejmě i tenhle blog. Umím taky psát žádosti o dotace a granty, napsal jsem jich nespočet.
+
 ![Michal na cestách](portret-03.jpg)
 *Na jedné z mých cest.*
 

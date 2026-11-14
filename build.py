@@ -363,13 +363,17 @@ def main():
         c["druh"] = "clanky"
     for z in zapisky:
         z["druh"] = "zapisky"
-    venku = sorted(vydane + [z for z in zapisky if z.get("koncept") != "ano"],
+    # v testovací verzi se koncepty ukazují všude tak, jako by už vyšly (s označením koncept)
+    ukazat = clanky if NAHLED else vydane
+    venku = sorted(ukazat + [z for z in zapisky if NAHLED or z.get("koncept") != "ano"],
                    key=lambda d: (d["datum"], int(d.get("cislo", 0))), reverse=True)
 
     def stitek(d):
         if d["druh"] == "zapisky":
-            return f"Krátký zápisek · {datum_cesky(d['datum'])}"
-        return f"Článek {e(d.get('cislo', ''))} · {datum_cesky(d['datum'])}"
+            t = f"Krátký zápisek · {datum_cesky(d['datum'])}"
+        else:
+            t = f"Článek {e(d.get('cislo', ''))} · {datum_cesky(d['datum'])}"
+        return t + (" · koncept" if d.get("koncept") == "ano" else "")
 
     def prehled_html(c, pre):
         """Pod článkem i zápiskem stejný výpis všeho vydaného, aby se dalo rovnou pokračovat jinam."""
@@ -398,7 +402,7 @@ def main():
                 og = og_obrazek(m.group(1), c["slug"])
         koncept = '<span class="koncept">koncept</span>' if c.get("koncept") == "ano" else ""
         prehled = prehled_html(c, pre)
-        obsah = f"""{kurz_html(cfg, pre, vydane)}
+        obsah = f"""{kurz_html(cfg, pre, ukazat)}
 
 <article class="wrap">
   <div class="meta">Článek {e(c.get('cislo', ''))} · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
@@ -447,7 +451,7 @@ def main():
         og = og_obrazek(z["foto"], "z-" + z["slug"]) if z.get("foto") else og_web
         foto = obrazek_html(z["foto"], z.get("foto_alt", ""), z.get("foto_popisek", ""), pre, lazy=False) if z.get("foto") else ""
         koncept = '<span class="koncept">koncept</span>' if z.get("koncept") == "ano" else ""
-        obsah = f"""{kurz_html(cfg, pre, vydane)}
+        obsah = f"""{kurz_html(cfg, pre, ukazat)}
 
 <article class="wrap zapisek-stranka">
   <div class="meta">Krátký zápisek · <time datetime="{z['datum']}">{datum_cesky(z['datum'])}</time>{koncept}</div>
@@ -471,7 +475,7 @@ def main():
 
     # úvodní stránka
     pre = ""
-    polozky = [("clanek", c) for c in vydane] + [("zapisek", z) for z in zapisky]
+    polozky = [("clanek", c) for c in ukazat] + [("zapisek", z) for z in zapisky]
     polozky.sort(key=lambda x: x[1]["datum"], reverse=True)
     karty = []
     for druh, c in polozky:
@@ -485,7 +489,7 @@ def main():
     {md_na_html(kontakt_md(c['telo'], cfg), pre)}
   </li>""")
             continue
-        koncept = ""
+        koncept = '<span class="koncept">koncept</span>' if c.get("koncept") == "ano" else ""
         karty.append(f"""<li class="karta">
     <div class="meta">Článek {e(c.get('cislo', ''))} · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
     <a class="nadpis" href="clanky/{c['slug']}/">{spojky(e(c['nazev']))}</a>
@@ -521,7 +525,7 @@ def main():
   </div>
   {hero_foto}
 </section>
-{kurz_html(cfg, pre, vydane)}
+{kurz_html(cfg, pre, ukazat)}
 {resim_html}
 <section class="vypis wrap" id="clanky" aria-labelledby="clanky-nadpis">
   <h2 id="clanky-nadpis">{"Články a zápisky" if zapisky else "Články"}</h2>
@@ -544,7 +548,7 @@ def main():
   <ul>{pripravuji}</ul>
 </section>"""
     koncepty = [c for c in clanky if c.get("koncept") == "ano"]
-    if NAHLED and koncepty:
+    if False and koncepty:  # koncepty jsou v testovací verzi přímo ve výpisu článků
         odkazy = "".join(f'<li><a href="clanky/{c["slug"]}/">{spojky(e(c["nazev"]))}</a><span>koncept</span></li>' for c in koncepty)
         obsah += f"""
 <section class="dalsi koncepty wrap" aria-label="Koncepty k pročtení">

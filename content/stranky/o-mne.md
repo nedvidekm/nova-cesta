@@ -4,8 +4,8 @@ slug: o-mne
 popis: Michal Nedvídek z Toužimi, 38 let, dlouholetý dobrovolník ze Skoků a Živého zámku Toužim. V roce 2027 jede na rok jako dobrovolník do zahraničí.
 ---
 
-![Michal Nedvídek](portret-07.jpg)
-*Michal Nedvídek.*
+![Michal Nedvídek nalévá svařák na venkovní akci](michal-svarak.jpg)
+*Hrnec, gril, nebo pípa: na akcích mě najdete tam, kde se vaří a nalévá.*
 
 Na tomhle blogu sleduju jednu velkou změnu v mém životě: skoro ve čtyřiceti měním směr a jedu na rok jako dobrovolník pomáhat do světa. Budete u toho od první přípravy až po všední dny v cizí zemi.
 
@@ -21,6 +21,9 @@ Nejradši vzpomínám na den, kdy jsme na zámku stavěli zastřešení pódia. 
 *S tátou při práci na zámku v Toužimi.*
 
 ## Když zrovna nepomáhám
+
+![Michal s langošem a zakysanou smetanou na bradě](michal-langos.jpg)
+*Langoš se nedá jíst elegantně.*
 
 Rád jím, i když jsem dost vybíravý, a ještě radši vařím. Poslední dobou hodně chodím po okolí, a když to jde, cestuju s kamarády. Jezdíme na vlastní pěst, bez cestovky. Všechno si plánuju sám: letenky, dopravu, ubytování, půjčení auta, kde se najíme, kam vyrazíme na výlet i celý itinerář. Baví mě to skoro stejně jako cesta samotná. Jednou bych se cestováním možná rád i živil, třeba jako průvodce. A umím si i odpočinout: po práci si občas prostě sednu na gauč a vypnu.
 
@@ -46,6 +49,6 @@ Pak se mi život hodně změnil. Najednou mě doma skoro nic nedrželo. Tak jsem
 
 ## Proč tenhle blog
 
-Chci vás vzít s sebou, od první nervozity na kurzu až po každodenní život v cizí zemi. A taky budu potřebovat pomoc. Letenky, víza, očkování a další výdaje si dobrovolník hradí sám, a tak na cestu skládám peníze už teď. Kolik potřebuju a na co, najdete na stránce [Jak mě podpořit](../podporit/). Stejně tak mi pomůže, když budete blog sledovat a sdílet.
+Chci vás vzít s sebou, od první nervozity na kurzu až po každodenní život v cizí zemi. A taky budu potřebovat pomoc. Letenky, víza, očkování a další výdaje si dobrovolník hradí sám, a tak na cestu skládám peníze už teď. Kolik potřebuju a na co, najdete na stránce [Podpořte mou cestu](../podporit/). Stejně tak mi pomůže, když budete blog sledovat a sdílet.
 
 Proč jsem se rozhodl jet, popisuju v článku [Proč jedu](../clanky/proc-jedu/).

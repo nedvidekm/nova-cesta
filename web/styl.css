@@ -234,3 +234,4 @@ article td:last-child,article th:last-child{text-align:right;white-space:nowrap}
 .pomoc a{font-weight:600}
 .paticka-odkazy{display:flex;flex-wrap:wrap;gap:4px 20px;margin-bottom:12px}
 .paticka-odkazy a{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.ucet-nazev{font-family:var(--label);font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:15px;color:var(--muted)}

@@ -1,59 +1,73 @@
 ---
-nazev: Jak mě podpořit
+nazev: Podpořte mou cestu
 slug: podporit
-popis: Podpořte Michala na roční dobrovolnické cestě do zahraničí. Cíl 100 000 Kč, transparentní účet a veřejné vyúčtování každé koruny.
+popis: Podpořte Michala na roce dobrovolnické služby v zahraničí. Orientační cíl 100 000 Kč, osobní transparentní účet a průběžné vyúčtování.
 ---
 
-Na dobrovolnickou cestu se připravuji už teď. Ještě nevím, kam přesně pojedu, ale vím, že to bude na deset až dvanáct měsíců a že letenky, očkování, pojištění a spoustu dalších věcí si musím zaplatit sám. Proto nečekám a peníze na cestu začínám skládat hned.
+![Michal Nedvídek v malém bagru na stavbě](michal-bagr.jpg)
+*Když je potřeba, sednu i do bagru.*
 
-Nezáleží na tom, jestli mě podpoříte stovkou, nebo tisícovkou. Důležité je, že na své cestě nebudu sám.
+Před sebou mám rozhodnutí, které může změnit můj život. Chystám se na rok dobrovolnické služby v zahraničí.
 
-## Kolik potřebuji
+Na cestu se připravuji už teď. Absolvuji přípravný program a postupně zjišťuji, jakým způsobem se moje dobrovolnická mise uskuteční. Ještě nemám potvrzené všechny podmínky ani podobu svého působení. Jedno ale vím jistě: chci ve svém záměru pokračovat.
+
+Pokud se podaří uskutečnit variantu, na kterou se teď připravuji, budu rád. Pokud ne, budu hledat jinou cestu a dobrovolnickou příležitost si najdu přímo v zahraničí. Proto jsem se rozhodl začít budovat vlastní finanční zázemí už během příprav.
+
+Letenky, očkování, pojištění a další výdaje si budu hradit sám. Pokud se rozhodnete mou cestu podpořit, pomůžete mi přiblížit se k cíli. Nezáleží na tom, jestli mě podpoříte stovkou, tisícovkou nebo jinou částkou. Každý příspěvek má svůj význam.
+
+## Můj cíl je 100 000 Kč
 
 {{stav_sbirky}}
 
-Můj cíl je 100 000 Kč. Pokryl by celou cestu i s rezervou na věci, které se nedají naplánovat. Když se podaří vybrat polovinu, budu to brát jako velký úspěch a zbytek doplatím z vlastních úspor.
+Je to orientační cíl, ne strop. Co se s penězi stane, když se vybere víc, píšu níž.
 
-## Jak přispět
+## Osobní transparentní účet
 
 {{ucet}}
 
-Účet je transparentní, takže výpis může vidět kdokoli. Uvidíte, kolik na něj přišlo a za co jsem peníze utratil.
+Příspěvky jdou přímo mně, na můj osobní transparentní účet. Nejde o účet ani o sbírku žádné organizace a není to veřejná sbírka.
+
+Výpis z transparentního účtu je veřejný. Kdokoli v něm uvidí, kolik na účet přišlo a za co jsem peníze utratil. Banka v něm může zobrazovat i jméno odesílatele a zprávu pro příjemce.
+
+Částku si zvolíte sami, žádné minimum ani maximum není. Pro inspiraci: 100, 300, 500, 1 000, 2 000 nebo 5 000 Kč. Jsou to jen příklady, každá částka je vítaná.
 
 ## Kam peníze půjdou
 
 | Za co | Odhad |
 |---|---|
-| Letenky tam a zpátky | 25 000 Kč |
+| Zpáteční letenky | 25 000 Kč |
 | Očkování | 15 000 Kč |
-| Příspěvek vysílající organizaci | 30 000 Kč |
+| Příspěvky organizaci, pojištění a administrativa | 30 000 Kč |
 | Přípravné kurzy | 10 000 Kč |
-| Pojištění | 5 000 Kč |
-| Víza a úřady | 5 000 Kč |
-| Rezerva na nečekané věci | 10 000 Kč |
+| Víza a dokumenty | 5 000 Kč |
+| Rezerva a osobní výdaje | 15 000 Kč |
 | **Celkem** | **100 000 Kč** |
 
-Je to odhad. Přesná čísla sem doplním, jakmile budu znát zemi a místo.
+Rozpočet je předběžný a bude se měnit podle toho, kam a jakým způsobem pojedu. Až budu znát zemi a místo, doplním sem skutečná čísla.
 
-Kdyby některou položku zaplatil někdo jiný, třeba organizace, se kterou pojedu, z tohohle účtu ji platit nebudu. Nic se nebude platit dvakrát. Co zbyde, půjde na ubytování, jídlo a dopravu na místě a na osobní výdaje během roku.
+Kdyby některé náklady uhradil někdo jiný, třeba organizace, se kterou pojedu, z vašich příspěvků je platit nebudu. Nic se nebude platit dvakrát.
 
-## Dvě cesty, jeden cíl
+## Co se stane s vaším příspěvkem
 
-Přípravný kurz, na který teď jezdím, vede jedna křesťanská organizace. V únoru se dozvím, jestli mě vyberou a kam pojedu. Podle toho se vydám jednou ze dvou cest:
+**Když mise vyjde,** všechny peníze použiju na přípravu a samotnou dobrovolnickou službu: dopravu, očkování, pojištění, administrativu, pobyt a další výdaje, které s misí souvisejí.
 
-- **S organizací.** Pojedu tam, kam mě pošle, a ona mi pomůže s přípravou, s částí nákladů i se sbírkou. Co uhradí ona, z účtu platit nebudu.
-- **Na vlastní pěst.** Kdyby to s programem nevyšlo, vyjedu přes mezinárodní dobrovolnické programy, například Workaway nebo Volunteer World. Pak si cestu i pobyt platím celé sám.
+**Když se vybere víc než 100 000 Kč,** další příspěvky neztratí smysl. Použiju je na konkrétní pomoc tam, kde budu působit, podle toho, co bude na místě opravdu potřeba. Může to být třeba vybavení, materiál nebo jiné věci pro místní komunitu. Chci, aby pomoc nekončila tím, že se mi podaří odjet. O všem napíšu na blogu, s fotkami a vyúčtováním.
 
-Proto začínám už teď. Chci mít jistotu, že pojedu v obou případech, a chci, abyste u toho byli od začátku. Kdo mi chce pomoct přímo, může tady.
+**Když bych nakonec vůbec neodjel,** vrátím každý příspěvek na účet, ze kterého přišel. Na výpisu vidím u každé platby, odkud byla poslaná, takže ji pošlu zpátky celou.
 
-## Jak to bude s penězi dál
+## Průběžné vyúčtování
 
-- Na tomhle webu budu průběžně psát, kolik přišlo a za co jsem utratil. Po návratu sem dám celé vyúčtování.
-- Kdybych nakonec neodjel vůbec, peníze vrátím každému, kdo o to požádá.
-- Jde o můj osobní účet a o dar přímo mně. Není to veřejná sbírka ani oficiální sbírka žádné organizace.
+Na blogu budu průběžně psát:
+
+- kolik se celkem vybralo,
+- kolik jsem skutečně utratil a za co,
+- jak jsem peníze využil na místě,
+- jakou konkrétní pomoc se podařilo zajistit navíc.
 
 ## Jak jinak pomoct
 
 - [Přihlaste se k odběru](#odber) a nové články vám přijdou e-mailem.
 - Pošlete blog dál lidem, které by mohl zajímat.
 - Napište mi na {{kontakt}}. Každá zpráva mě potěší.
+
+Děkuji každému, kdo se rozhodne být součástí této cesty. Podporujete přímo mě a mou cestu. A pokud díky vám dokážu udělat ještě něco navíc pro lidi, kterým budu pomáhat, bude mít vaše podpora ještě větší smysl.

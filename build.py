@@ -138,14 +138,14 @@ def md_na_html(telo, pre):
 
 # ---------- šablona ----------
 
-def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni="", typ="website", koncept=False):
+def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni="", typ="website", koncept=False, noindex=False):
     url = cfg["zakladni_url"].rstrip("/") + "/" + cesta
     og_url = cfg["zakladni_url"].rstrip("/") + "/" + (og or "fotky/og-web.jpg")
     nav = [("clanky", "Články", f"{pre}#clanky"), ("o-mne", "O mně", f"{pre}o-mne/"),
            ("odber", "Odebírat", f"{pre}podporit/#odber"), ("podporit", "Podpořit", f"{pre}podporit/")]
     nav_html = "\n      ".join(
         f'<a href="{h}"{" aria-current=\"page\"" if k == aktivni else ""}>{t}</a>' for k, t, h in nav)
-    robots = '<meta name="robots" content="noindex, nofollow">\n' if (NAHLED and (not ROBOTI or koncept)) else ""
+    robots = '<meta name="robots" content="noindex, nofollow">\n' if (noindex or (NAHLED and (not ROBOTI or koncept))) else ""
     pruh = '<aside class="preview" aria-label="Upozornění">Testovací verze, zatím nezveřejněno</aside>\n' if NAHLED else ""
     ld_html = ""
     if ld:
@@ -247,7 +247,8 @@ def ucet_html(cfg):
     p = cfg.get("podpora") or {}
     if not p.get("ucet"):
         return """<div class="ucet ucet-brzy">
-  <p><b>Transparentní účet právě zakládám.</b> Číslo účtu a QR kód pro platbu z mobilu sem doplním hned, jak ho banka zřídí. Kdo nechce nic propást, může se <a href="#odber">přihlásit k odběru</a> a dám mu vědět.</p>
+  <p class="ucet-nazev">Osobní transparentní účet – podpora dobrovolnické mise</p>
+  <p><b>Účet právě zakládám.</b> Číslo účtu a QR kód pro platbu z mobilu sem doplním hned, jak ho banka zřídí. Kdo nechce nic propást, může se <a href="#odber">přihlásit k odběru</a> a dám mu vědět.</p>
 </div>"""
     radky = [("Číslo účtu", f'<span class="ucet-cislo">{e(p["ucet"])}</span> <button type="button" class="kopirovat" data-text="{e(p["ucet"])}">Zkopírovat</button>')]
     if p.get("majitel"):
@@ -260,7 +261,7 @@ def ucet_html(cfg):
         qr = (f'<figure class="ucet-qr"><img src="{{PRE}}{e(p["qr"])}" width="220" height="220" alt="QR kód pro platbu na účet {e(p["ucet"])}">'
               f'<figcaption>Naskenujte v aplikaci své banky. Částku si zvolíte sami.</figcaption></figure>')
     vypis = f'<p><a href="{e(p["vypis_url"])}" rel="noopener">Veřejný výpis z účtu →</a></p>' if p.get("vypis_url") else ""
-    return f'<div class="ucet"><dl>{dl}</dl>{qr}{vypis}<p class="ucet-ok" role="status" hidden></p></div>'
+    return f'<div class="ucet"><p class="ucet-nazev">Osobní transparentní účet – podpora dobrovolnické mise</p><dl>{dl}</dl>{qr}{vypis}<p class="ucet-ok" role="status" hidden></p></div>'
 
 
 def vyzva_html(cfg, pre):
@@ -278,7 +279,7 @@ def odber_html(cfg):
     return f"""<section class="wrap" aria-labelledby="odber-nadpis">
   <div class="box" id="odber" data-url="{e(cfg.get('odber_url', ''))}" data-stav="{stav}">
     <h2 id="odber-nadpis">Chcete jít se mnou?</h2>
-    <p>Pošlu vám e-mail, kdykoli tu přibude nový článek. Zhruba jednou za měsíc, po každém víkendu kurzu.</p>
+    <p>Pošlu vám e-mail, kdykoli tu přibude nový článek. Zhruba dvakrát za měsíc, žádný spam.</p>
     <form id="f-odber" novalidate>
       <label for="email" class="sr-only">Váš e-mail</label>
       <input type="email" id="email" name="email" placeholder="vas@email.cz" autocomplete="email" required>
@@ -535,7 +536,7 @@ def main():
   <ol class="pomoc-kroky">
     <li><b>Sledujte mě.</b> <a href="#odber">Přihlaste se k odběru</a> a nový článek vám přijde e-mailem.</li>
     <li><b>Pošlete blog dál.</b> Komukoli, koho by mohl zajímat.</li>
-    <li><b>Přispějte na cestu.</b> <a href="podporit/">Jak a na co</a> najdete na stránce Podpořit.</li>
+    <li><b>Přispějte na cestu.</b> Jakoukoli částkou, <a href="podporit/">jak a na co</a> najdete na stránce Podpořit.</li>
   </ol>
 </section>
 <section class="dalsi wrap" aria-label="Připravované články">
@@ -563,7 +564,7 @@ def main():
 
     # 404, sitemap, robots, RSS, seznam článků pro rozesílku
     html404 = stranka(cfg, pre=zaklad + "/", titulek=f"Stránka nenalezena | {cfg['nazev']}",
-                      popis="Stránka nenalezena.", cesta="404.html",
+                      popis="Stránka nenalezena.", cesta="404.html", noindex=True,
                       obsah=f'<article class="wrap"><h1>Tahle stránka tu není</h1><p>Možná se změnila adresa. Zkuste <a href="{zaklad}/">úvodní stránku</a>.</p></article>')
     (VYSTUP / "404.html").write_text(html404.replace("{PRE}", zaklad + "/"), encoding="utf-8")
     if NAHLED and not ROBOTI:

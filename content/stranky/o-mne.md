@@ -5,7 +5,7 @@ popis: Michal Nedvídek z Toužimi, 38 let, dlouholetý dobrovolník ze Skoků a
 ---
 
 ![Michal Nedvídek nalévá svařák na venkovní akci](michal-svarak.jpg)
-*Na akcích jsem často u hrnce se svařákem.*
+*Hrnec, gril, nebo pípa: na akcích mě najdete tam, kde se vaří a nalévá.*
 
 Na tomhle blogu sleduju jednu velkou změnu v mém životě: skoro ve čtyřiceti měním směr a jedu na rok jako dobrovolník pomáhat do světa. Budete u toho od první přípravy až po všední dny v cizí zemi.
 

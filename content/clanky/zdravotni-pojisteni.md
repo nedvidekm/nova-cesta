@@ -34,7 +34,7 @@ Pro srovnání: kdo nemá žádný příjem a nikdo za něj neplatí, platí si 
 
 ## Jak to bude u mě
 
-To se dozvím během dalších víkendů kurzu. Jakmile to budu vědět, napíšu to sem. Kdo nechce nic propást, může se [přihlásit k odběru](../../podporit/#odber) a nový článek mu přijde e-mailem.
+To se dozvím během následujících kurzů. Jakmile to budu vědět, napíšu to sem. Kdo nechce nic propást, může se [přihlásit k odběru](../../podporit/#odber) a nový článek mu přijde e-mailem.
 
 ## Co jsem zjistil
 

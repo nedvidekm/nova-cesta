@@ -3,8 +3,8 @@ nazev: Kde to všechno začalo
 slug: skoky
 datum: 2026-11-18
 koncept: ano
-foto: kostel-mlha-sirka.jpg
-foto_alt: Poutní kostel ve Skocích v mlze, v popředí holé stromy
+foto: kostel-zima.jpg
+foto_alt: Poutní kostel ve Skocích v zimě, cesta k němu poprášená sněhem
 foto_popisek: Poutní kostel ve Skocích.
 ---
 

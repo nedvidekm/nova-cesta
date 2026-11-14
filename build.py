@@ -294,6 +294,33 @@ def main():
     og_web = og_obrazek("michal-s-talirem.jpg", "web")
     mapa = [f"{zaklad}/"]
 
+    # krátké zápisky (koncepty jen v testovací verzi)
+    zapisky = [nacti_md(p) for p in sorted((OBSAH / "zapisky").glob("*.md"))] if (OBSAH / "zapisky").exists() else []
+    zapisky = [z for z in zapisky if NAHLED or z.get("koncept") != "ano"]
+    for c in clanky:
+        c["druh"] = "clanky"
+    for z in zapisky:
+        z["druh"] = "zapisky"
+    venku = sorted(vydane + [z for z in zapisky if z.get("koncept") != "ano"],
+                   key=lambda d: (d["datum"], int(d.get("cislo", 0))), reverse=True)
+
+    def stitek(d):
+        if d["druh"] == "zapisky":
+            return f"Krátký zápisek · {datum_cesky(d['datum'])}"
+        return f"Článek {e(d.get('cislo', ''))} · {datum_cesky(d['datum'])}"
+
+    def prehled_html(c, pre):
+        """Pod článkem i zápiskem stejný výpis všeho vydaného, aby se dalo rovnou pokračovat jinam."""
+        radky = []
+        for d in venku if c in venku else [c] + venku:
+            if d is c:
+                radky.append(f'<li class="tady" aria-current="page"><small>{stitek(d)} · právě čtete</small><span>{spojky(e(d["nazev"]))}</span></li>')
+            else:
+                radky.append(f'<li><a href="{pre}{d["druh"]}/{d["slug"]}/"><small>{stitek(d)}</small><span>{spojky(e(d["nazev"]))}</span></a></li>')
+        nadpis = "Všechny články a zápisky" if zapisky else "Všechny články"
+        return (f'<section class="prehled wrap" aria-labelledby="prehled-nadpis"><h2 id="prehled-nadpis">{nadpis}</h2>'
+                f'<ol>{"".join(radky)}</ol></section>') if len(radky) > 1 else ""
+
     # články
     for i, c in enumerate(clanky):
         pre = "../../"
@@ -308,16 +335,7 @@ def main():
             if m:
                 og = og_obrazek(m.group(1), c["slug"])
         koncept = '<span class="koncept">koncept</span>' if c.get("koncept") == "ano" else ""
-        # pod článkem výpis všech článků, aby se dalo rovnou pokračovat jinam
-        radky = []
-        for d in vydane if c in vydane else [c] + vydane:
-            popisek = f"Článek {e(d.get('cislo', ''))} · {datum_cesky(d['datum'])}"
-            if d is c:
-                radky.append(f'<li class="tady" aria-current="page"><small>{popisek} · právě čtete</small><span>{spojky(e(d["nazev"]))}</span></li>')
-            else:
-                radky.append(f'<li><a href="{pre}clanky/{d["slug"]}/"><small>{popisek}</small><span>{spojky(e(d["nazev"]))}</span></a></li>')
-        prehled = (f'<section class="prehled wrap" aria-labelledby="prehled-nadpis"><h2 id="prehled-nadpis">Všechny články</h2>'
-                   f'<ol>{"".join(radky)}</ol></section>') if len(radky) > 1 else ""
+        prehled = prehled_html(c, pre)
         obsah = f"""{kurz_html(cfg, pre, vydane)}
 
 <article class="wrap">
@@ -358,22 +376,22 @@ def main():
         uloz(cesta, html_out.replace("{PRE}", pre))
         mapa.append(f"{zaklad}/{cesta}")
 
-    # krátké zápisky: vlastní stránka (kvůli odkazu z Facebooku) a celé znění i ve výpisu na úvodní stránce
-    zapisky = [nacti_md(p) for p in sorted((OBSAH / "zapisky").glob("*.md"))] if (OBSAH / "zapisky").exists() else []
-    zapisky = [z for z in zapisky if NAHLED or z.get("koncept") != "ano"]
+    # krátké zápisky: vlastní stránka stejně jako článek (kvůli odkazu z Facebooku), celé znění i na úvodní stránce
     for z in zapisky:
         pre = "../../"
         cesta = f"zapisky/{z['slug']}/"
         og = og_obrazek(z["foto"], "z-" + z["slug"]) if z.get("foto") else og_web
         foto = obrazek_html(z["foto"], z.get("foto_alt", ""), z.get("foto_popisek", ""), pre, lazy=False) if z.get("foto") else ""
         koncept = '<span class="koncept">koncept</span>' if z.get("koncept") == "ano" else ""
-        obsah = f"""<article class="wrap zapisek-stranka">
+        obsah = f"""{kurz_html(cfg, pre, vydane)}
+
+<article class="wrap zapisek-stranka">
   <div class="meta">Krátký zápisek · <time datetime="{z['datum']}">{datum_cesky(z['datum'])}</time>{koncept}</div>
   <h1>{spojky(e(z['nazev']))}</h1>
   {foto}
   {md_na_html(kontakt_md(z['telo'], cfg), pre)}
-  <p><a class="zpet" href="{pre}#clanky">← Všechny články a zápisky</a></p>
-</article>"""
+</article>
+{prehled_html(z, pre)}"""
         popis = re.sub(r"\s+", " ", re.sub(r"[*_\[\]{}]|\(mailto:[^)]*\)", "", z["telo"])).strip()
         if len(popis) > 155:
             popis = popis[:popis.rfind(" ", 0, 152)] + "…"

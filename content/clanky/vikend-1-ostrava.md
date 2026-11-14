@@ -81,7 +81,6 @@ Když už jsem u filmů, zajímalo mě, co dalšího se o dobrovolnictví a pom�
 - **[Hektorova cesta aneb hledání štěstí](https://www.csfd.cz/film/279762-hektorova-cesta-aneb-hledani-stesti/prehled/)** (2014): psychiatr, kterého omrzel zaběhnutý život, odjede do světa zjistit, co je štěstí. Ze všech má nejblíž k tomu, proč jedu já.
 - **[Svatý Filip Neri](https://www.csfd.cz/film/304646-svaty-filip-neri/prehled/)** (2010): italský film o knězi, který v Římě 16. století pomáhal nemocným a chudým. Hraje Gigi Proietti.
 - **[O bozích a lidech](https://www.csfd.cz/film/278858-o-bozich-a-lidech/prehled/)** (2010): mniši v Alžírsku, kteří léčí a pomáhají místním, i když jim hrozí nebezpečí.
-- **[Don Bosco](https://www.csfd.cz/film/188988-don-bosco/prehled/)** (2004): italská minisérie o knězi, který se v Turíně 19. století staral o opuštěné kluky z ulice. Tenhle film mám za úkol z kurzu.
 - **[Hranice zlomu](https://www.csfd.cz/film/42932-hranice-zlomu/prehled/)** (2003): žena z Londýna opustí pohodlný život a roky vozí pomoc do uprchlických táborů. Hrají Angelina Jolie a Clive Owen.
 - **[Pošli to dál](https://www.csfd.cz/film/5719-posli-to-dal/prehled/)** (2000): kluk vymyslí řetěz dobrých skutků a z toho vznikne celé hnutí.
 - **[Doktor Flastr](https://www.csfd.cz/film/11665-doktor-flastr/prehled/)** (1998): Robin Williams jako student medicíny, který léčí humorem a zakládá kliniku, kde se neplatí.

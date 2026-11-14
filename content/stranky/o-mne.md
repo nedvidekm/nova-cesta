@@ -22,7 +22,7 @@ Nejradši vzpomínám na den, kdy jsme na zámku stavěli zastřešení pódia. 
 
 ## Když zrovna nepomáhám
 
-Rád jím, i když jsem dost vybíravý, a ještě radši vařím. Poslední dobou hodně chodím po okolí, a když to jde, cestuju s kamarády. Jezdíme na vlastní pěst: letenky, ubytování i místa, která chceme vidět, si hledáme sami. Jednou bych se cestováním možná rád i živil, třeba jako průvodce. A umím si i odpočinout: po práci si občas prostě sednu na gauč a vypnu.
+Rád jím, i když jsem dost vybíravý, a ještě radši vařím. Poslední dobou hodně chodím po okolí, a když to jde, cestuju s kamarády. Jezdíme na vlastní pěst, bez cestovky. Všechno si plánuju sám: letenky, dopravu, ubytování, půjčení auta, kde se najíme, kam vyrazíme na výlet i celý itinerář. Baví mě to skoro stejně jako cesta samotná. Jednou bych se cestováním možná rád i živil, třeba jako průvodce. A umím si i odpočinout: po práci si občas prostě sednu na gauč a vypnu.
 
 Ve volných večerech tvořím webové stránky. Zaměřuju se na weby pro spolky, malé podniky a živnostníky: jednoduché, rychlé, dobře čitelné na mobilu a takové, aby je lidé našli na Googlu. Zatím jsem postavil web [Živého zámku Toužim](https://www.zivyzamektouzim.cz/), [Hospůdky u Havlů](https://hospudkauhavlu.cz/) a outdoorového blogu [BCT Survival](https://bctsurvival.cz/), a samozřejmě i tenhle blog.
 
@@ -35,7 +35,7 @@ Přes den pracuju v komerční firmě. Čím dál víc ale cítím, že největ�
 
 Nabídka pro učitele do Nepálu na mě vyskočila asi před dvěma lety, v době, kdy jsem procházel těžkým obdobím. Tehdy by odjezd byl útěk, a to jsem nechtěl. Myšlenka ale nezmizela. Na kurzech Nadace VIA, kde se hodně mluvilo o dobrovolnictví a komunitě, mě začala lákat představa, že bych se pomáháním mohl i živit.
 
-Pak se mi život hodně změnil. Najednou mě doma skoro nic nedrželo a jediný velký závazek, který mi zůstal, je hypotéka. Tak jsem se rozhodl udělat velký krok: odjet na rok do zahraničí jako dobrovolník, pomáhat tam, kde je to potřeba, tím, co umím, a nastartovat novou cestu.
+Pak se mi život hodně změnil. Najednou mě doma skoro nic nedrželo. Tak jsem se rozhodl udělat velký krok: odjet na rok do zahraničí jako dobrovolník, pomáhat tam, kde je to potřeba, tím, co umím, a nastartovat novou cestu.
 
 ## Co mě čeká
 
@@ -46,6 +46,6 @@ Pak se mi život hodně změnil. Najednou mě doma skoro nic nedrželo a jediný
 
 ## Proč tenhle blog
 
-Chci vás vzít s sebou, od první nervozity na kurzu až po každodenní život v cizí zemi. A taky budu potřebovat pomoc. Letenky, víza, očkování a další výdaje si dobrovolník hradí sám. Až budu vědět, kam jedu, napíšu tady, jak se dá podpořit. Zatím mi nejvíc pomůže, když budete blog sledovat a sdílet.
+Chci vás vzít s sebou, od první nervozity na kurzu až po každodenní život v cizí zemi. A taky budu potřebovat pomoc. Letenky, víza, očkování a další výdaje si dobrovolník hradí sám, a tak na cestu skládám peníze už teď. Kolik potřebuju a na co, najdete na stránce [Jak mě podpořit](../podporit/). Stejně tak mi pomůže, když budete blog sledovat a sdílet.
 
 Proč jsem se rozhodl jet, popisuju v článku [Proč jedu](../clanky/proc-jedu/).

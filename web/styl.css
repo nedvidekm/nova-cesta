@@ -203,3 +203,34 @@ footer .zamek img{display:block;width:120px;height:auto}
 .prehled span{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.25}
 .karta.zapisek h3 a{color:var(--ink);text-decoration:none;display:inline-block;min-height:44px;padding-block:4px}
 .karta.zapisek h3 a:hover{color:var(--accent-ink)}
+
+/* podpora cesty: teploměr, účet, výzva pod články, pomoc na úvodu, patička */
+.sbirka{margin:16px 0}
+.sbirka-cisla{margin:0 0 6px;font-family:var(--label);font-size:18px}
+.sbirka-cisla b{font-family:var(--display,inherit);font-size:28px;color:var(--accent-ink)}
+.sbirka-cisla span{color:var(--muted)}
+.sbirka-pruh{height:14px;background:var(--soft);border:1px solid var(--rule)}
+.sbirka-pruh span{display:block;height:100%;background:var(--accent)}
+.sbirka-pozn{margin:6px 0 0;font-size:15px;color:var(--muted)}
+.ucet{background:var(--soft);border-left:3px solid var(--accent);padding:14px 16px;margin:16px 0}
+.ucet p{margin:0 0 8px}.ucet p:last-child{margin-bottom:0}
+.ucet dl{margin:0 0 10px;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:center}
+.ucet dt{font-family:var(--label);font-weight:600;color:var(--muted)}
+.ucet dd{margin:0;overflow-wrap:anywhere}
+.ucet-cislo{font-weight:600;font-size:20px}
+.kopirovat{min-height:44px;padding:6px 14px;margin-left:6px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);font:inherit;cursor:pointer}
+.ucet-qr{margin:12px 0}.ucet-qr img{background:#fff;padding:8px;border:1px solid var(--rule)}
+article table{width:100%;border-collapse:collapse;margin:16px 0;font-size:17px}
+article th,article td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+article th{font-family:var(--label);font-weight:600;border-bottom:2px solid var(--rule)}
+article td:last-child,article th:last-child{text-align:right;white-space:nowrap}
+.vyzva{padding-block:8px 0}
+.vyzva-box{border:1px solid var(--rule);border-top:3px solid var(--accent);background:var(--surface);padding:16px 18px}
+.vyzva-box h2{margin:0 0 8px}
+.vyzva-box p{margin:0 0 10px}
+.vyzva-akce{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+.pomoc .pomoc-kroky{padding-left:22px}
+.pomoc .pomoc-kroky li{margin-bottom:8px}
+.pomoc a{font-weight:600}
+.paticka-odkazy{display:flex;flex-wrap:wrap;gap:4px 20px;margin-bottom:12px}
+.paticka-odkazy a{font-weight:600;min-height:44px;display:inline-flex;align-items:center}

@@ -111,6 +111,11 @@ def obrazek_html(zdroj, alt, popisek, pre, lazy=True, popisek_html=False):
             f"{cap}\n</figure>")
 
 
+def kontakt_md(telo, cfg):
+    k = cfg.get("kontakt_email", "")
+    return telo.replace("{{kontakt}}", f"[{k}](mailto:{k})")
+
+
 def md_na_html(telo, pre):
     # ![alt](foto.jpg "popisek") na samostatném řádku -> figure s popiskem
     def nahrad(m):
@@ -320,7 +325,7 @@ def main():
   <h1>{spojky(e(c['nazev']))}</h1>
   <p class="perex">{spojky(e(c['perex']))}</p>
   {foto}
-  {md_na_html(c['telo'], pre)}
+  {md_na_html(kontakt_md(c['telo'], cfg), pre)}
 </article>
 {prehled}"""
         ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": c["nazev"],
@@ -355,8 +360,23 @@ def main():
 
     # úvodní stránka
     pre = ""
+    # krátké zápisky: jen na úvodní stránce, mezi články podle data (koncepty jen v testovací verzi)
+    zapisky = [nacti_md(p) for p in sorted((OBSAH / "zapisky").glob("*.md"))] if (OBSAH / "zapisky").exists() else []
+    zapisky = [z for z in zapisky if NAHLED or z.get("koncept") != "ano"]
+    polozky = [("clanek", c) for c in vydane] + [("zapisek", z) for z in zapisky]
+    polozky.sort(key=lambda x: x[1]["datum"], reverse=True)
     karty = []
-    for c in vydane:
+    for druh, c in polozky:
+        if druh == "zapisek":
+            koncept = '<span class="koncept">koncept</span>' if c.get("koncept") == "ano" else ""
+            foto = obrazek_html(c["foto"], c.get("foto_alt", ""), c.get("foto_popisek", ""), pre) if c.get("foto") else ""
+            karty.append(f"""<li class="karta zapisek" id="zapisek-{e(c['slug'])}">
+    <div class="meta">Krátký zápisek · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
+    <h3>{spojky(e(c['nazev']))}</h3>
+    {foto}
+    {md_na_html(kontakt_md(c['telo'], cfg), pre)}
+  </li>""")
+            continue
         koncept = ""
         karty.append(f"""<li class="karta">
     <div class="meta">Článek {e(c.get('cislo', ''))} · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
@@ -365,13 +385,36 @@ def main():
     <a class="dal" href="clanky/{c['slug']}/" aria-label="Číst článek {e(c['nazev'])}">Číst dál →</a>
   </li>""")
     pripravuji = "".join(f"<li><span>{e(x['nazev'])}</span><span>{e(x['kdy'])}</span></li>" for x in cfg["pripravuji"])
+    hero = cfg.get("hero", {})
+    hero_foto = ""
+    if hero.get("foto"):
+        jm = Path(hero["foto"]).stem + ".jpg"
+        w, h = ROZMERY[jm]
+        hero_foto = (f'<figure class="hero-foto"><img src="fotky/{jm}" width="{w}" height="{h}" '
+                     f'alt="{e(hero.get("foto_alt", ""))}" fetchpriority="high"></figure>')
+    nadpis = hero.get("nadpis") or f"{cfg['nazev']}: {cfg['podtitul']}"
+    postaveno = {c["slug"] for c in clanky}   # stránky, které v tomhle sestavení existují
+    resim = []
+    for x in cfg.get("prave_resim", []):
+        if x.get("clanek") in postaveno:
+            resim.append(f'<li><a href="clanky/{x["clanek"]}/">{spojky(e(x["text"]))}</a></li>')
+        else:
+            resim.append(f"<li><span>{spojky(e(x['text']))}</span></li>")
+    resim_html = (f'<section class="resim wrap" aria-labelledby="resim-nadpis"><div class="resim-box">'
+                  f'<h2 id="resim-nadpis">Právě řeším</h2><ul>{"".join(resim)}</ul></div></section>') if resim else ""
     obsah = f"""<section class="uvod wrap">
-  <h1 class="sr-only">{e(cfg['nazev'])}: {e(cfg['podtitul'])}</h1>
-  <p>{spojky(e(cfg['uvod']))}</p>
+  <div class="uvod-text">
+    <p class="meta">{e(hero.get('stitek', cfg['podtitul']))}</p>
+    <h1>{spojky(e(nadpis))}</h1>
+    <p class="uvod-perex">{spojky(e(cfg['uvod']))}</p>
+    <p class="uvod-akce"><a class="tlacitko" href="#clanky">Číst články</a><a class="dal" href="podporit/#odber">Odebírat novinky →</a></p>
+  </div>
+  {hero_foto}
 </section>
 {kurz_html(cfg, pre, vydane)}
+{resim_html}
 <section class="vypis wrap" id="clanky" aria-labelledby="clanky-nadpis">
-  <h2 id="clanky-nadpis">Články</h2>
+  <h2 id="clanky-nadpis">{"Články a zápisky" if zapisky else "Články"}</h2>
   <ol>
   {''.join(karty)}
   </ol>
@@ -379,6 +422,14 @@ def main():
 <section class="dalsi wrap" aria-label="Připravované články">
   <h2>Připravuji</h2>
   <ul>{pripravuji}</ul>
+</section>"""
+    koncepty = [c for c in clanky if c.get("koncept") == "ano"]
+    if NAHLED and koncepty:
+        odkazy = "".join(f'<li><a href="clanky/{c["slug"]}/">{spojky(e(c["nazev"]))}</a><span>koncept</span></li>' for c in koncepty)
+        obsah += f"""
+<section class="dalsi koncepty wrap" aria-label="Koncepty k pročtení">
+  <h2>Koncepty k pročtení (jen v testovací verzi)</h2>
+  <ul>{odkazy}</ul>
 </section>"""
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "WebSite", "name": cfg["nazev"], "alternateName": cfg["podtitul"], "url": f"{zaklad}/",

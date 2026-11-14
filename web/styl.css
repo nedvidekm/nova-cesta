@@ -61,8 +61,27 @@ nav.menu a[aria-current="page"]{border-bottom-color:var(--accent)}
 .meta{color:var(--accent-ink)}
 
 /* Úvod */
-.uvod{padding-block:32px 0}
-.uvod p{font-size:21px;line-height:1.55;margin:0;padding-left:18px;border-left:3px solid var(--accent)}
+.uvod{padding-block:28px 0;display:grid;gap:20px}
+.uvod h1{margin:4px 0 14px}
+.uvod .meta{margin:0}
+.uvod-perex{font-size:21px;line-height:1.55;margin:0;padding-left:18px;border-left:3px solid var(--accent)}
+.uvod-akce{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;margin:20px 0 0}
+.tlacitko{font-family:var(--label);font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
+  display:inline-flex;align-items:center;min-height:44px;padding:8px 18px;background:var(--accent);color:var(--on-accent)}
+.tlacitko:hover{background:var(--ink);color:var(--bg)}
+.hero-foto{margin:0;position:relative}
+.hero-foto img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--rule)}
+.hero-foto::after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:3px;background:var(--accent)}
+@media (min-width:700px){.uvod{grid-template-columns:1fr 300px;align-items:center;gap:32px}.hero-foto img{aspect-ratio:3/4}}
+
+/* Právě řeším */
+.resim{padding-block:20px 0}
+.resim-box{background:var(--soft);border-left:3px solid var(--accent);padding:12px 16px}
+.resim h2{font-family:var(--label);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
+.resim ul{list-style:none;margin:0;padding:0}
+.resim li{display:flex;gap:10px;align-items:center;min-height:36px}
+.resim li::before{content:"";flex:none;width:8px;height:8px;background:var(--accent)}
+.resim a{min-height:44px;display:inline-flex;align-items:center}
 
 /* Ukazatel kurzu: úseky stezky s ostrými předěly */
 .kurz{padding-block:28px 8px}
@@ -92,6 +111,12 @@ nav.menu a[aria-current="page"]{border-bottom-color:var(--accent)}
 .karta a.nadpis{font-family:var(--display);font-weight:700;font-size:clamp(26px,5.5vw,34px);line-height:1.15;color:var(--ink);text-decoration:none;display:inline-block;padding-block:4px;min-height:44px;text-wrap:balance}
 .karta a.nadpis:hover{color:var(--accent-ink)}
 .karta p{margin:8px 0 0}
+/* krátký zápisek: menší značka a nadpis, celý text rovnou ve výpisu */
+.karta.zapisek::before{width:12px;height:12px;left:-27px;top:29px;background:var(--sand);border-color:var(--sand)}
+.karta.zapisek h3{font-family:var(--display);font-weight:700;font-size:24px;line-height:1.2;margin:6px 0 0;text-wrap:balance}
+.karta.zapisek figure{margin:12px 0 4px}
+.karta.zapisek figure img{display:block;width:100%;height:auto}
+.karta.zapisek figcaption{font-family:var(--label);font-size:15px;color:var(--muted);margin-top:6px}
 .dal,.zpet{font-family:var(--label);font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;min-height:44px;color:var(--accent-ink)}
 .dal{margin-top:4px}
 .koncept{display:inline-block;font-family:var(--label);font-size:14px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--muted);color:var(--muted);padding:0 6px;margin-left:8px;vertical-align:middle}
@@ -100,7 +125,8 @@ nav.menu a[aria-current="page"]{border-bottom-color:var(--accent)}
 .dalsi{padding-block:36px 24px}
 .dalsi ul{list-style:none;margin:0;padding:0}
 .dalsi li{display:flex;justify-content:space-between;align-items:baseline;gap:4px 16px;padding-block:12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.dalsi li span:first-child{font-family:var(--display);font-size:21px;font-weight:500}
+.dalsi li span:first-child,.dalsi li a{font-family:var(--display);font-size:21px;font-weight:500}
+.dalsi li a{min-height:44px;display:inline-flex;align-items:center}
 .dalsi li span:last-child{font-family:var(--label);font-size:15px;color:var(--muted)}
 
 /* Článek a stránky */

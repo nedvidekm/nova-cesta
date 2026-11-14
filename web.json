@@ -8,6 +8,27 @@
   "kontakt_email": "michal@nanoveceste.cz",
   "odber_url": "",
   "uvod": "Jsem Michal Nedvídek a chystám se na rok odjet jako dobrovolník do zahraničí. Na tomhle blogu vás beru s sebou: od přípravného kurzu až po život na místě.",
+  "hero": {
+    "stitek": "Právě teď: přípravy na rok dobrovolnictví",
+    "nadpis": "Skoro ve čtyřiceti měním směr.",
+    "foto": "portret-03.jpg",
+    "foto_alt": "Michal Nedvídek na horské vyhlídce nad údolím s jezerem"
+  },
+  "prave_resim": [
+    {
+      "text": "Vyberou mě? Dozvím se v únoru"
+    },
+    {
+      "text": "Jak utáhnout hypotéku, když rok nebudu vydělávat"
+    },
+    {
+      "text": "Zdravotní pojištění na rok v cizině",
+      "clanek": "zdravotni-pojisteni"
+    },
+    {
+      "text": "Rozjíždím tenhle blog"
+    }
+  ],
   "kurz": {
     "nazev": "přípravný kurz dobrovolníků",
     "vikendy": [

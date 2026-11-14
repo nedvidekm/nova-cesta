@@ -16,12 +16,12 @@ Asi před dvěma lety na mě na Facebooku vyskočila nabídka: hledají učitele
 
 ## Dobrovolnictví není nic nového
 
-Od roku 2008 jsem pomáhal se záchranou poutního kostela Navštívení Panny Marie ve Skocích. Od roku 2016 vedu spolek Živý zámek Toužim. Koordinuju dobrovolníky, chystám akce, píšu projekty. Dobrovolnictví je ta část mého života, která mi vždycky dávala největší smysl. Dokonce jsem zkoumal, jestli by se tím nedalo živit, ale zjistil jsem, že tudy cesta nevede.
+Od roku 2008 jsem pomáhal se záchranou poutního kostela Navštívení Panny Marie ve Skocích. Od roku 2016 jsem vedl spolek Živý zámek Toužim. Koordinoval jsem dobrovolníky, chystal akce, psal projekty. Dobrovolnictví je ta část mého života, která mi vždycky dávala největší smysl. Dokonce jsem zkoumal, jestli by se tím nedalo živit, ale zjistil jsem, že tudy cesta nevede.
 
 ![Dobrovolníci po brigádě ve Skocích](brigada-skupina.jpg)
 *Po brigádě ve Skocích, před kapličkou z uříznutých bání.*
 
-Ve své práci se zároveň čím dál hůř smiřuju s prostředím, kde jde hlavně o výkon a zisk a člověk, ať zaměstnanec, nebo zákazník, který za službu platí, je až na posledním místě. Chci zkusit, jaké to je, dát svůj čas a zkušenosti tam, kde je dopad vidět přímo na lidech.
+Chci zkusit, jaké to je, když na prvním místě není výkon, ale člověk. Dát svůj čas a zkušenosti tam, kde je dopad vidět přímo na lidech.
 
 ![Natírání informační tabule na zámku v Toužimi](natirani-tabule.jpg)
 *Natírám novou informační tabuli na zámku v Toužimi.*

@@ -1,14 +1,14 @@
 ---
 nazev: Ochrana osobních údajů
 slug: osobni-udaje
-popis: Jak blog Nová cesta zachází s e-mailovými adresami odběratelů.
+popis: Jak blog Na nové cestě zachází s e-mailovými adresami odběratelů.
 ---
 
 Když se přihlásíte k odběru, uložím vaši e-mailovou adresu a datum přihlášení. Správcem těchto údajů jsem já, Michal Nedvídek.
 
 ## K čemu adresu používám
 
-Jen k tomu, abych vám poslal e-mail, když na blogu Nová cesta vyjde nový článek. Adresu nikomu nepředávám a neposílám na ni reklamu.
+Jen k tomu, abych vám poslal e-mail, když na blogu Na nové cestě vyjde nový článek. Adresu nikomu nepředávám a neposílám na ni reklamu.
 
 ## Kde je adresa uložená
 

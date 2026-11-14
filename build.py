@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sestavení webu Nová cesta.
+"""Sestavení webu Na nové cestě.
 
 Použití:
   python3 build.py            ostrý web do _site/ (bez konceptů)
@@ -23,6 +23,8 @@ KOREN = Path(__file__).resolve().parent
 OBSAH = KOREN / "content"
 VYSTUP = KOREN / "_site"
 NAHLED = "--nahled" in sys.argv or json.loads((KOREN / "web.json").read_text(encoding="utf-8")).get("testovaci_verze", False)
+# testovací verze, kterou už smějí číst vyhledávače (koncepty zůstávají noindex)
+ROBOTI = json.loads((KOREN / "web.json").read_text(encoding="utf-8")).get("povolit_roboty", False) and "--nahled" not in sys.argv
 
 MESICE = ["ledna", "února", "března", "dubna", "května", "června", "července",
           "srpna", "září", "října", "listopadu", "prosince"]
@@ -111,6 +113,11 @@ def obrazek_html(zdroj, alt, popisek, pre, lazy=True, popisek_html=False):
             f"{cap}\n</figure>")
 
 
+def kontakt_md(telo, cfg):
+    k = cfg.get("kontakt_email", "")
+    return telo.replace("{{kontakt}}", f"[{k}](mailto:{k})")
+
+
 def md_na_html(telo, pre):
     # ![alt](foto.jpg "popisek") na samostatném řádku -> figure s popiskem
     def nahrad(m):
@@ -131,14 +138,14 @@ def md_na_html(telo, pre):
 
 # ---------- šablona ----------
 
-def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni="", typ="website"):
+def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni="", typ="website", koncept=False):
     url = cfg["zakladni_url"].rstrip("/") + "/" + cesta
     og_url = cfg["zakladni_url"].rstrip("/") + "/" + (og or "fotky/og-web.jpg")
     nav = [("clanky", "Články", f"{pre}#clanky"), ("o-mne", "O mně", f"{pre}o-mne/"),
            ("odber", "Odebírat", f"{pre}podporit/#odber"), ("podporit", "Podpořit", f"{pre}podporit/")]
     nav_html = "\n      ".join(
         f'<a href="{h}"{" aria-current=\"page\"" if k == aktivni else ""}>{t}</a>' for k, t, h in nav)
-    robots = '<meta name="robots" content="noindex, nofollow">\n' if NAHLED else ""
+    robots = '<meta name="robots" content="noindex, nofollow">\n' if (NAHLED and (not ROBOTI or koncept)) else ""
     pruh = '<aside class="preview" aria-label="Upozornění">Testovací verze, zatím nezveřejněno</aside>\n' if NAHLED else ""
     ld_html = ""
     if ld:
@@ -289,6 +296,33 @@ def main():
     og_web = og_obrazek("michal-s-talirem.jpg", "web")
     mapa = [f"{zaklad}/"]
 
+    # krátké zápisky (koncepty jen v testovací verzi)
+    zapisky = [nacti_md(p) for p in sorted((OBSAH / "zapisky").glob("*.md"))] if (OBSAH / "zapisky").exists() else []
+    zapisky = [z for z in zapisky if NAHLED or z.get("koncept") != "ano"]
+    for c in clanky:
+        c["druh"] = "clanky"
+    for z in zapisky:
+        z["druh"] = "zapisky"
+    venku = sorted(vydane + [z for z in zapisky if z.get("koncept") != "ano"],
+                   key=lambda d: (d["datum"], int(d.get("cislo", 0))), reverse=True)
+
+    def stitek(d):
+        if d["druh"] == "zapisky":
+            return f"Krátký zápisek · {datum_cesky(d['datum'])}"
+        return f"Článek {e(d.get('cislo', ''))} · {datum_cesky(d['datum'])}"
+
+    def prehled_html(c, pre):
+        """Pod článkem i zápiskem stejný výpis všeho vydaného, aby se dalo rovnou pokračovat jinam."""
+        radky = []
+        for d in venku if c in venku else [c] + venku:
+            if d is c:
+                radky.append(f'<li class="tady" aria-current="page"><small>{stitek(d)} · právě čtete</small><span>{spojky(e(d["nazev"]))}</span></li>')
+            else:
+                radky.append(f'<li><a href="{pre}{d["druh"]}/{d["slug"]}/"><small>{stitek(d)}</small><span>{spojky(e(d["nazev"]))}</span></a></li>')
+        nadpis = "Všechny články a zápisky" if zapisky else "Všechny články"
+        return (f'<section class="prehled wrap" aria-labelledby="prehled-nadpis"><h2 id="prehled-nadpis">{nadpis}</h2>'
+                f'<ol>{"".join(radky)}</ol></section>') if len(radky) > 1 else ""
+
     # články
     for i, c in enumerate(clanky):
         pre = "../../"
@@ -303,16 +337,7 @@ def main():
             if m:
                 og = og_obrazek(m.group(1), c["slug"])
         koncept = '<span class="koncept">koncept</span>' if c.get("koncept") == "ano" else ""
-        # pod článkem výpis všech článků, aby se dalo rovnou pokračovat jinam
-        radky = []
-        for d in vydane if c in vydane else [c] + vydane:
-            popisek = f"Článek {e(d.get('cislo', ''))} · {datum_cesky(d['datum'])}"
-            if d is c:
-                radky.append(f'<li class="tady" aria-current="page"><small>{popisek} · právě čtete</small><span>{spojky(e(d["nazev"]))}</span></li>')
-            else:
-                radky.append(f'<li><a href="{pre}clanky/{d["slug"]}/"><small>{popisek}</small><span>{spojky(e(d["nazev"]))}</span></a></li>')
-        prehled = (f'<section class="prehled wrap" aria-labelledby="prehled-nadpis"><h2 id="prehled-nadpis">Všechny články</h2>'
-                   f'<ol>{"".join(radky)}</ol></section>') if len(radky) > 1 else ""
+        prehled = prehled_html(c, pre)
         obsah = f"""{kurz_html(cfg, pre, vydane)}
 
 <article class="wrap">
@@ -320,7 +345,7 @@ def main():
   <h1>{spojky(e(c['nazev']))}</h1>
   <p class="perex">{spojky(e(c['perex']))}</p>
   {foto}
-  {md_na_html(c['telo'], pre)}
+  {md_na_html(kontakt_md(c['telo'], cfg), pre)}
 </article>
 {prehled}"""
         ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": c["nazev"],
@@ -328,10 +353,11 @@ def main():
               "url": f"{zaklad}/{cesta}", "image": f"{zaklad}/{og}", "author": osoba_ld(cfg),
               "publisher": osoba_ld(cfg), "mainEntityOfPage": f"{zaklad}/{cesta}"}
         html_out = stranka(cfg, pre=pre, titulek=f"{c['nazev']} | {cfg['nazev']}", popis=c["popis"],
-                           cesta=cesta, obsah=obsah, og=og, ld=ld, aktivni="clanky", typ="article")
+                           cesta=cesta, obsah=obsah, og=og, ld=ld, aktivni="clanky", typ="article", koncept=c.get("koncept") == "ano")
         uloz(cesta, html_out.replace("{PRE}", pre))
         c["url"] = f"{zaklad}/{cesta}"
-        mapa.append(c["url"])
+        if c.get("koncept") != "ano":
+            mapa.append(c["url"])
 
     # stránky
     for p in sorted((OBSAH / "stranky").glob("*.md")):
@@ -353,10 +379,50 @@ def main():
         uloz(cesta, html_out.replace("{PRE}", pre))
         mapa.append(f"{zaklad}/{cesta}")
 
+    # krátké zápisky: vlastní stránka stejně jako článek (kvůli odkazu z Facebooku), celé znění i na úvodní stránce
+    for z in zapisky:
+        pre = "../../"
+        cesta = f"zapisky/{z['slug']}/"
+        og = og_obrazek(z["foto"], "z-" + z["slug"]) if z.get("foto") else og_web
+        foto = obrazek_html(z["foto"], z.get("foto_alt", ""), z.get("foto_popisek", ""), pre, lazy=False) if z.get("foto") else ""
+        koncept = '<span class="koncept">koncept</span>' if z.get("koncept") == "ano" else ""
+        obsah = f"""{kurz_html(cfg, pre, vydane)}
+
+<article class="wrap zapisek-stranka">
+  <div class="meta">Krátký zápisek · <time datetime="{z['datum']}">{datum_cesky(z['datum'])}</time>{koncept}</div>
+  <h1>{spojky(e(z['nazev']))}</h1>
+  {foto}
+  {md_na_html(kontakt_md(z['telo'], cfg), pre)}
+</article>
+{prehled_html(z, pre)}"""
+        popis = re.sub(r"\s+", " ", re.sub(r"[*_\[\]{}]|\(mailto:[^)]*\)", "", z["telo"])).strip()
+        if len(popis) > 155:
+            popis = popis[:popis.rfind(" ", 0, 152)] + "…"
+        ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": z["nazev"], "description": popis,
+              "datePublished": z["datum"], "inLanguage": "cs", "url": f"{zaklad}/{cesta}", "image": f"{zaklad}/{og}",
+              "author": osoba_ld(cfg), "publisher": osoba_ld(cfg), "mainEntityOfPage": f"{zaklad}/{cesta}"}
+        html_out = stranka(cfg, pre=pre, titulek=f"{z['nazev']} | {cfg['nazev']}", popis=popis, cesta=cesta,
+                           obsah=obsah, og=og, ld=ld, aktivni="clanky", typ="article", koncept=z.get("koncept") == "ano")
+        uloz(cesta, html_out.replace("{PRE}", pre))
+        if z.get("koncept") != "ano":
+            mapa.append(f"{zaklad}/{cesta}")
+
     # úvodní stránka
     pre = ""
+    polozky = [("clanek", c) for c in vydane] + [("zapisek", z) for z in zapisky]
+    polozky.sort(key=lambda x: x[1]["datum"], reverse=True)
     karty = []
-    for c in vydane:
+    for druh, c in polozky:
+        if druh == "zapisek":
+            koncept = '<span class="koncept">koncept</span>' if c.get("koncept") == "ano" else ""
+            foto = obrazek_html(c["foto"], c.get("foto_alt", ""), c.get("foto_popisek", ""), pre) if c.get("foto") else ""
+            karty.append(f"""<li class="karta zapisek" id="zapisek-{e(c['slug'])}">
+    <div class="meta">Krátký zápisek · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
+    <h3><a href="zapisky/{e(c['slug'])}/">{spojky(e(c['nazev']))}</a></h3>
+    {foto}
+    {md_na_html(kontakt_md(c['telo'], cfg), pre)}
+  </li>""")
+            continue
         koncept = ""
         karty.append(f"""<li class="karta">
     <div class="meta">Článek {e(c.get('cislo', ''))} · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
@@ -365,13 +431,36 @@ def main():
     <a class="dal" href="clanky/{c['slug']}/" aria-label="Číst článek {e(c['nazev'])}">Číst dál →</a>
   </li>""")
     pripravuji = "".join(f"<li><span>{e(x['nazev'])}</span><span>{e(x['kdy'])}</span></li>" for x in cfg["pripravuji"])
+    hero = cfg.get("hero", {})
+    hero_foto = ""
+    if hero.get("foto"):
+        jm = Path(hero["foto"]).stem + ".jpg"
+        w, h = ROZMERY[jm]
+        hero_foto = (f'<figure class="hero-foto"><img src="fotky/{jm}" width="{w}" height="{h}" '
+                     f'alt="{e(hero.get("foto_alt", ""))}" fetchpriority="high"></figure>')
+    nadpis = hero.get("nadpis") or f"{cfg['nazev']}: {cfg['podtitul']}"
+    postaveno = {c["slug"] for c in clanky}   # stránky, které v tomhle sestavení existují
+    resim = []
+    for x in cfg.get("prave_resim", []):
+        if x.get("clanek") in postaveno:
+            resim.append(f'<li><a href="clanky/{x["clanek"]}/">{spojky(e(x["text"]))}</a></li>')
+        else:
+            resim.append(f"<li><span>{spojky(e(x['text']))}</span></li>")
+    resim_html = (f'<section class="resim wrap" aria-labelledby="resim-nadpis"><div class="resim-box">'
+                  f'<h2 id="resim-nadpis">Právě řeším</h2><ul>{"".join(resim)}</ul></div></section>') if resim else ""
     obsah = f"""<section class="uvod wrap">
-  <h1 class="sr-only">{e(cfg['nazev'])}: {e(cfg['podtitul'])}</h1>
-  <p>{spojky(e(cfg['uvod']))}</p>
+  <div class="uvod-text">
+    <p class="meta">{e(hero.get('stitek', cfg['podtitul']))}</p>
+    <h1>{spojky(e(nadpis))}</h1>
+    <p class="uvod-perex">{spojky(e(cfg['uvod']))}</p>
+    <p class="uvod-akce"><a class="tlacitko" href="#clanky">Číst články</a><a class="dal" href="podporit/#odber">Odebírat novinky →</a></p>
+  </div>
+  {hero_foto}
 </section>
 {kurz_html(cfg, pre, vydane)}
+{resim_html}
 <section class="vypis wrap" id="clanky" aria-labelledby="clanky-nadpis">
-  <h2 id="clanky-nadpis">Články</h2>
+  <h2 id="clanky-nadpis">{"Články a zápisky" if zapisky else "Články"}</h2>
   <ol>
   {''.join(karty)}
   </ol>
@@ -379,6 +468,14 @@ def main():
 <section class="dalsi wrap" aria-label="Připravované články">
   <h2>Připravuji</h2>
   <ul>{pripravuji}</ul>
+</section>"""
+    koncepty = [c for c in clanky if c.get("koncept") == "ano"]
+    if NAHLED and koncepty:
+        odkazy = "".join(f'<li><a href="clanky/{c["slug"]}/">{spojky(e(c["nazev"]))}</a><span>koncept</span></li>' for c in koncepty)
+        obsah += f"""
+<section class="dalsi koncepty wrap" aria-label="Koncepty k pročtení">
+  <h2>Koncepty k pročtení (jen v testovací verzi)</h2>
+  <ul>{odkazy}</ul>
 </section>"""
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "WebSite", "name": cfg["nazev"], "alternateName": cfg["podtitul"], "url": f"{zaklad}/",
@@ -396,7 +493,7 @@ def main():
                       popis="Stránka nenalezena.", cesta="404.html",
                       obsah=f'<article class="wrap"><h1>Tahle stránka tu není</h1><p>Možná se změnila adresa. Zkuste <a href="{zaklad}/">úvodní stránku</a>.</p></article>')
     (VYSTUP / "404.html").write_text(html404.replace("{PRE}", zaklad + "/"), encoding="utf-8")
-    if NAHLED:
+    if NAHLED and not ROBOTI:
         (VYSTUP / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
     else:
         (VYSTUP / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {zaklad}/sitemap.xml\n", encoding="utf-8")
@@ -406,7 +503,7 @@ def main():
     polozky = "".join(
         f"<item><title>{e(c['nazev'])}</title><link>{e(c['url'])}</link><guid>{e(c['url'])}</guid>"
         f"<pubDate>{dt.datetime.fromisoformat(c['datum']).strftime('%a, %d %b %Y 08:00:00 +0100')}</pubDate>"
-        f"<description>{e(c['perex'])}</description></item>\n" for c in clanky)
+        f"<description>{e(c['perex'])}</description></item>\n" for c in vydane)
     (VYSTUP / "rss.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>{e(cfg["nazev"])}</title>'
         f'<link>{zaklad}/</link><description>{e(cfg["uvod"])}</description><language>cs</language>\n{polozky}</channel></rss>\n',

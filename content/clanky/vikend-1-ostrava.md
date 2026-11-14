@@ -56,7 +56,7 @@ Přemýšlel jsem i o Slovinsku. Je blízko a bylo by to jednodušší. Jenže j
 
 ## Živá knihovna: i o těžkých chvílích
 
-Jedna z nejzajímavějších částí víkendu. Ve skupinkách jsme obešli čtyři stanoviště: historie organizace, mise, praktické okénko (očkování, víza, letenky) a čtvrté, nejvíc k zamyšlení. Tam jsme mluvili o tom, že na misi nebude všechno jen hezké. Přijdou krizové chvíle a těžký může být i návrat domů, kdy se člověk musí znovu naučit fungovat v Česku. Ocenil jsem, že nám nikdo nemaloval růžové brýle.
+Jedna z nejzajímavějších částí kurzu. Ve skupinkách jsme obešli čtyři stanoviště: historie organizace, mise, praktické okénko (očkování, víza, letenky) a čtvrté, nejvíc k zamyšlení. Tam jsme mluvili o tom, že na misi nebude všechno jen hezké. Přijdou krizové chvíle a těžký může být i návrat domů, kdy se člověk musí znovu naučit fungovat v Česku. Ocenil jsem, že nám nikdo nemaloval růžové brýle.
 
 ## Dobré a méně dobré motivace
 
@@ -71,7 +71,7 @@ Všiml jsem si, že všichni chtějí nějak pomoct a být užiteční. Zárove�
 
 S odhodláním. V neděli jsem odjížděl s jistotou, že tím dobrovolníkem opravdu chci být, a těším se na celou tu cestu: na kurz, na přípravu, na všechno, co přijde.
 
-Další víkend nás čeká v prosinci v Praze. Do té doby mám za úkol podívat se na jeden film o dobrovolnictví a přečíst si dopisy bývalých dobrovolníků. Napíšu, co ve mně zanechaly.
+Další kurz nás čeká v prosinci v Praze. Do té doby mám za úkol podívat se na jeden film o dobrovolnictví a přečíst si dopisy bývalých dobrovolníků. Napíšu, co ve mně zanechaly.
 
 ## Tipy na filmy
 

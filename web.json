@@ -1,13 +1,34 @@
 {
-  "nazev": "Nová cesta",
-  "podtitul": "Michal na cestě",
-  "podtitul_dlouhy": "Michal na cestě · rok dobrovolníkem v zahraničí",
+  "nazev": "Na nové cestě",
+  "podtitul": "Michal Nedvídek",
+  "podtitul_dlouhy": "Michal Nedvídek · rok dobrovolníkem v zahraničí",
   "autor": "Michal Nedvídek",
   "zakladni_url": "https://nanoveceste.cz",
   "domena": "nanoveceste.cz",
   "kontakt_email": "michal@nanoveceste.cz",
   "odber_url": "",
   "uvod": "Jsem Michal Nedvídek a chystám se na rok odjet jako dobrovolník do zahraničí. Na tomhle blogu vás beru s sebou: od přípravného kurzu až po život na místě.",
+  "hero": {
+    "stitek": "Právě teď: přípravy na rok dobrovolnictví",
+    "nadpis": "Skoro ve čtyřiceti měním směr.",
+    "foto": "michal-uvod.jpg",
+    "foto_alt": "Michal Nedvídek ve vínovém svetru se založenýma rukama"
+  },
+  "prave_resim": [
+    {
+      "text": "Vyberou mě? Dozvím se v únoru"
+    },
+    {
+      "text": "Jak utáhnout hypotéku, když rok nebudu vydělávat"
+    },
+    {
+      "text": "Zdravotní pojištění na rok v cizině",
+      "clanek": "zdravotni-pojisteni"
+    },
+    {
+      "text": "Rozjíždím tenhle blog"
+    }
+  ],
   "kurz": {
     "nazev": "přípravný kurz dobrovolníků",
     "vikendy": [
@@ -69,5 +90,6 @@
       "kdy": "leden 2027"
     }
   ],
-  "testovaci_verze": true
+  "testovaci_verze": true,
+  "povolit_roboty": true
 }

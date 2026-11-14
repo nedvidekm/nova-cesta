@@ -1,4 +1,4 @@
-# Nová cesta
+# Na nové cestě
 
 Blog Michala Nedvídka z přípravy a roku dobrovolnictví v zahraničí.
 

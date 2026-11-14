@@ -1,7 +1,7 @@
 {
   "name": "nova-cesta",
   "private": true,
-  "description": "Kontrola webu Nová cesta (node kontrola.js)",
+  "description": "Kontrola webu Na nové cestě (node kontrola.js)",
   "devDependencies": {
     "axe-core": "4.10.2"
   }

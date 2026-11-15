@@ -138,7 +138,7 @@ def md_na_html(telo, pre):
 
 # ---------- šablona ----------
 
-def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni="", typ="website", koncept=False, noindex=False):
+def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni="", typ="website", koncept=False, noindex=False, odber=True):
     url = cfg["zakladni_url"].rstrip("/") + "/" + cesta
     og_url = cfg["zakladni_url"].rstrip("/") + "/" + (og or "fotky/og-web.jpg")
     nav = [("clanky", "Články", f"{pre}#clanky"), ("o-mne", "O mně", f"{pre}o-mne/"),
@@ -197,7 +197,7 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
 
 <main id="obsah">
 {obsah}
-{odber_html(cfg)}
+{odber_html(cfg) if odber else ""}
 </main>
 
 <footer>
@@ -264,22 +264,22 @@ def ucet_html(cfg):
     return f'<div class="ucet"><p class="ucet-nazev">Osobní transparentní účet – podpora dobrovolnické mise</p><dl>{dl}</dl>{qr}{vypis}<p class="ucet-ok" role="status" hidden></p></div>'
 
 
-def vyzva_html(cfg, pre):
-    """Pod každým článkem a zápiskem: jemná prosba o podporu a odkaz na odběr."""
-    return f"""<aside class="vyzva wrap" aria-labelledby="vyzva-nadpis"><div class="vyzva-box">
-  <h2 id="vyzva-nadpis">Pomůžete mi na cestu?</h2>
-  <p>Tenhle blog píšu, abych na cestě nebyl sám. Pomůže mi, když budete číst dál, pošlete článek někomu, koho by mohl zajímat, nebo když na cestu přispějete. Stovka udělá radost stejně jako tisícovka.</p>
-  {stav_sbirky_html(cfg)}
-  <p class="vyzva-akce"><a class="tlacitko" href="{pre}podporit/">Podpořit cestu</a><a class="dal" href="#odber">Odebírat novinky →</a></p>
-</div></aside>"""
 
-
-def odber_html(cfg):
+def odber_html(cfg, pre=None):
+    """Box s odběrem. Pod článkem a zápiskem (pre zadané) v něm je i prosba o podporu, aby byl jen jeden."""
     stav = "nahled" if NAHLED else ("ok" if cfg.get("odber_url") else "pripravuji")
+    podpora = ""
+    if pre is not None:
+        podpora = f"""<p>Tenhle blog píšu, abych na cestě nebyl sám. Pomůže mi, když budete číst dál, pošlete článek někomu, koho by mohl zajímat, nebo když na cestu přispějete. Stovka udělá radost stejně jako tisícovka.</p>
+    {stav_sbirky_html(cfg)}
+    <p class="vyzva-akce"><a class="tlacitko" href="{pre}podporit/">Podpořit cestu</a></p>
+    <h3 class="odber-mezi">Nový článek e-mailem</h3>
+"""
+    nadpis = "Jdete se mnou?" if pre is not None else "Chcete jít se mnou?"
     return f"""<section class="wrap" aria-labelledby="odber-nadpis">
   <div class="box" id="odber" data-url="{e(cfg.get('odber_url', ''))}" data-stav="{stav}">
-    <h2 id="odber-nadpis">Chcete jít se mnou?</h2>
-    <p>Pošlu vám e-mail, kdykoli tu přibude nový článek. Zhruba dvakrát za měsíc, žádný spam.</p>
+    <h2 id="odber-nadpis">{nadpis}</h2>
+    {podpora}<p>Pošlu vám e-mail, kdykoli tu přibude nový článek. Zhruba dvakrát za měsíc, žádný spam.</p>
     <form id="f-odber" novalidate>
       <label for="email" class="sr-only">Váš e-mail</label>
       <input type="email" id="email" name="email" placeholder="vas@email.cz" autocomplete="email" required>
@@ -388,6 +388,21 @@ def main():
         return (f'<section class="prehled wrap" aria-labelledby="prehled-nadpis"><h2 id="prehled-nadpis">{nadpis}</h2>'
                 f'<ol>{"".join(radky)}</ol></section>') if len(radky) > 1 else ""
 
+    def cist_dal_html(c, pre):
+        """Hned pod textem: předchozí a další článek a odkaz dolů na celý seznam."""
+        rada = venku if c in venku else sorted(venku + [c], key=lambda d: (d["datum"], int(d.get("cislo", 0))), reverse=True)
+        i = rada.index(c)
+        novejsi = rada[i - 1] if i > 0 else None
+        starsi = rada[i + 1] if i + 1 < len(rada) else None
+        def karta(d, smer, trida):
+            return (f'<a class="{trida}" href="{pre}{d["druh"]}/{d["slug"]}/"><small>{smer}</small>'
+                    f'<span>{spojky(e(d["nazev"]))}</span></a>')
+        karty = (karta(starsi, "← Předchozí", "cist-pred") if starsi else "") + (karta(novejsi, "Další →", "cist-dal") if novejsi else "")
+        if not karty:
+            return ""
+        return (f'<nav class="cist wrap" aria-label="Další čtení"><div class="cist-karty">{karty}</div>'
+                f'<a class="dal cist-vse" href="#prehled-nadpis">Všechny články a zápisky ↓</a></nav>')
+
     # články
     for i, c in enumerate(clanky):
         pre = "../../"
@@ -412,14 +427,15 @@ def main():
   {foto}
   {md_na_html(kontakt_md(c['telo'], cfg), pre)}
 </article>
-{vyzva_html(cfg, pre)}
+{cist_dal_html(c, pre)}
+{odber_html(cfg, pre)}
 {prehled}"""
         ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": c["nazev"],
               "description": c["popis"], "datePublished": c["datum"], "inLanguage": "cs",
               "url": f"{zaklad}/{cesta}", "image": f"{zaklad}/{og}", "author": osoba_ld(cfg),
               "publisher": osoba_ld(cfg), "mainEntityOfPage": f"{zaklad}/{cesta}"}
         html_out = stranka(cfg, pre=pre, titulek=f"{c['nazev']} | {cfg['nazev']}", popis=c["popis"],
-                           cesta=cesta, obsah=obsah, og=og, ld=ld, aktivni="clanky", typ="article", koncept=c.get("koncept") == "ano")
+                           cesta=cesta, obsah=obsah, og=og, ld=ld, aktivni="clanky", typ="article", koncept=c.get("koncept") == "ano", odber=False)
         uloz(cesta, html_out.replace("{PRE}", pre))
         c["url"] = f"{zaklad}/{cesta}"
         if c.get("koncept") != "ano":
@@ -460,7 +476,8 @@ def main():
   {foto}
   {md_na_html(kontakt_md(z['telo'], cfg), pre)}
 </article>
-{vyzva_html(cfg, pre)}
+{cist_dal_html(z, pre)}
+{odber_html(cfg, pre)}
 {prehled_html(z, pre)}"""
         popis = re.sub(r"\s+", " ", re.sub(r"[*_\[\]{}]|\(mailto:[^)]*\)", "", z["telo"])).strip()
         if len(popis) > 155:
@@ -469,7 +486,7 @@ def main():
               "datePublished": z["datum"], "inLanguage": "cs", "url": f"{zaklad}/{cesta}", "image": f"{zaklad}/{og}",
               "author": osoba_ld(cfg), "publisher": osoba_ld(cfg), "mainEntityOfPage": f"{zaklad}/{cesta}"}
         html_out = stranka(cfg, pre=pre, titulek=f"{z['nazev']} | {cfg['nazev']}", popis=popis, cesta=cesta,
-                           obsah=obsah, og=og, ld=ld, aktivni="clanky", typ="article", koncept=z.get("koncept") == "ano")
+                           obsah=obsah, og=og, ld=ld, aktivni="clanky", typ="article", koncept=z.get("koncept") == "ano", odber=False)
         uloz(cesta, html_out.replace("{PRE}", pre))
         if z.get("koncept") != "ano":
             mapa.append(f"{zaklad}/{cesta}")

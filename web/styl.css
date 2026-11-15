@@ -189,7 +189,7 @@ footer .zamek img{display:block;width:120px;height:auto}
 .menu .rezim:hover span{border-color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-ink) 50%,transparent 50%)}
 
 /* Výpis všech článků pod článkem */
-.prehled{padding-block:8px 0}
+.prehled{padding-block:32px 0}
 .prehled h2{font-family:var(--label);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0;padding-top:14px;border-top:1px solid var(--rule);position:relative}
 .prehled h2::before{content:"";position:absolute;left:0;top:-2px;width:48px;height:3px;background:var(--accent)}
 .prehled ol{list-style:none;margin:8px 0 0;padding:0}
@@ -235,3 +235,15 @@ article td:last-child,article th:last-child{text-align:right;white-space:nowrap}
 .paticka-odkazy{display:flex;flex-wrap:wrap;gap:4px 20px;margin-bottom:12px}
 .paticka-odkazy a{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
 .ucet-nazev{font-family:var(--label);font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:15px;color:var(--muted)}
+
+/* pod článkem: předchozí / další, pak jeden box s podporou a odběrem, nakonec celý seznam */
+.cist{padding-block:24px 0}
+.cist-karty{display:grid;gap:10px;grid-template-columns:1fr}
+@media (min-width:640px){.cist-karty{grid-template-columns:1fr 1fr}.cist-dal{text-align:right}.cist-dal:only-child{grid-column:2}}
+.cist-karty a{display:block;border:1px solid var(--rule);border-top:3px solid var(--accent);background:var(--surface);padding:12px 14px;min-height:44px;color:var(--ink);text-decoration:none}
+.cist-karty a:hover{background:var(--soft)}
+.cist-karty small{display:block;font-family:var(--label);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:14px;color:var(--accent-ink)}
+.cist-karty span{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.25}
+.cist-vse{margin-top:6px}
+.box .odber-mezi{font-family:var(--label);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:22px 0 6px;padding-top:14px;border-top:1px solid var(--line)}
+.box .sbirka{margin:6px 0 14px}

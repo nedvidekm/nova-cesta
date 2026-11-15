@@ -2,8 +2,8 @@
  * Odběr nových článků blogu Na nové cestě (Google Apps Script).
  *
  * Co dělá:
- *  - přihlášení z formuláře na webu (doPost, akce=prihlasit) a potvrzovací e-mail,
- *  - potvrzení a odhlášení odkazem z e-mailu (doGet, akce=potvrdit / odhlasit),
+ *  - přihlášení z formuláře na webu (doPost, akce=prihlasit): odběr platí hned, přijde uvítací e-mail s odkazem na odhlášení,
+ *  - odhlášení odkazem z e-mailu (doGet, akce=odhlasit),
  *  - rozeslání nového článku, když ho web ohlásí po zveřejnění (doPost, akce=novy-clanek + klíč),
  *  - e-maily odcházejí přes SMTP2GO z adresy na doméně; co se nepodaří odeslat, dopošle každou hodinu funkce rozeslat().
  *
@@ -92,7 +92,7 @@ function doGet(e) {
     list.getRange(radek, 2).setValue('potvrzeno');
     list.getRange(radek, 5).setValue(new Date());
     list.getRange(radek, 6).setValue(posledniClanek_() ? posledniClanek_().slug : '');
-    return stranka_('Děkuji, odběr je potvrzený', 'Kdykoli na blogu ' + NASTAVENI.nazevWebu + ' přibude nový článek, pošlu vám e-mail.');
+    return stranka_('Děkuji, odběr je potvrzený', 'Kdykoli na blogu ' + NASTAVENI.nazevWebu + ' přibude nový článek nebo zápisek, pošlu vám e-mail.');
   }
   if (p.akce === 'odhlasit') {
     list.deleteRow(radek);
@@ -108,29 +108,29 @@ function prihlasit_(email) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 200) return { ok: false, chyba: 'email' };
   var list = tabulka_().getSheetByName(LIST_ODBERATELE);
   var data = list.getDataRange().getValues();
-  var token = Utilities.getUuid();
   for (var i = 1; i < data.length; i++) {
-    if (data[i][0] === email) {
-      if (data[i][1] === 'potvrzeno') return { ok: true };
-      list.getRange(i + 1, 3).setValue(token);
-      posliPotvrzeni_(email, token);
-      return { ok: true };
-    }
+    if (data[i][0] === email) return { ok: true }; // už odebírá, druhé uvítání neposílat
   }
-  list.appendRow([email, 'čeká', token, new Date(), '', '']);
-  posliPotvrzeni_(email, token);
+  var token = Utilities.getUuid();
+  var posledni = posledniClanek_();
+  // Odběr platí hned. Nový odběratel dostane až další článek, ne ten, který už na webu je.
+  list.appendRow([email, 'potvrzeno', token, new Date(), new Date(), posledni ? posledni.slug : '']);
+  posliUvitani_(email, token);
   return { ok: true };
 }
 
-function posliPotvrzeni_(email, token) {
-  var odkaz = ScriptApp.getService().getUrl() + '?akce=potvrdit&t=' + token;
+function posliUvitani_(email, token) {
+  var odhlasit = ScriptApp.getService().getUrl() + '?akce=odhlasit&t=' + token;
   posli_({
     to: email,
-    subject: 'Potvrďte prosím odběr blogu ' + NASTAVENI.nazevWebu,
-    body: 'Dobrý den,\n\nděkuji za zájem o blog ' + NASTAVENI.nazevWebu + '. Odběr prosím potvrďte kliknutím na odkaz:\n' + odkaz +
-      '\n\nPokud jste se nepřihlašovali, tento e-mail ignorujte.\n\nMichal Nedvídek',
-    htmlBody: obalEmailu_('<p>Dobrý den,</p><p>děkuji za zájem o blog ' + NASTAVENI.nazevWebu + '. Odběr prosím potvrďte kliknutím na tlačítko:</p>' +
-      tlacitko_(odkaz, 'Potvrdit odběr') + '<p style="color:#6b665e;font-size:14px">Pokud jste se nepřihlašovali, tento e-mail ignorujte.</p><p>Michal Nedvídek</p>')
+    odhlasit: odhlasit,
+    subject: 'Vítejte na blogu ' + NASTAVENI.nazevWebu,
+    body: 'Dobrý den,\n\nděkuji, že chcete sledovat moji cestu. Odběr je aktivní: pošlu vám e-mail pokaždé, když na blogu přibude nový článek nebo krátký zápisek. Nic jiného, žádná reklama.\n\n' +
+      'Mezitím si můžete přečíst, co už na blogu je: ' + NASTAVENI.webUrl + '\n\n' +
+      'Pokud jste se nepřihlašovali vy, odběr jedním kliknutím zrušíte tady: ' + odhlasit + '\n\nMichal',
+    htmlBody: obalEmailu_('<p>Dobrý den,</p><p>děkuji, že chcete sledovat moji cestu. Odběr je aktivní: pošlu vám e-mail pokaždé, když na blogu přibude nový článek nebo krátký zápisek. Nic jiného, žádná reklama.</p>' +
+      '<p>Mezitím si můžete přečíst, co už na blogu je:</p>' + tlacitko_(NASTAVENI.webUrl, 'Otevřít blog') +
+      '<p style="color:#6b665e;font-size:14px">Pokud jste se nepřihlašovali vy, odběr jedním kliknutím <a href="' + odhlasit + '" style="color:#6b665e">zrušíte tady</a>.</p><p>Michal</p>', odhlasit)
   });
 }
 
@@ -210,9 +210,10 @@ function rozeslat() {
         to: data[i][0],
         odhlasit: odhlasit,
         subject: (clanek.zapisek ? 'Nový zápisek: ' : 'Nový článek: ') + clanek.nazev,
-        body: clanek.nazev + '\n\n' + clanek.perex + '\n\nČíst dál: ' + clanek.url + '\n\nMichal Nedvídek\n\nOdhlásit odběr: ' + odhlasit,
-        htmlBody: obalEmailu_('<h1 style="font-family:Georgia,serif;font-size:26px;color:#3c3c3b;margin:0 0 12px">' + esc_(clanek.nazev) + '</h1>' +
-          '<p>' + esc_(clanek.perex) + '</p>' + tlacitko_(clanek.url, clanek.zapisek ? 'Číst zápisek' : 'Číst článek') + '<p>Michal Nedvídek</p>', odhlasit)
+        body: 'Dobrý den,\n\nna blogu právě vyšel ' + (clanek.zapisek ? 'nový zápisek' : 'nový článek') + ':\n\n' + clanek.nazev + '\n\n' + clanek.perex + '\n\nČíst dál: ' + clanek.url + '\n\nDěkuji, že čtete a jste se mnou na cestě.\nMichal\n\nOdhlásit odběr: ' + odhlasit,
+        htmlBody: obalEmailu_('<p>Dobrý den,</p><p>na blogu právě vyšel ' + (clanek.zapisek ? 'nový zápisek' : 'nový článek') + ':</p>' +
+          '<h1 style="font-family:Georgia,serif;font-size:26px;color:#3c3c3b;margin:0 0 12px">' + esc_(clanek.nazev) + '</h1>' +
+          '<p>' + esc_(clanek.perex) + '</p>' + tlacitko_(clanek.url, clanek.zapisek ? 'Číst zápisek' : 'Číst článek') + '<p>Děkuji, že čtete a jste se mnou na cestě.<br>Michal</p>', odhlasit)
       });
       if (!odeslano) break; // limit nebo chyba služby: zbytek dopošle další spuštění
       list.getRange(i + 1, 6).setValue(clanek.slug);

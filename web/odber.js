@@ -14,7 +14,7 @@
     if (!form.souhlas.checked) { ukaz(chyba, 'Potvrďte prosím souhlas se zasíláním článků.'); form.souhlas.focus(); return; }
     if (form.web.value) return; // ochrana proti robotům
     var stav = box.getAttribute('data-stav');
-    if (stav === 'nahled') { ukaz(ok, 'Testovací verze: nic se neodesílá. Na ostrém webu sem přijde potvrzení přihlášení.'); return; }
+    if (stav === 'nahled') { ukaz(ok, 'Testovací verze: nic se neodesílá. Na ostrém webu se tu ukáže, že je odběr aktivní.'); return; }
     if (stav !== 'ok') { ukaz(ok, 'Odběr právě spouštím. Zkuste to prosím za pár dní, děkuji.'); return; }
     var tlacitko = form.querySelector('button');
     tlacitko.disabled = true;
@@ -23,7 +23,7 @@
       body: new URLSearchParams({ akce: 'prihlasit', email: email, stranka: location.pathname })
     }).then(function () {
       form.hidden = true;
-      ukaz(ok, 'Děkuji! Poslal jsem vám e-mail. Klikněte v něm prosím na odkaz a odběr tím potvrďte.');
+      ukaz(ok, 'Děkuji! Odběr je aktivní a do schránky vám právě jde uvítací e-mail.');
     }).catch(function () {
       ukaz(chyba, 'Přihlášení se nepodařilo odeslat. Zkuste to prosím znovu za chvíli.');
     }).finally(function () { tlacitko.disabled = false; });

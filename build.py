@@ -284,7 +284,7 @@ def odber_html(cfg, pre=None):
       <label for="email" class="sr-only">Váš e-mail</label>
       <input type="email" id="email" name="email" placeholder="vas@email.cz" autocomplete="email" required>
       <input type="text" name="web" tabindex="-1" autocomplete="off" class="sr-only" aria-hidden="true">
-      <label class="souhlas"><input type="checkbox" id="souhlas" name="souhlas" required><span>Souhlasím, aby mi Michal posílal e-mailem nové články. Odhlásit se můžu kdykoli. <a href="{{PRE}}osobni-udaje/">Jak s adresou zacházím</a></span></label>
+      <label class="souhlas"><input type="checkbox" id="souhlas" name="souhlas" required><span>Souhlasím, aby mi Michal posílal e-mailem nové články a zápisky. Odhlásit se můžu kdykoli. <a href="{{PRE}}osobni-udaje/">Jak s adresou zacházím</a></span></label>
       <button type="submit">Odebírat</button>
     </form>
     <div class="ok" id="odber-ok" role="status" hidden></div>

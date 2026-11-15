@@ -279,7 +279,7 @@ def odber_html(cfg, pre=None):
     return f"""<section class="wrap" aria-labelledby="odber-nadpis">
   <div class="box" id="odber" data-url="{e(cfg.get('odber_url', ''))}" data-stav="{stav}">
     <h2 id="odber-nadpis">{nadpis}</h2>
-    {podpora}<p>Pošlu vám e-mail, kdykoli tu přibude nový článek. Zhruba dvakrát za měsíc, žádný spam.</p>
+    {podpora}<p>Pošlu vám e-mail pokaždé, když tu přibude nový článek nebo krátký zápisek. Nic jiného, žádná reklama.</p>
     <form id="f-odber" novalidate>
       <label for="email" class="sr-only">Váš e-mail</label>
       <input type="email" id="email" name="email" placeholder="vas@email.cz" autocomplete="email" required>
@@ -482,6 +482,7 @@ def main():
         popis = re.sub(r"\s+", " ", re.sub(r"[*_\[\]{}]|\(mailto:[^)]*\)", "", z["telo"])).strip()
         if len(popis) > 155:
             popis = popis[:popis.rfind(" ", 0, 152)] + "…"
+        z["perex"], z["url"] = popis, f"{zaklad}/{cesta}"
         ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": z["nazev"], "description": popis,
               "datePublished": z["datum"], "inLanguage": "cs", "url": f"{zaklad}/{cesta}", "image": f"{zaklad}/{og}",
               "author": osoba_ld(cfg), "publisher": osoba_ld(cfg), "mainEntityOfPage": f"{zaklad}/{cesta}"}
@@ -604,9 +605,10 @@ def main():
         f'<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>{e(cfg["nazev"])}</title>'
         f'<link>{zaklad}/</link><description>{e(cfg["uvod"])}</description><language>cs</language>\n{polozky}</channel></rss>\n',
         encoding="utf-8")
+    # pro rozesílku: všechno vydané (články i zápisky), nejnovější první; ohlašuje se to první
     (VYSTUP / "clanky.json").write_text(json.dumps(
-        [{"slug": c["slug"], "nazev": c["nazev"], "perex": c["perex"], "url": c["url"], "datum": c["datum"]}
-         for c in clanky if c.get("koncept") != "ano"], ensure_ascii=False, indent=1), encoding="utf-8")
+        [{"slug": c["slug"], "nazev": c["nazev"], "perex": c["perex"], "url": c["url"], "datum": c["datum"], "druh": c["druh"]}
+         for c in venku if c.get("koncept") != "ano"], ensure_ascii=False, indent=1), encoding="utf-8")
     if cfg.get("domena") and not NAHLED:
         (VYSTUP / "CNAME").write_text(cfg["domena"] + "\n", encoding="utf-8")
     (VYSTUP / ".nojekyll").write_text("", encoding="utf-8")

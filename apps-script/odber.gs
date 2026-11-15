@@ -183,15 +183,15 @@ function ohlasitClanek_(p) {
   var list = tabulka_().getSheetByName(LIST_CLANKY);
   var slugy = list.getRange(1, 1, Math.max(list.getLastRow(), 1), 1).getValues().map(function (r) { return r[0]; });
   if (slugy.indexOf(p.slug) !== -1) return false;
-  list.appendRow([p.slug, p.nazev, p.url, p.perex || '', new Date()]);
+  list.appendRow([p.slug, p.nazev, p.url, p.perex || '', new Date(), p.druh || 'clanky']);
   return true;
 }
 
 function posledniClanek_() {
   var list = tabulka_().getSheetByName(LIST_CLANKY);
   if (list.getLastRow() < 2) return null;
-  var r = list.getRange(list.getLastRow(), 1, 1, 4).getValues()[0];
-  return { slug: r[0], nazev: r[1], url: r[2], perex: r[3] };
+  var r = list.getRange(list.getLastRow(), 1, 1, 6).getValues()[0];
+  return { slug: r[0], nazev: r[1], url: r[2], perex: r[3], zapisek: r[5] === 'zapisky' };
 }
 
 /** Pošle nejnovější článek všem potvrzeným odběratelům, kteří ho ještě nedostali. Spouští se i každou hodinu. */
@@ -209,10 +209,10 @@ function rozeslat() {
       var odeslano = posli_({
         to: data[i][0],
         odhlasit: odhlasit,
-        subject: 'Nový článek: ' + clanek.nazev,
+        subject: (clanek.zapisek ? 'Nový zápisek: ' : 'Nový článek: ') + clanek.nazev,
         body: clanek.nazev + '\n\n' + clanek.perex + '\n\nČíst dál: ' + clanek.url + '\n\nMichal Nedvídek\n\nOdhlásit odběr: ' + odhlasit,
         htmlBody: obalEmailu_('<h1 style="font-family:Georgia,serif;font-size:26px;color:#3c3c3b;margin:0 0 12px">' + esc_(clanek.nazev) + '</h1>' +
-          '<p>' + esc_(clanek.perex) + '</p>' + tlacitko_(clanek.url, 'Číst článek') + '<p>Michal Nedvídek</p>', odhlasit)
+          '<p>' + esc_(clanek.perex) + '</p>' + tlacitko_(clanek.url, clanek.zapisek ? 'Číst zápisek' : 'Číst článek') + '<p>Michal Nedvídek</p>', odhlasit)
       });
       if (!odeslano) break; // limit nebo chyba služby: zbytek dopošle další spuštění
       list.getRange(i + 1, 6).setValue(clanek.slug);

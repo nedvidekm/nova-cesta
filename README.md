@@ -13,7 +13,7 @@ Blog Michala Nedvídka z přípravy a roku dobrovolnictví v zahraničí.
 
 ## Odběr e-mailem (Google)
 
-Skript `apps-script/odber.gs` běží v Google účtu. Ukládá odběratele do Google tabulky, posílá potvrzovací e-mail, odhlašuje a po zveřejnění nového článku ho rozešle. Co se nepodaří odeslat, dopošle další hodinu.
+Skript `apps-script/odber.gs` běží v Google účtu. Ukládá odběratele do Google tabulky, posílá uvítací e-mail (odběr platí hned), odhlašuje a po zveřejnění nového článku ho rozešle. Co se nepodaří odeslat, dopošle další hodinu.
 
 Odesílání: přes službu SMTP2GO (rozhraní `POST /v3/email/send`) z adresy `michal@nanoveceste.cz`, odpovědi čtenářů jdou na stejnou adresu. Tarif zdarma má 1 000 e-mailů měsíčně. Klíč služby je uložený jen ve vlastnostech skriptu (`SMTP2GO_KLIC`), v repozitáři není. Bez klíče skript odesílá přes Gmail účtu.
 

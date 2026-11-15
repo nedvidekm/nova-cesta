@@ -61,7 +61,7 @@ jobs:
           if not clanky:
               raise SystemExit("Žádný zveřejněný článek.")
           c = clanky[0]
-          data = urllib.parse.urlencode({"akce": "novy-clanek", "klic": os.environ["ODBER_KLIC"], **{k: c[k] for k in ("slug", "nazev", "perex", "url")}}).encode()
+          data = urllib.parse.urlencode({"akce": "novy-clanek", "klic": os.environ["ODBER_KLIC"], **{k: c.get(k, "") for k in ("slug", "nazev", "perex", "url", "druh")}}).encode()
           with urllib.request.urlopen(urllib.request.Request(os.environ["ODBER_URL"], data=data), timeout=120) as r:
               print(r.status, r.read().decode()[:200])
           PY

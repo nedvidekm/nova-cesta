@@ -8,7 +8,7 @@ Když se přihlásíte k odběru, uložím vaši e-mailovou adresu a datum přih
 
 ## K čemu adresu používám
 
-Jen k tomu, abych vám poslal e-mail, když na blogu Na nové cestě vyjde nový článek. Adresu nikomu nepředávám a neposílám na ni reklamu.
+Jen k tomu, abych vám po přihlášení poslal uvítací e-mail a pak e-mail pokaždé, když na blogu Na nové cestě vyjde nový článek nebo krátký zápisek. Adresu nikomu nepředávám a neposílám na ni reklamu.
 
 ## Kde je adresa uložená
 

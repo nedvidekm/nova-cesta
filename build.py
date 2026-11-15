@@ -93,10 +93,10 @@ def zpracuj_fotky():
         ROZMERY[f.name] = ROZMERY[jmeno] = im.size
 
 
-def og_obrazek(zdroj, slug):
+def og_obrazek(zdroj, slug, centering=(0.5, 0.4)):
     """Náhled pro sdílení 1200 × 630 (ořez na střed)."""
     im = Image.open(VYSTUP / "fotky" / (Path(zdroj).stem + ".jpg"))
-    im = ImageOps.fit(im, (1200, 630), centering=(0.5, 0.4))
+    im = ImageOps.fit(im, (1200, 630), centering=centering)
     jmeno = f"og-{slug}.jpg"
     im.save(VYSTUP / "fotky" / jmeno, "JPEG", quality=82, optimize=True)
     return f"fotky/{jmeno}"
@@ -353,7 +353,8 @@ def main():
     # koncept má v testovací verzi vlastní stránku k pročtení, ale do výpisů se nedostane (je v „Připravuji“)
     vydane = [c for c in clanky if c.get("koncept") != "ano"]
 
-    og_web = og_obrazek("michal-s-talirem.jpg", "web")
+    # náhled při sdílení webu: portrét ve vínovém svetru (neořezaná verze fotky z úvodu), hlava celá
+    og_web = og_obrazek("michal-portret.jpg", "uvod", centering=(0.5, 0.0))
     mapa = [f"{zaklad}/"]
 
     # krátké zápisky (koncepty jen v testovací verzi)

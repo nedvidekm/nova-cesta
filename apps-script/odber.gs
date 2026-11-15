@@ -156,7 +156,7 @@ function posli_(m) {
 function posliSmtp2go_(m, klic) {
   var hlavicky = [{ header: 'Reply-To', value: NASTAVENI.odpovediNa }];
   if (m.odhlasit) hlavicky.push({ header: 'List-Unsubscribe', value: '<' + m.odhlasit + '>' });
-  var odp = UrlFetchApp.fetch('https://eu-api.smtp2go.com/v3/email/send', {
+  var odp = UrlFetchApp.fetch('https://api.smtp2go.com/v3/email/send', {
     method: 'post',
     contentType: 'application/json',
     headers: { 'X-Smtp2go-Api-Key': klic },

@@ -23,6 +23,8 @@ KOREN = Path(__file__).resolve().parent
 OBSAH = KOREN / "content"
 VYSTUP = KOREN / "_site"
 NAHLED = "--nahled" in sys.argv or json.loads((KOREN / "web.json").read_text(encoding="utf-8")).get("testovaci_verze", False)
+# koncepty na ostrém webu: vidět s označením „koncept“ (pro známé a testery), ale noindex a bez rozesílky, RSS a mapy webu
+KONCEPTY = NAHLED or json.loads((KOREN / "web.json").read_text(encoding="utf-8")).get("ukazat_koncepty", False)
 # testovací verze, kterou už smějí číst vyhledávače (koncepty zůstávají noindex)
 ROBOTI = json.loads((KOREN / "web.json").read_text(encoding="utf-8")).get("povolit_roboty", False) and "--nahled" not in sys.argv
 
@@ -145,7 +147,7 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
            ("odber", "Odebírat", f"{pre}podporit/#odber"), ("podporit", "Podpořit", f"{pre}podporit/")]
     nav_html = "\n      ".join(
         f'<a href="{h}"{" aria-current=\"page\"" if k == aktivni else ""}>{t}</a>' for k, t, h in nav)
-    robots = '<meta name="robots" content="noindex, nofollow">\n' if (noindex or (NAHLED and (not ROBOTI or koncept))) else ""
+    robots = '<meta name="robots" content="noindex, nofollow">\n' if (noindex or koncept or (NAHLED and not ROBOTI)) else ""
     pruh = '<aside class="preview" aria-label="Upozornění">Testovací verze, zatím nezveřejněno</aside>\n' if NAHLED else ""
     ld_html = ""
     if ld:
@@ -202,12 +204,12 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
 
 <footer>
   <div class="wrap">
-    <nav class="paticka-odkazy" aria-label="Odkazy v patičce">
-      <a href="{pre}podporit/#odber">Odebírat novinky e-mailem</a><a href="{pre}podporit/">Podpořit cestu</a>{socialni_html(cfg)}
-    </nav>
     <div class="paticka-ja">
       <span>{e(cfg['nazev'])} · {e(cfg['podtitul'])}</span>{kontakt_html}<a href="{pre}osobni-udaje/">Ochrana osobních údajů</a><span>Web vytvořil {e(cfg['autor'])}</span>
     </div>
+    <nav class="paticka-odkazy" aria-label="Odkazy v patičce">
+      <a href="{pre}podporit/">Podpořit cestu</a><a href="{pre}podporit/#odber">Odebírat novinky e-mailem</a>{socialni_html(cfg)}
+    </nav>
     <div class="podporuji">
       <h2>Podporují mě</h2>
       <a class="zamek" href="https://www.zivyzamektouzim.cz/" rel="noopener"><img src="{pre}zamek-logo.png" width="320" height="241" alt="Živý zámek Toužim" loading="lazy"></a>
@@ -348,7 +350,7 @@ def main():
     zaklad = cfg["zakladni_url"].rstrip("/")
 
     clanky = [nacti_md(p) for p in sorted((OBSAH / "clanky").glob("*.md"))]
-    clanky = [c for c in clanky if NAHLED or c.get("koncept") != "ano"]
+    clanky = [c for c in clanky if KONCEPTY or c.get("koncept") != "ano"]
     clanky.sort(key=lambda c: (c["datum"], int(c.get("cislo", 0))), reverse=True)
     # koncept má v testovací verzi vlastní stránku k pročtení, ale do výpisů se nedostane (je v „Připravuji“)
     vydane = [c for c in clanky if c.get("koncept") != "ano"]
@@ -359,14 +361,14 @@ def main():
 
     # krátké zápisky (koncepty jen v testovací verzi)
     zapisky = [nacti_md(p) for p in sorted((OBSAH / "zapisky").glob("*.md"))] if (OBSAH / "zapisky").exists() else []
-    zapisky = [z for z in zapisky if NAHLED or z.get("koncept") != "ano"]
+    zapisky = [z for z in zapisky if KONCEPTY or z.get("koncept") != "ano"]
     for c in clanky:
         c["druh"] = "clanky"
     for z in zapisky:
         z["druh"] = "zapisky"
     # v testovací verzi se koncepty ukazují všude tak, jako by už vyšly (s označením koncept)
-    ukazat = clanky if NAHLED else vydane
-    venku = sorted(ukazat + [z for z in zapisky if NAHLED or z.get("koncept") != "ano"],
+    ukazat = clanky if KONCEPTY else vydane
+    venku = sorted(ukazat + [z for z in zapisky if KONCEPTY or z.get("koncept") != "ano"],
                    key=lambda d: (d["datum"], int(d.get("cislo", 0))), reverse=True)
 
     def stitek(d):

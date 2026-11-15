@@ -129,8 +129,8 @@ function posliUvitani_(email, token) {
       'Mezitím si můžete přečíst, co už na blogu je: ' + NASTAVENI.webUrl + '\n\n' +
       'Pokud jste se nepřihlašovali vy, odběr jedním kliknutím zrušíte tady: ' + odhlasit + '\n\nMichal',
     htmlBody: obalEmailu_('<p>Dobrý den,</p><p>děkuji, že chcete sledovat moji cestu. Odběr je aktivní: pošlu vám e-mail pokaždé, když na blogu přibude nový článek nebo krátký zápisek. Nic jiného, žádná reklama.</p>' +
-      '<p>Mezitím si můžete přečíst, co už na blogu je:</p>' + tlacitko_(NASTAVENI.webUrl, 'Otevřít blog') +
-      '<p style="color:#6b665e;font-size:14px">Pokud jste se nepřihlašovali vy, odběr jedním kliknutím <a href="' + odhlasit + '" style="color:#6b665e">zrušíte tady</a>.</p><p>Michal</p>', odhlasit)
+      '<p>Mezitím si můžete přečíst, co už na blogu je: <a href="' + NASTAVENI.webUrl + '" style="color:#af1917;font-weight:bold;text-decoration:none">nanoveceste.cz</a></p>' +
+      '<p style="color:#6b665e;font-size:14px;margin:0 0 14px">Pokud jste se nepřihlašovali vy, odběr jedním kliknutím <a href="' + odhlasit + '" style="color:#6b665e">zrušíte tady</a>.</p><p>Michal</p>', odhlasit)
   });
 }
 
@@ -236,12 +236,13 @@ function obalEmailu_(obsah, odhlasit) {
   var pata = '<p style="color:#6b665e;font-size:13px;border-top:1px solid #e3dccf;padding-top:12px;margin-top:24px">' +
     '<a href="' + NASTAVENI.webUrl + '" style="color:#6b665e">' + NASTAVENI.nazevWebu + '</a> · Michal na cestě' +
     (odhlasit ? ' · <a href="' + odhlasit + '" style="color:#6b665e">Odhlásit odběr</a>' : '') + '</p>';
+  obsah = obsah.replace(/<p>/g, '<p style="margin:0 0 14px">');
   return '<div style="max-width:560px;margin:0 auto;font-family:Georgia,serif;font-size:17px;line-height:1.6;color:#3c3c3b">' +
     '<div style="height:6px;background:#af1917;margin-bottom:20px"></div>' + obsah + pata + '</div>';
 }
 
 function tlacitko_(url, text) {
-  return '<p><a href="' + url + '" style="display:inline-block;background:#af1917;color:#ffffff;text-decoration:none;font-family:Arial,sans-serif;font-weight:bold;padding:12px 20px">' + text + '</a></p>';
+  return '<p><a href="' + url + '" style="display:inline-block;background:#af1917;color:#ffffff;text-decoration:none;font-family:Arial,sans-serif;font-size:15px;font-weight:bold;padding:8px 16px;border-radius:4px">' + text + ' →</a></p>';
 }
 
 function esc_(s) {

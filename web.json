@@ -119,5 +119,6 @@
     }
   ],
   "testovaci_verze": false,
+  "ukazat_koncepty": true,
   "povolit_roboty": true
 }

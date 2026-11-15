@@ -202,12 +202,12 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
 
 <footer>
   <div class="wrap">
-    <nav class="paticka-odkazy" aria-label="Odkazy v patičce">
-      <a href="{pre}podporit/#odber">Odebírat novinky e-mailem</a><a href="{pre}podporit/">Podpořit cestu</a>{socialni_html(cfg)}
-    </nav>
     <div class="paticka-ja">
       <span>{e(cfg['nazev'])} · {e(cfg['podtitul'])}</span>{kontakt_html}<a href="{pre}osobni-udaje/">Ochrana osobních údajů</a><span>Web vytvořil {e(cfg['autor'])}</span>
     </div>
+    <nav class="paticka-odkazy" aria-label="Odkazy v patičce">
+      <a href="{pre}podporit/">Podpořit cestu</a><a href="{pre}podporit/#odber">Odebírat novinky e-mailem</a>{socialni_html(cfg)}
+    </nav>
     <div class="podporuji">
       <h2>Podporují mě</h2>
       <a class="zamek" href="https://www.zivyzamektouzim.cz/" rel="noopener"><img src="{pre}zamek-logo.png" width="320" height="241" alt="Živý zámek Toužim" loading="lazy"></a>

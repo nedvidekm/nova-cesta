@@ -2,7 +2,7 @@
 nazev: Proč jedu
 slug: proc-jedu
 cislo: 1
-datum: 2026-11-09
+datum: 2026-11-16
 popis: Proč jsem se ve 38 letech rozhodl na rok odjet jako dobrovolník do zahraničí a co od toho čekám.
 perex: Je mi 38 let. Mám práci, byt, přátele a skoro dvacet let za sebou v dobrovolnictví. Na papíře by mi nemělo nic chybět. A přesto jsem si poslední roky čím dál častěji kladl otázku: je tohle opravdu cesta, kterou chci jít dál?
 ---

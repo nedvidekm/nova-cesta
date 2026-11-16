@@ -45,9 +45,7 @@
     "iban": "CZ8920100000002503652974",
     "majitel": "Michal Nedvídek",
     "zprava": "DAR NA NOVE CESTE",
-    "qr": "platba-qr.svg",
-    "qr_castky": [300, 500, 1000],
-    "qr_vychozi": 500,
+    "qr": "platba-qr-500.svg",
     "vypis_url": ""
   },
   "socialni": [

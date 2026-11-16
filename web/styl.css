@@ -220,7 +220,7 @@ footer .zamek img{display:block;width:120px;height:auto}
 .ucet dd{margin:0;overflow-wrap:anywhere}
 .ucet-cislo{font-weight:600;font-size:20px}
 .kopirovat{min-height:44px;padding:6px 14px;margin-left:6px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);font:inherit;cursor:pointer}
-.ucet-qr{margin:12px 0}.ucet-qr img{background:#fff;padding:8px;border:1px solid var(--rule)}
+.ucet-qr{margin:12px 0}.qr-castky{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.qr-castky button{min-height:44px;padding:6px 14px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);font:inherit;font-weight:600;cursor:pointer}.qr-castky button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}.ucet-qr img{background:#fff;padding:8px;border:1px solid var(--rule)}
 article table{width:100%;border-collapse:collapse;margin:16px 0;font-size:17px}
 article th,article td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
 article th{font-family:var(--label);font-weight:600;border-bottom:2px solid var(--rule)}

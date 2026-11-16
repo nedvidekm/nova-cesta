@@ -120,6 +120,6 @@
     }
   ],
   "testovaci_verze": false,
-  "ukazat_koncepty": true,
+  "ukazat_koncepty": false,
   "povolit_roboty": true
 }

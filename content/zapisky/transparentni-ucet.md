@@ -1,7 +1,7 @@
 ---
 nazev: Proč vybírám na vlastní transparentní účet
 slug: transparentni-ucet
-datum: 2026-11-20
+datum: 2026-11-23
 koncept: ano
 ---
 

@@ -2,7 +2,7 @@
 nazev: "Ostrava, první krok"
 slug: vikend-1-ostrava
 cislo: 2
-datum: 2026-11-16
+datum: 2026-11-19
 koncept: ano
 popis: Reportáž z prvního víkendu přípravného kurzu pro dobrovolníky v Ostravě, 6.–8. listopadu 2026. Seznamování, víra, země a motivace.
 perex: Než nás pošlou do světa, čeká nás osm víkendů přípravného kurzu. První z nich se odehrál v Ostravě a já se na něj těšil i trochu bál zároveň.

@@ -364,6 +364,7 @@ def main():
     zaklad = cfg["zakladni_url"].rstrip("/")
 
     clanky = [nacti_md(p) for p in sorted((OBSAH / "clanky").glob("*.md"))]
+    vsechny_koncepty = [c for c in clanky if c.get("koncept") == "ano"]
     clanky = [c for c in clanky if KONCEPTY or c.get("koncept") != "ano"]
     clanky.sort(key=lambda c: (c["datum"], int(c.get("cislo", 0))), reverse=True)
     # koncept má v testovací verzi vlastní stránku k pročtení, ale do výpisů se nedostane (je v „Připravuji“)
@@ -375,6 +376,7 @@ def main():
 
     # krátké zápisky (koncepty jen v testovací verzi)
     zapisky = [nacti_md(p) for p in sorted((OBSAH / "zapisky").glob("*.md"))] if (OBSAH / "zapisky").exists() else []
+    vsechny_koncepty += [dict(z, je_zapisek=True) for z in zapisky if z.get("koncept") == "ano"]
     zapisky = [z for z in zapisky if KONCEPTY or z.get("koncept") != "ano"]
     for c in clanky:
         c["druh"] = "clanky"
@@ -531,7 +533,17 @@ def main():
     <p>{spojky(e(c['perex']))}</p>
     <a class="dal" href="clanky/{c['slug']}/" aria-label="Číst článek {e(c['nazev'])}">Číst dál →</a>
   </li>""")
-    pripravuji = "".join(f"<li><span>{e(x['nazev'])}</span><span>{e(x['kdy'])}</span></li>" for x in cfg["pripravuji"])
+    # Připravuji: naplánované koncepty (článek i zápisek) s přesným datem + větší plány z web.json bez textu, podle data, max. 5
+    def bez_roku(iso):
+        d = dt.date.fromisoformat(iso)
+        return f"{d.day}. {MESICE[d.month - 1]}"
+    hotove = {k["nazev"] for k in vsechny_koncepty}
+    plan = [{"nazev": k["nazev"], "datum": k["datum"], "kdy": bez_roku(k["datum"]),
+             "druh": "krátký zápisek" if k.get("je_zapisek") else "článek"} for k in vsechny_koncepty]
+    plan += [dict(x, druh="článek") for x in cfg["pripravuji"] if x["nazev"] not in hotove]
+    plan.sort(key=lambda x: x["datum"])
+    pripravuji = "".join(f'<li class="plan"><span class="nazev">{e(x["nazev"])}</span><small>{e(x["kdy"])} · {x["druh"]}</small></li>'
+                         for x in plan[:5])
     hero = cfg.get("hero", {})
     hero_foto = ""
     if hero.get("foto"):

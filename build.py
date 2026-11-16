@@ -260,8 +260,17 @@ def ucet_html(cfg):
     dl = "".join(f"<dt>{a}</dt><dd>{b}</dd>" for a, b in radky)
     qr = ""
     if p.get("qr"):
-        qr = (f'<figure class="ucet-qr"><img src="{{PRE}}{e(p["qr"])}" width="220" height="220" alt="QR kód pro platbu na účet {e(p["ucet"])}">'
-              f'<figcaption>Naskenujte v aplikaci své banky. Částku si zvolíte sami.</figcaption></figure>')
+        castky = p.get("qr_castky") or []
+        vychozi = p.get("qr_vychozi")
+        src = f"platba-qr-{vychozi}.svg" if vychozi in castky else p["qr"]
+        tlacitka = ""
+        if castky:
+            volby = [(str(c), kc(c)) for c in castky] + [("", "Jiná částka")]
+            tlacitka = ('<div class="qr-castky" role="group" aria-label="Částka v QR kódu">' + "".join(
+                f'<button type="button" data-qr="{{PRE}}{"platba-qr-" + k + ".svg" if k else e(p["qr"])}" aria-pressed="{"true" if k == str(vychozi) else "false"}">{t}</button>'
+                for k, t in volby) + '</div>')
+        qr = (f'<figure class="ucet-qr">{tlacitka}<img src="{{PRE}}{src}" width="220" height="220" alt="QR kód pro platbu na účet {e(p["ucet"])}">'
+              f'<figcaption>Naskenujte v aplikaci své banky. Částku tam můžete ještě změnit.</figcaption></figure>')
     vypis = f'<p><a href="{e(p["vypis_url"])}" rel="noopener">Veřejný výpis z účtu →</a></p>' if p.get("vypis_url") else ""
     return f'<div class="ucet"><p class="ucet-nazev">Osobní transparentní účet – podpora dobrovolnické mise</p><dl>{dl}</dl>{qr}{vypis}<p class="ucet-ok" role="status" hidden></p></div>'
 
@@ -346,6 +355,8 @@ def main():
     shutil.copy(KOREN / "web" / "odber.js", VYSTUP / "odber.js")
     shutil.copy(KOREN / "web" / "favicon.svg", VYSTUP / "favicon.svg")
     shutil.copy(KOREN / "web" / "zamek-logo.png", VYSTUP / "zamek-logo.png")
+    for f in (KOREN / "web").glob("platba-qr*.svg"):
+        shutil.copy(f, VYSTUP / f.name)
     OTISK_CSS, OTISK_JS = otisk(VYSTUP / "styl.css"), otisk(VYSTUP / "odber.js")
     zaklad = cfg["zakladni_url"].rstrip("/")
 

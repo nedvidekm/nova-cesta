@@ -46,6 +46,13 @@
 
 // Zkopírování čísla účtu na stránce Podpořit
 (function () {
+  document.querySelectorAll('.qr-castky button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = b.closest('.ucet-qr');
+      f.querySelector('img').src = b.getAttribute('data-qr');
+      f.querySelectorAll('.qr-castky button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    });
+  });
   document.querySelectorAll('.kopirovat').forEach(function (b) {
     b.addEventListener('click', function () {
       var text = b.getAttribute('data-text');

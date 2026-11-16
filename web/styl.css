@@ -250,3 +250,4 @@ article td:last-child,article th:last-child{text-align:right;white-space:nowrap}
 .cist-vse{margin-top:6px}
 .box .odber-mezi{font-family:var(--label);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:22px 0 6px;padding-top:14px;border-top:1px solid var(--line)}
 .box .sbirka{margin:6px 0 14px}
+.dalsi li.plan{display:block;padding-block:10px}.dalsi li.plan .nazev{display:block;line-height:1.25}.dalsi li.plan small{display:block;font-family:var(--label);font-size:15px;color:var(--muted);margin-top:4px}

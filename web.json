@@ -51,7 +51,7 @@
   "socialni": [
     {
       "nazev": "Facebook",
-      "url": "https://www.facebook.com/michal.nedvidek.7"
+      "url": "https://www.facebook.com/nanoveceste"
     },
     {
       "nazev": "Instagram",
@@ -104,19 +104,23 @@
   "pripravuji": [
     {
       "nazev": "Ostrava, první krok",
-      "kdy": "listopad 2026"
+      "kdy": "listopad 2026",
+      "datum": "2026-11-19"
     },
     {
       "nazev": "Co mi řekly dopisy dobrovolníků",
-      "kdy": "prosinec 2026"
+      "kdy": "prosinec 2026",
+      "datum": "2026-12-03"
     },
     {
       "nazev": "Víkend 2: Praha",
-      "kdy": "prosinec 2026"
+      "kdy": "prosinec 2026",
+      "datum": "2026-12-17"
     },
     {
       "nazev": "Víkend 3: Čučice",
-      "kdy": "leden 2027"
+      "kdy": "leden 2027",
+      "datum": "2027-01-14"
     }
   ],
   "testovaci_verze": false,

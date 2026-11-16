@@ -23,7 +23,7 @@
       "text": "Čekám na únor: dozvím se, jestli mě vyberou a kam pojedu"
     },
     {
-      "text": "Zakládám transparentní účet na cestu",
+      "text": "Spouštím transparentní účet na cestu",
       "stranka": "podporit"
     },
     {
@@ -40,9 +40,9 @@
   "podpora": {
     "cil": 100000,
     "vybrano": 0,
-    "aktualizovano": "2026-11-14",
-    "ucet": "",
-    "iban": "",
+    "aktualizovano": "2026-11-16",
+    "ucet": "2503652974/2010",
+    "iban": "CZ8920100000002503652974",
     "majitel": "Michal Nedvídek",
     "zprava": "DAR NA NOVE CESTE",
     "vypis_url": ""

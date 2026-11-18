@@ -34,6 +34,9 @@ MESICE = ["ledna", "února", "března", "dubna", "května", "června", "červenc
 
 # ---------- pomocné funkce ----------
 
+# měření návštěvnosti GoatCounter (bez cookies), jen na ostrém webu
+GOATCOUNTER = '<script data-goatcounter="https://mnedvidek.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>\n'
+
 def nacti_md(cesta):
     """Načte soubor s hlavičkou mezi --- (klíč: hodnota) a tělem v Markdownu."""
     text = cesta.read_text(encoding="utf-8")
@@ -220,7 +223,7 @@ def stranka(cfg, *, pre, titulek, popis, cesta, obsah, og=None, ld=None, aktivni
   </div>
 </footer>
 <script src="{pre}odber.js?v={OTISK_JS}" defer></script>
-</body>
+{GOATCOUNTER if not NAHLED else ""}</body>
 </html>
 """
 

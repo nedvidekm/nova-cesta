@@ -56,7 +56,7 @@ Přemýšlel jsem i o Slovinsku. Je blízko a bylo by to jednodušší. Jenže j
 
 ## Živá knihovna: i o těžkých chvílích
 
-Jedna z nejzajímavějších částí kurzu. Ve skupinkách jsme obešli čtyři stanoviště: historie organizace, mise, praktické okénko (očkování, víza, letenky) a čtvrté, nejvíc k zamyšlení. Tam jsme mluvili o tom, že na misi nebude všechno jen hezké. Přijdou krizové chvíle a těžký může být i návrat domů, kdy se člověk musí znovu naučit fungovat v Česku. Ocenil jsem, že nám nikdo nemaloval růžové brýle.
+Jedna z nejzajímavějších částí kurzu. Ve skupinkách jsme obešli čtyři stanoviště: historie organizace, misie, praktické okénko (očkování, víza, letenky) a čtvrté, nejvíc k zamyšlení. Tam jsme mluvili o tom, že na misii nebude všechno jen hezké. Přijdou krizové chvíle a těžký může být i návrat domů, kdy se člověk musí znovu naučit fungovat v Česku. Ocenil jsem, že nám nikdo nemaloval růžové brýle.
 
 ## Dobré a méně dobré motivace
 

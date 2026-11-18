@@ -65,3 +65,23 @@
     });
   });
 })();
+
+// Teploměr: aktuální součet příchozích plateb z transparentního účtu (Apps Script čte Fio API každých 15 minut)
+(function () {
+  var box = document.querySelector('.sbirka[data-url]');
+  if (!box || !box.dataset.url || !window.fetch) return;
+  var cil = Number(box.dataset.cil), stare = Number(box.dataset.vybrano);
+  function kc(n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' Kč'; }
+  fetch(box.dataset.url + '?akce=stav').then(function (r) { return r.json(); }).then(function (d) {
+    if (!d || !d.ok || !(d.vybrano > stare)) return;
+    var v = d.vybrano, presne = v * 100 / cil, pct = Math.min(100, Math.round(presne));
+    var txt = (presne > 0 && presne < 10 && presne !== Math.floor(presne)) ? presne.toFixed(1).replace('.', ',') : String(pct);
+    box.querySelector('.sbirka-cisla b').textContent = kc(v);
+    var pruh = box.querySelector('.sbirka-pruh');
+    pruh.setAttribute('aria-label', 'Vybráno ' + txt + ' % z cíle ' + kc(cil));
+    pruh.querySelector('span').style.width = Math.max(pct, 1) + '%';
+    var kdy = d.kdy ? new Date(d.kdy) : new Date();
+    var mesice = ['ledna','února','března','dubna','května','června','července','srpna','září','října','listopadu','prosince'];
+    box.querySelector('.sbirka-pozn').textContent = 'Vybráno ' + txt + ' % · stav k ' + kdy.getDate() + '. ' + mesice[kdy.getMonth()] + ' ' + kdy.getFullYear();
+  }).catch(function () {});
+})();

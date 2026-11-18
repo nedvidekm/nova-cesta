@@ -243,7 +243,7 @@ def stav_sbirky_html(cfg):
     presne = vyb * 100 / cil
     pct_text = f"{presne:.1f}".replace(".", ",") if 0 < presne < 10 and presne != int(presne) else str(pct)
     kdy = f" · stav k {datum_cesky(p['aktualizovano'])}" if p.get("aktualizovano") else ""
-    return f"""<div class="sbirka">
+    return f"""<div class="sbirka" data-cil="{cil}" data-vybrano="{vyb}" data-url="{e(cfg.get('odber_url', ''))}">
   <p class="sbirka-cisla"><b>{kc(vyb)}</b> <span>z cíle {kc(cil)}</span></p>
   <div class="sbirka-pruh" role="img" aria-label="Vybráno {pct_text} % z cíle {kc(cil)}"><span style="width:{max(pct, 1) if vyb else 0}%"></span></div>
   <p class="sbirka-pozn">Vybráno {pct_text} %{kdy}</p>

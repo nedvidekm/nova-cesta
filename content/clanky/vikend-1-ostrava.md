@@ -73,7 +73,7 @@ S odhodláním. V neděli jsem odjížděl s jistotou, že tím dobrovolníkem o
 
 Další kurz nás čeká v prosinci v Praze. Do té doby mám za úkol podívat se na jeden film o dobrovolnictví a přečíst si dopisy bývalých dobrovolníků. Napíšu, co ve mně zanechaly.
 
-## Tipy na filmy
+## Tipy na filmy {#tipy-na-filmy}
 
 Když už jsem u filmů, zajímalo mě, co dalšího se o dobrovolnictví a pomáhání natočilo. Tady je pár tipů, kdybyste se chtěli na tu cestu naladit se mnou:
 

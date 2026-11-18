@@ -53,6 +53,7 @@ function stranky() {
     for (const sirka of SIRKY) {
       const ctx = await prohlizec.newContext({ viewport: { width: sirka, height: 800 }, colorScheme: rezim });
       await ctx.addInitScript(r => { try { localStorage.setItem('rezim', r); } catch (x) {} }, rezim);  // web je výchozí světlý, tmavý se zapíná přepínačem
+      await ctx.route(/gc\.zgo\.at/, r => r.fulfill({ status: 200, contentType: 'text/javascript', body: '' }));  // GoatCounter v kontrole nevolat
       const page = await ctx.newPage();
       for (const str of seznam) {
         const kde = `${str} [${sirka}px, ${rezim}]`;

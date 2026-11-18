@@ -85,10 +85,6 @@ function doPost(e) {
 
 function doGet(e) {
   var p = (e && e.parameter) || {};
-  if (p.akce === 'stav') {
-    var vl = PropertiesService.getScriptProperties();
-    return json_({ ok: true, vybrano: Number(vl.getProperty('VYBRANO') || 0), kdy: vl.getProperty('FIO_STAV_KDY') || '' });
-  }
   var radek = najdiPodleTokenu_(p.t);
   if (!radek) return stranka_('Odkaz už neplatí', 'Tenhle odkaz už neplatí. Možná jste odběr mezitím zrušili nebo znovu potvrdili.');
   var list = tabulka_().getSheetByName(LIST_ODBERATELE);
@@ -264,43 +260,4 @@ function stranka_(nadpis, text) {
     '<h1 style="font-size:28px">' + esc_(nadpis) + '</h1><p style="font-size:18px;line-height:1.6">' + esc_(text) + '</p>' +
     '<p><a href="' + NASTAVENI.webUrl + '" style="color:#af1917">Zpět na blog ' + NASTAVENI.nazevWebu + '</a></p></div></body></html>';
   return HtmlService.createHtmlOutput(h).setTitle(nadpis).addMetaTag('viewport', 'width=device-width, initial-scale=1');
-}
-
-// ---------- teploměr: příchozí platby z Fio API ----------
-// Token (jen „Sledování účtu“) patří JEN do Vlastnosti skriptu jako FIO_TOKEN. Nikdy do kódu ani do chatu.
-// Počítá součet příchozích plateb od FIO_OD. Každý pohyb se započte jen jednou (podle ID pohybu).
-var FIO_OD = '2026-11-16';
-
-function nactiFio() {
-  var vl = PropertiesService.getScriptProperties();
-  var token = vl.getProperty('FIO_TOKEN');
-  if (!token) return;
-  var dnes = new Date();
-  var od = new Date(dnes.getTime() - 30 * 24 * 3600 * 1000);
-  var start = new Date(FIO_OD + 'T00:00:00');
-  if (od < start) od = start;
-  var f = function (d) { return Utilities.formatDate(d, 'Europe/Prague', 'yyyy-MM-dd'); };
-  var odpoved = UrlFetchApp.fetch('https://fioapi.fio.cz/v1/rest/periods/' + token + '/' + f(od) + '/' + f(dnes) + '/transactions.json', { muteHttpExceptions: true });
-  if (odpoved.getResponseCode() !== 200) { console.log('Fio odpověď ' + odpoved.getResponseCode()); return; }
-  var vypis = JSON.parse(odpoved.getContentText()).accountStatement || {};
-  var pohyby = (vypis.transactionList && vypis.transactionList.transaction) || [];
-  var vybrano = Number(vl.getProperty('VYBRANO') || 0);
-  var posledni = Number(vl.getProperty('FIO_POSLEDNI_ID') || 0);
-  var nejvyssi = posledni;
-  pohyby.forEach(function (t) {
-    var id = t.column22 && Number(t.column22.value);
-    var castka = t.column1 && Number(t.column1.value);
-    if (!id || id <= posledni) return;
-    if (castka > 0) vybrano += castka;
-    if (id > nejvyssi) nejvyssi = id;
-  });
-  vl.setProperties({ VYBRANO: String(Math.round(vybrano * 100) / 100), FIO_POSLEDNI_ID: String(nejvyssi), FIO_STAV_KDY: new Date().toISOString() });
-  console.log('Vybráno celkem: ' + vybrano + ' Kč');
-}
-
-/** Spustit JEDNOU ručně: nastaví kontrolu účtu každých 15 minut. */
-function nastavitKontroluUctu() {
-  ScriptApp.getProjectTriggers().forEach(function (t) { if (t.getHandlerFunction() === 'nactiFio') ScriptApp.deleteTrigger(t); });
-  ScriptApp.newTrigger('nactiFio').timeBased().everyMinutes(15).create();
-  nactiFio();
 }

@@ -72,7 +72,7 @@
   if (!box || !box.dataset.url || !window.fetch || /^(localhost|127\.)/.test(location.hostname)) return;
   var cil = Number(box.dataset.cil), stare = Number(box.dataset.vybrano);
   function kc(n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' Kč'; }
-  fetch(box.dataset.url + '?akce=stav').then(function (r) { return r.json(); }).then(function (d) {
+  fetch(box.dataset.url).then(function (r) { return r.json(); }).then(function (d) {
     if (!d || !d.ok || !(d.vybrano > stare)) return;
     var v = d.vybrano, presne = v * 100 / cil, pct = Math.min(100, Math.round(presne));
     var txt = (presne > 0 && presne < 10 && presne !== Math.floor(presne)) ? presne.toFixed(1).replace('.', ',') : String(pct);

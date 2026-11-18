@@ -56,7 +56,7 @@ Přemýšlel jsem i o Slovinsku. Je blízko a bylo by to jednodušší. Jenže j
 
 ## Živá knihovna: i o těžkých chvílích
 
-Jedna z nejzajímavějších částí kurzu. Ve skupinkách jsme obešli čtyři stanoviště: historie organizace, mise, praktické okénko (očkování, víza, letenky) a čtvrté, nejvíc k zamyšlení. Tam jsme mluvili o tom, že na misi nebude všechno jen hezké. Přijdou krizové chvíle a těžký může být i návrat domů, kdy se člověk musí znovu naučit fungovat v Česku. Ocenil jsem, že nám nikdo nemaloval růžové brýle.
+Jedna z nejzajímavějších částí kurzu. Ve skupinkách jsme obešli čtyři stanoviště: historie organizace, misie, praktické okénko (očkování, víza, letenky) a čtvrté, nejvíc k zamyšlení. Tam jsme mluvili o tom, že na misii nebude všechno jen hezké. Přijdou krizové chvíle a těžký může být i návrat domů, kdy se člověk musí znovu naučit fungovat v Česku. Ocenil jsem, že nám nikdo nemaloval růžové brýle.
 
 ## Dobré a méně dobré motivace
 
@@ -73,7 +73,7 @@ S odhodláním. V neděli jsem odjížděl s jistotou, že tím dobrovolníkem o
 
 Další kurz nás čeká v prosinci v Praze. Do té doby mám za úkol podívat se na jeden film o dobrovolnictví a přečíst si dopisy bývalých dobrovolníků. Napíšu, co ve mně zanechaly.
 
-## Tipy na filmy
+## Tipy na filmy {#tipy-na-filmy}
 
 Když už jsem u filmů, zajímalo mě, co dalšího se o dobrovolnictví a pomáhání natočilo. Tady je pár tipů, kdybyste se chtěli na tu cestu naladit se mnou:
 

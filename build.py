@@ -127,7 +127,7 @@ def md_na_html(telo, pre):
         html_pop = markdown.markdown(popisek)[3:-4] if popisek else ""
         return obrazek_html(m.group(2), m.group(1), html_pop, pre, popisek_html=True)
     telo = re.sub(r'^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)[ \t]*(?:\n\*(.+)\*[ \t]*)?$', nahrad, telo, flags=re.M)
-    vysledek = markdown.markdown(telo, extensions=["sane_lists", "tables"], output_format="html")
+    vysledek = markdown.markdown(telo, extensions=["sane_lists", "tables", "attr_list"], output_format="html")
     vysledek = vysledek.replace("<blockquote>\n<p>", "<blockquote>").replace("</p>\n</blockquote>", "</blockquote>")
     # fotka na výšku stojí vedle textu jen tehdy, když po ní text opravdu následuje; jinak zůstane uprostřed
     casti = re.split(r'(<figure class="nastojato">.*?</figure>)', vysledek, flags=re.S)
@@ -243,7 +243,7 @@ def stav_sbirky_html(cfg):
     presne = vyb * 100 / cil
     pct_text = f"{presne:.1f}".replace(".", ",") if 0 < presne < 10 and presne != int(presne) else str(pct)
     kdy = f" · stav k {datum_cesky(p['aktualizovano'])}" if p.get("aktualizovano") else ""
-    return f"""<div class="sbirka">
+    return f"""<div class="sbirka" data-cil="{cil}" data-vybrano="{vyb}" data-url="{e(cfg.get('teplomer_url', ''))}">
   <p class="sbirka-cisla"><b>{kc(vyb)}</b> <span>z cíle {kc(cil)}</span></p>
   <div class="sbirka-pruh" role="img" aria-label="Vybráno {pct_text} % z cíle {kc(cil)}"><span style="width:{max(pct, 1) if vyb else 0}%"></span></div>
   <p class="sbirka-pozn">Vybráno {pct_text} %{kdy}</p>

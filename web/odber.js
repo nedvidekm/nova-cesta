@@ -69,7 +69,7 @@
 // Teploměr: aktuální součet příchozích plateb z transparentního účtu (Apps Script čte Fio API každých 15 minut)
 (function () {
   var box = document.querySelector('.sbirka[data-url]');
-  if (!box || !box.dataset.url || !window.fetch) return;
+  if (!box || !box.dataset.url || !window.fetch || /^(localhost|127\.)/.test(location.hostname)) return;
   var cil = Number(box.dataset.cil), stare = Number(box.dataset.vybrano);
   function kc(n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' Kč'; }
   fetch(box.dataset.url + '?akce=stav').then(function (r) { return r.json(); }).then(function (d) {

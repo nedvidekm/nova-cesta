@@ -542,7 +542,8 @@ def main():
     def bez_roku(iso):
         d = dt.date.fromisoformat(iso)
         return f"{d.day}. {MESICE[d.month - 1]}"
-    hotove = {k["nazev"] for k in vsechny_koncepty}
+    # z plánů vypadne, co už je mezi koncepty nebo co už vyšlo
+    hotove = {k["nazev"] for k in vsechny_koncepty} | {d["nazev"] for d in venku if d.get("koncept") != "ano"}
     plan = [{"nazev": k["nazev"], "datum": k["datum"], "kdy": bez_roku(k["datum"]),
              "druh": "krátký zápisek" if k.get("je_zapisek") else "článek"} for k in vsechny_koncepty]
     plan += [dict(x, druh="článek") for x in cfg["pripravuji"] if x["nazev"] not in hotove]

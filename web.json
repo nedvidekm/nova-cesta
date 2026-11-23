@@ -23,7 +23,7 @@
       "text": "Čekám na únor: dozvím se, jestli mě vyberou a kam pojedu"
     },
     {
-      "text": "Spouštím transparentní účet na cestu",
+      "text": "Spustil jsem transparentní účet na cestu",
       "stranka": "podporit"
     },
     {
@@ -46,7 +46,7 @@
     "majitel": "Michal Nedvídek",
     "zprava": "DAR NA NOVE CESTE",
     "qr": "platba-qr-500.svg",
-    "vypis_url": ""
+    "vypis_url": "https://ib.fio.cz/ib/transparent?a=2503652974"
   },
   "socialni": [
     {

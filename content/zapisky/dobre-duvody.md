@@ -1,7 +1,7 @@
 ---
 nazev: Dobré a méně dobré důvody jet
 slug: dobre-duvody
-datum: 2026-12-09
+datum: 2026-12-07
 koncept: ano
 ---
 

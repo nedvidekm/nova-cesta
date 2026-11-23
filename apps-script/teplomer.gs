@@ -3,7 +3,7 @@
  * Každých 15 minut se zeptá Fio API na příchozí platby na transparentní účet a sečte je.
  * Web si součet načte z adresy této webové aplikace.
  * Záznamy: ?akce=historie vrátí posledních 100 běhů (čas, odpověď Fio, nové platby, součet)
- * a posledních 60 hlášení z webu (co teploměr v prohlížeči načetl, nebo proč ne).
+ * a posledních 60 nepovedených načtení teploměru na webu (s důvodem).
  *
  * Nastavení: Vlastnosti skriptu → FIO_TOKEN = token Fio API (Sledování účtu).
  * Pak jednou spustit funkci nastavitKontroluUctu a nasadit jako webovou aplikaci
@@ -15,8 +15,9 @@ var FIO_OD = '2026-11-16'; // od tohoto dne se platby počítají
 function doGet(e) {
   var vl = PropertiesService.getScriptProperties();
   var akce = e && e.parameter && e.parameter.akce;
-  if (akce === 'web') { // web hlásí, co teploměr načetl (nebo proč ne)
+  if (akce === 'web') { // web hlásí jen nepovedená načtení teploměru (úspěšná se nezapisují)
     var p = e.parameter;
+    if (p.ok === '1') return json_({ ok: true });
     pripsat_('WEB_ZAZNAM', { t: new Date().toISOString(), ok: p.ok === '1', v: Number(p.v || 0), chyba: String(p.chyba || '').slice(0, 80), str: String(p.str || '').slice(0, 30) }, 60);
     return json_({ ok: true });
   }

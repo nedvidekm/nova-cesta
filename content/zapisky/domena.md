@@ -1,7 +1,7 @@
 ---
 nazev: Proč zrovna nanoveceste.cz
 slug: domena
-datum: 2026-11-25
+datum: 2026-11-26
 koncept: ano
 ---
 

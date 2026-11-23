@@ -2,7 +2,6 @@
 nazev: Proč vybírám na vlastní transparentní účet
 slug: transparentni-ucet
 datum: 2026-11-23
-koncept: ano
 ---
 
 Za skoro dvacet let v dobrovolnictví jsem peníze sháněl mnohokrát. Psali jsme žádosti o granty a dotace, obcházeli místní podnikatele kvůli dětskému dni a zkoušeli i sbírky přes Darujme.cz nebo HitHit. Vždycky ale šlo o peníze pro spolek, pro kostel nebo pro zámek. O podporu pro sebe jsem nikoho nikdy neprosil. Tohle je poprvé.

@@ -1,7 +1,7 @@
 ---
 nazev: Sedm chlapů, jeden pokoj
 slug: sedm-na-pokoji
-datum: 2026-12-02
+datum: 2026-11-30
 koncept: ano
 ---
 

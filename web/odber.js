@@ -72,7 +72,15 @@
   if (!box || !box.dataset.url || !window.fetch || /^(localhost|127\.)/.test(location.hostname)) return;
   var cil = Number(box.dataset.cil), stare = Number(box.dataset.vybrano);
   function kc(n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' Kč'; }
+  // hlášení skriptu, co teploměr v prohlížeči načetl (nebo proč ne), aby šly chyby dohledat
+  function nahlas(ok, v, chyba) {
+    try {
+      fetch(box.dataset.url + '?akce=web&ok=' + (ok ? 1 : 0) + '&v=' + encodeURIComponent(v || 0) +
+        '&chyba=' + encodeURIComponent(chyba || '') + '&str=' + encodeURIComponent(location.pathname), { mode: 'no-cors' }).catch(function () {});
+    } catch (x) {}
+  }
   fetch(box.dataset.url).then(function (r) { return r.json(); }).then(function (d) {
+    nahlas(d && d.ok, d && d.vybrano, d && d.ok ? '' : 'odpoved bez ok');
     if (!d || !d.ok || !(d.vybrano > stare)) return;
     var v = d.vybrano, presne = v * 100 / cil, pct = Math.min(100, Math.round(presne));
     var txt = (presne > 0 && presne < 10 && presne !== Math.floor(presne)) ? presne.toFixed(1).replace('.', ',') : String(pct);
@@ -83,5 +91,5 @@
     var kdy = d.kdy ? new Date(d.kdy) : new Date();
     var mesice = ['ledna','února','března','dubna','května','června','července','srpna','září','října','listopadu','prosince'];
     box.querySelector('.sbirka-pozn').textContent = 'Vybráno ' + txt + ' % · stav k ' + kdy.getDate() + '. ' + mesice[kdy.getMonth()] + ' ' + kdy.getFullYear();
-  }).catch(function () {});
+  }).catch(function (x) { nahlas(false, 0, String(x && x.message || x)); });
 })();

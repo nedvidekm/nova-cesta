@@ -76,6 +76,7 @@ Další kurz nás čeká v prosinci v Praze. Do té doby mám za úkol podívat 
 
 Když už jsem u filmů, zajímalo mě, co dalšího se o dobrovolnictví a pomáhání natočilo. Tady je pár tipů, kdybyste se chtěli na tu cestu naladit se mnou:
 
+- **[Zakázaná láska](https://www.csfd.cz/film/61415-the-ottoman-lieutenant/prehled/)** (2017): mladá americká zdravotní sestra odjede za první světové války pomáhat do nemocnice ve východním Turecku.
 - **[Perfektní den](https://www.csfd.cz/film/402109-perfektni-den/prehled/)** (2015): humanitární pracovníci na konci války v Jugoslávii a to, jak pomoc v reálu naráží na byrokracii. Hořká komedie s Beniciem del Torem a Timem Robbinsem.
 - **[Hektorova cesta aneb hledání štěstí](https://www.csfd.cz/film/279762-hektorova-cesta-aneb-hledani-stesti/prehled/)** (2014): psychiatr, kterého omrzel zaběhnutý život, odjede do světa zjistit, co je štěstí. Ze všech má nejblíž k tomu, proč jedu já.
 - **[Svatý Filip Neri](https://www.csfd.cz/film/304646-svaty-filip-neri/prehled/)** (2010): italský film o knězi, který v Římě 16. století pomáhal nemocným a chudým. Hraje Gigi Proietti.

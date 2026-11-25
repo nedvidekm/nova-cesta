@@ -3,7 +3,6 @@ nazev: Jak vznikal tenhle blog
 slug: jak-vznikal-web
 cislo: 4
 datum: 2027-01-07
-koncept: ano
 popis: Jak jsem z mobilu a s pomocí umělé inteligence postavil vlastní blog: název, doména, barvy a otázka, jestli psát i anglicky.
 perex: Nejsem programátor. Přesto mám vlastní web a postavil jsem ho večer po práci, většinou z mobilu. Tady je, jak to celé vznikalo a co jsem cestou musel rozhodnout.
 ---

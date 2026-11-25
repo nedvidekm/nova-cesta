@@ -2,7 +2,6 @@
 nazev: Dobré a méně dobré důvody jet
 slug: dobre-duvody
 datum: 2026-12-07
-koncept: ano
 ---
 
 Na prvním kurzu jsme ve skupinkách sepisovali, které důvody jet jako dobrovolník jsou dobré a které méně dobré. Mezi dobré patřil smysl, sebepoznání nebo chuť pomáhat tam, kde je to potřeba. Mezi méně dobré cestování jako hlavní cíl, útěk před něčím, snaha zachránit svět nebo „cool položka“ do životopisu.

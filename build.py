@@ -8,6 +8,8 @@ Použití:
 Obsah: content/clanky/*.md, content/stranky/*.md, content/fotky/*, nastavení web.json.
 """
 import datetime as dt
+import urllib.request
+from zoneinfo import ZoneInfo
 import hashlib
 import html
 import json
@@ -22,6 +24,8 @@ from PIL import Image, ImageOps
 KOREN = Path(__file__).resolve().parent
 OBSAH = KOREN / "content"
 VYSTUP = KOREN / "_site"
+PRAHA = ZoneInfo("Europe/Prague")
+VYDANI_V = "18:00"   # čas automatického vydání v den „datum“
 NAHLED = "--nahled" in sys.argv or json.loads((KOREN / "web.json").read_text(encoding="utf-8")).get("testovaci_verze", False)
 # koncepty na ostrém webu: vidět s označením „koncept“ (pro známé a testery), ale noindex a bez rozesílky, RSS a mapy webu
 KONCEPTY = NAHLED or json.loads((KOREN / "web.json").read_text(encoding="utf-8")).get("ukazat_koncepty", False)
@@ -51,6 +55,11 @@ def nacti_md(cesta):
                     v = v[1:-1]
                 meta[k.strip()] = v
     meta["telo"] = telo.strip()
+    # automatické vydávání: obsah s datem v budoucnosti zůstane konceptem až do 18:00 (Praha) v den vydání
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", meta.get("datum", "")):
+        vydani = dt.datetime.fromisoformat(meta["datum"] + "T" + VYDANI_V).replace(tzinfo=PRAHA)
+        if vydani > dt.datetime.now(PRAHA):
+            meta["koncept"] = "ano"
     return meta
 
 
@@ -265,6 +274,13 @@ def stav_sbirky_html(cfg):
     """Teploměr sbírky: kolik je na transparentním účtu z cíle (ručně ve web.json → podpora)."""
     p = cfg.get("podpora") or {}
     cil, vyb = int(p.get("cil", 0)), int(p.get("vybrano", 0))
+    # záloha teploměru: při sestavení načíst aktuální částku ze skriptu (když odpoví a je vyšší)
+    if cfg.get("teplomer_url"):
+        try:
+            with urllib.request.urlopen(cfg["teplomer_url"], timeout=15) as r:
+                vyb = max(vyb, int(float(json.loads(r.read().decode()).get("vybrano", 0))))
+        except Exception as x:
+            print("Teploměr: skript neodpověděl, použita hodnota z web.json:", x)
     if not cil:
         return ""
     pct = min(100, round(vyb * 100 / cil))

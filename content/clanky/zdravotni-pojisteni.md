@@ -3,7 +3,6 @@ nazev: Jak je to se zdravotním pojištěním, když odjedu na rok
 slug: zdravotni-pojisteni
 cislo: 3
 datum: 2026-12-03
-koncept: ano
 popis: Jak je to se zdravotním pojištěním, když člověk odjede na rok jako dobrovolník do zahraničí. Co říká zákon a VZP a co jsem si musel ověřit.
 perex: Když jsem hledal, kam na rok odjet, nešlo jen o to, kde bych mohl pomáhat. Hned za tím přišly praktické otázky a jedna z prvních byla: co se zdravotním pojištěním, až rok nebudu chodit do práce?
 ---

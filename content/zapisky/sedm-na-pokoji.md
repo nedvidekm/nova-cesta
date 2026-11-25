@@ -2,7 +2,6 @@
 nazev: Sedm chlapů, jeden pokoj
 slug: sedm-na-pokoji
 datum: 2026-11-30
-koncept: ano
 ---
 
 Během prvního kurzu v Ostravě nás na jednom pokoji spalo sedm. Dva na postelích, tři nahoře na patře nad místností a dva na matracích na zemi. Jeden z těch dvou jsem byl já: ležel jsem v chodbičce hned vedle dalšího kluka, mezi námi ani škvíra. Šli jsme spát dřív než ostatní, takže pak všichni chodili kolem nás. Každý si vezl vlastní spacák, prostěradlo a polštářek.

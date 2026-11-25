@@ -2,7 +2,6 @@
 nazev: Proč zrovna nanoveceste.cz
 slug: domena
 datum: 2026-11-26
-koncept: ano
 ---
 
 Blog se původně měl jmenovat Nová cesta, jenže adresy novacesta.cz, nova-cesta.cz i mojenovacesta.cz už někomu patří. Pak mě napadla nanoveceste.cz, tedy „na nové cestě“, a ta se mi nakonec líbí víc než suché „nová cesta“. Tak jsem podle adresy přejmenoval i blog. Přesně tam teď totiž jsem.

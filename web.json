@@ -16,11 +16,11 @@
   },
   "prave_resim": [
     {
-      "text": "Napsal jsem o prvním víkendu kurzu v Ostravě",
-      "clanek": "vikend-1-ostrava"
+      "text": "Objednal jsem se na první očkování na cestu"
     },
     {
-      "text": "Čekám na únor: dozvím se, jestli mě vyberou a kam pojedu"
+      "text": "Napsal jsem o prvním kurzu v Ostravě",
+      "clanek": "vikend-1-ostrava"
     },
     {
       "text": "Spustil jsem transparentní účet na cestu",
@@ -31,10 +31,7 @@
       "clanek": "zdravotni-pojisteni"
     },
     {
-      "text": "Pro jistotu zkoumám i jiné cesty, jak vyjet jako dobrovolník"
-    },
-    {
-      "text": "Rozjíždím tenhle blog"
+      "text": "Čekám na únor: dozvím se, jestli mě vyberou a kam pojedu"
     }
   ],
   "podpora": {

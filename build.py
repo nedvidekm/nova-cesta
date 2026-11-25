@@ -107,6 +107,31 @@ def og_obrazek(zdroj, slug, centering=(0.5, 0.4)):
     return f"fotky/{jmeno}"
 
 
+def nahled_karty(c):
+    """Malá fotka na kartu úvodní stránky: u zápisku jeho foto, u článku první fotka z textu (ořez 4:3)."""
+    zdroj, alt = c.get("foto"), c.get("foto_alt", "")
+    if not zdroj:
+        m = re.search(r'^!\[([^\]]*)\]\(([^)\s]+)', c.get("telo", ""), flags=re.M)
+        if not m:
+            return None
+        alt, zdroj = m.group(1), m.group(2)
+    jmeno = f"karta-{Path(zdroj).stem}.jpg"
+    im = Image.open(VYSTUP / "fotky" / (Path(zdroj).stem + ".jpg"))
+    ImageOps.fit(im, (640, 480), centering=(0.5, 0.4)).save(VYSTUP / "fotky" / jmeno, "JPEG", quality=80, optimize=True, progressive=True)
+    return jmeno, alt
+
+
+def prvni_odstavec(c):
+    """První textový odstavec (bez fotek, nadpisů, citací a seznamů) jako HTML bez odkazů."""
+    for blok in re.split(r"\n\s*\n", c.get("telo", "").strip()):
+        b = blok.strip()
+        if not b or b[0] in "!#>|-*<" or re.match(r"\d+\.\s", b):
+            continue
+        h = markdown.markdown(b)
+        return re.sub(r"</?a\b[^>]*>", "", h)
+    return f"<p>{spojky(e(c.get('perex', '')))}</p>"
+
+
 def obrazek_html(zdroj, alt, popisek, pre, lazy=True, popisek_html=False):
     jmeno = Path(zdroj).stem + ".jpg"
     w, h = ROZMERY[jmeno]
@@ -484,7 +509,7 @@ def main():
         uloz(cesta, html_out.replace("{PRE}", pre))
         mapa.append(f"{zaklad}/{cesta}")
 
-    # krátké zápisky: vlastní stránka stejně jako článek (kvůli odkazu z Facebooku), celé znění i na úvodní stránce
+    # krátké zápisky: vlastní stránka stejně jako článek (kvůli odkazu z Facebooku), na úvodní stránce jen první odstavec a fotka
     for z in zapisky:
         pre = "../../"
         cesta = f"zapisky/{z['slug']}/"
@@ -521,22 +546,30 @@ def main():
     polozky.sort(key=lambda x: x[1]["datum"], reverse=True)
     karty = []
     for druh, c in polozky:
-        if druh == "zapisek":
-            koncept = '<span class="koncept">koncept</span>' if c.get("koncept") == "ano" else ""
-            foto = obrazek_html(c["foto"], c.get("foto_alt", ""), c.get("foto_popisek", ""), pre) if c.get("foto") else ""
-            karty.append(f"""<li class="karta zapisek" id="zapisek-{e(c['slug'])}">
-    <div class="meta">Krátký zápisek · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
-    <h3><a href="zapisky/{e(c['slug'])}/">{spojky(e(c['nazev']))}</a></h3>
-    {foto}
-    {md_na_html(kontakt_md(c['telo'], cfg), pre)}
-  </li>""")
-            continue
         koncept = '<span class="koncept">koncept</span>' if c.get("koncept") == "ano" else ""
-        karty.append(f"""<li class="karta">
-    <div class="meta">Článek {e(c.get('cislo', ''))} · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
-    <a class="nadpis" href="clanky/{c['slug']}/">{spojky(e(c['nazev']))}</a>
-    <p>{spojky(e(c['perex']))}</p>
-    <a class="dal" href="clanky/{c['slug']}/" aria-label="Číst článek {e(c['nazev'])}">Číst dál →</a>
+        odkaz = f"{'zapisky' if druh == 'zapisek' else 'clanky'}/{c['slug']}/"
+        nahled = nahled_karty(c)
+        foto = (f'<a class="nahled" href="{odkaz}" tabindex="-1" aria-hidden="true"><img src="fotky/{nahled[0]}" width="640" height="480" alt="" loading="lazy" decoding="async"></a>'
+                if nahled else "")
+        if druh == "zapisek":
+            hlava = f"""<div class="meta">Krátký zápisek · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
+    <h3><a href="{odkaz}">{spojky(e(c['nazev']))}</a></h3>"""
+            text = prvni_odstavec(dict(c, telo=kontakt_md(c["telo"], cfg)))
+            dal = f'<a class="dal" href="{odkaz}" aria-label="Číst zápisek {e(c["nazev"])}">Číst dál →</a>'
+        else:
+            hlava = f"""<div class="meta">Článek {e(c.get('cislo', ''))} · <time datetime="{c['datum']}">{datum_cesky(c['datum'])}</time>{koncept}</div>
+    <a class="nadpis" href="{odkaz}">{spojky(e(c['nazev']))}</a>"""
+            text = f"<p>{spojky(e(c['perex']))}</p>"
+            dal = f'<a class="dal" href="{odkaz}" aria-label="Číst článek {e(c["nazev"])}">Číst dál →</a>'
+        trida = "karta" + (" zapisek" if druh == "zapisek" else "") + (" s-fotkou" if nahled else "")
+        kotva = f' id="zapisek-{e(c["slug"])}"' if druh == "zapisek" else ""
+        karty.append(f"""<li class="{trida}"{kotva}>
+    {foto}
+    <div class="karta-text">
+    {hlava}
+    {text}
+    {dal}
+    </div>
   </li>""")
     # Připravuji: naplánované koncepty (článek i zápisek) s přesným datem + větší plány z web.json bez textu, podle data, max. 5
     def bez_roku(iso):
